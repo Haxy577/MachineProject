@@ -83,6 +83,34 @@ displayLine()
 
 
 /*
+	This function is responsible for clearing the screen in command prompt
+	Preconditions: None since its only for display
+*/
+void
+clearScreen()
+{
+	system("cls"); //clears the screen of all text
+}
+
+
+/*
+	This function gets the value inputted by the player
+	Preconditions: input is an integer
+	@return is the integer inputted by the player
+*/
+int
+getChoice()
+{
+	int nInput = 0;
+	
+	printf("Your Choice: ");
+	scanf("%d", &nInput);
+	
+	return nInput;
+}
+
+
+/*
 	This function displays options available for the menu
 	Preconditions: bIsPlaying is either 0 or 1
 	@param bIsPlaying is tracking whether there is already a game ongoing
@@ -101,6 +129,50 @@ displayOptions(int bIsPlaying)
 			printf("2. Credits\n\n");
 			printf("3. Exit\n\n");
 	}	
+}
+
+
+/*
+	This function displays the credits for the game
+	Preconditions: bIsPlaying is either 0 or 1
+	@param bIsPlaying is tracking whether there is already a game ongoing
+*/
+void
+displayCredit(int* bIsPlaying)
+{
+	displayLine();
+	printf("Credits:\n");
+	printf("Creator and programmer: Richmond Jase Von M. Salvador  S15\n");
+	printf("Special thanks to John Alexander Cox Santillana\n");
+	displayLine();
+	
+	//give the option to stay or to return to the menu
+	printf("1. Stay.\n\n");
+	printf("2. Go back to menu.\n\n");
+	
+	//ask for an input and respond
+	switch (getChoice())
+	{
+		//return the player back to the credits
+		case 1:
+			clearScreen();
+			displayCredit(bIsPlaying);
+			break;
+		
+		//return the player to the menu	
+		case 2:
+			clearScreen();
+			displayMenu(bIsPlaying);
+			break;
+		
+		/*informs the user that the number does not fall under the given options
+			and calls the function again to retry*/
+		default:
+			clearScreen();
+			printf("Please choose a valid number\n\n");
+			displayCredit(bIsPlaying);
+	}
+	
 }
 
 
@@ -124,6 +196,54 @@ displayMenu(int* bIsPlaying)
 	
 	//displays the options
 	displayOptions(*bIsPlaying);
+	
+	//ask for an input and respond accordingly
+	switch (getChoice())
+	{
+		//For continue game option
+		case 0:
+			//Check if there is a game ongoing
+			switch (*bIsPlaying)
+			{
+				//if there is a game saved then it continues the game
+				case 1:
+					printf("Continuing the game");
+				
+				/*if there was no prior game then it would inform the player
+					and calls the function again*/	
+				default:
+					clearScreen();
+					printf("There is no ongoing game.\nPlease start a new game.\n\n\n");
+					displayMenu(bIsPlaying);
+			}
+			break;
+		
+		//For start new game option
+		case 1:
+			printf("%s", "new game\n");
+			*bIsPlaying = 1;
+			printf("%d", *bIsPlaying);
+			break;
+		
+		//for credit option	
+		case 2:
+			clearScreen();
+			displayCredit(bIsPlaying);
+			break;
+		
+		//for exit option	
+		case 3:
+			printf("Thank you for playing!");
+			exit(0); //This ends the program
+			break;
+		
+		/*informs the user that the number does not fall under the given options
+			and calls the function again to retry*/
+		default:
+			clearScreen();
+			printf("Please choose a valid number\n\n");
+			displayMenu(bIsPlaying);
+	}
 }
 
 int main()
