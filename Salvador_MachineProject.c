@@ -16,18 +16,37 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 20, 2025
+	Last Modified: October 21, 2025
 	Version: 1.0
-	Acknowledgements: 	https://www.asciiart.eu/text-to-ascii-art - for providing the title art
-						
+	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art - for providing the title art
+						https://stackoverflow.com/questions/9203362/c-color-text-in-terminal-applications-in-windows - for the changing the color code
 */
 
-//the max string length for this program is 70 characters
-
 #include <stdio.h>
-#include <stdlib.h>
+#include <windows.h>
 
 
+/* ------------------------ Function Prototypes ------------------------ */
+void displayTitle();
+void displayLine();
+void clearScreen();
+void changeColor(int nColor);
+void getChoice(int* nInput, int nMinInput, int nMaxInput);
+void displayMenu(int nCurrProg);
+void displayMenuOptions(int nCurrProg);
+void displayCredits();
+void updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput);
+void displayCurrentRoom(int nCurrRoom, int nCurrProg);
+void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
+				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
+				int* bRustyKey);
+void handleRoomCredits(int nInput, int* nCurrRoom, int* nCurrProg);
+void handleRoomMenu (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
+void displayGameEnding(int nGameEnding);
+void resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
+			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
+			int* bRustyKey);
+/* --------------------------------------------------------------------- */
 
 /*
 	This function is responsible for printing the ASCII art
@@ -37,6 +56,7 @@ plagiarized the work of other students and/or persons.
 void
 displayTitle()
 {
+	changeColor(8); // this changes the color into a dark gray
 	//This prints the words "The Lost"
 	printf("%s%s%s%s%s%s%s",
 			" ______  __                    __                       __      \n",
@@ -58,11 +78,13 @@ displayTitle()
 		"              \\ \\____/\\ \\__/.\\_\\\\ \\___/ \\ \\____\\\\ \\_\\ \\ \\_\\ \\_\\  \n",
 		"               \\/___/  \\/__/\\/_/ \\/__/   \\/____/ \\/_/  \\/_/\\/_/  \n"
 	);
+	changeColor(7); //this changes back the color to white
 }
 
 
 /*
-	This function is responsible for printing the a break line
+	This function is responsible for printing the a break line for
+		a total of 70 characters
 	Preconditions: None since its only for display
 */
 void
@@ -94,85 +116,52 @@ clearScreen()
 
 
 /*
-	This function gets the value inputted by the player
+	This function is responsible for changing the text color in command prompt
+	Preconditions: nColor is between 0 to 15
+	@param nColor decides the color of the text
+*/
+void
+changeColor(int nColor)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // Get handle to CMD output
+	SetConsoleTextAttribute(hConsole, nColor);
+}
+
+
+/*
+	This function gets the value inputted by the player and
+		checks if its valid, if not then it asks again
 	Preconditions: input is an integer
-	@return is the integer inputted by the player
-*/
-int
-getChoice()
-{
-	int nInput = 0;
-	
-	printf("Your Choice: ");
-	scanf("%d", &nInput);
-	
-	return nInput;
-}
-
-
-/*
-	This function displays options available for the menu
-	Preconditions: bIsPlaying is either 0 or 1
-	@param bIsPlaying is tracking whether there is already a game ongoing
+	@param nInput is where the function will store the choice
+	@param nMinInput is the minimum integer value the player can input
+	@param nMaxInput is the maximum integer value the player can input
 */
 void
-displayOptions(int bIsPlaying)
+getChoice(int* nInput, int nMinInput, int nMaxInput)
 {
-	//if there is already an ongoing game display the continue option
-	switch (bIsPlaying)
+	int invalid = 0; //tracks the number of invalid inputs
+	
+	do
 	{
-		case 1:
-			printf("0. Continue Game\n\n");
+		switch (invalid)
+		{
+			case 0:
+				printf("Your choice: ");
+				scanf("%d", nInput);
+				break;
 			
-		default:
-			printf("1. Start new game\n\n");
-			printf("2. Credits\n\n");
-			printf("3. Exit\n\n");
-	}	
-}
-
-
-/*
-	This function displays the credits for the game
-	Preconditions: bIsPlaying is either 0 or 1
-	@param bIsPlaying is tracking whether there is already a game ongoing
-*/
-void
-displayCredit(int* bIsPlaying)
-{
-	displayLine();
-	printf("Credits:\n");
-	printf("Creator and programmer: Richmond Jase Von M. Salvador  S15\n");
-	printf("Special thanks to John Alexander Cox Santillana\n");
-	displayLine();
-	
-	//give the option to stay or to return to the menu
-	printf("1. Stay.\n\n");
-	printf("2. Go back to menu.\n\n");
-	
-	//ask for an input and respond
-	switch (getChoice())
-	{
-		//return the player back to the credits
-		case 1:
-			clearScreen();
-			displayCredit(bIsPlaying);
-			break;
+			//inform the player to retry
+			default:
+				changeColor(4); //change to color red
+				printf("Invalid choice. Please try again.\n");
+				changeColor(7); //change back to white
+				printf("Your choice: ");
+				scanf("%d", nInput);
+		}
 		
-		//return the player to the menu	
-		case 2:
-			clearScreen();
-			displayMenu(bIsPlaying);
-			break;
-		
-		/*informs the user that the number does not fall under the given options
-			and calls the function again to retry*/
-		default:
-			clearScreen();
-			printf("Please choose a valid number\n\n");
-			displayCredit(bIsPlaying);
+		invalid++;
 	}
-	
+	while (nMinInput > *nInput || nMaxInput < *nInput); //should be true if input is invalid to loop again
 }
 
 
@@ -183,7 +172,7 @@ displayCredit(int* bIsPlaying)
 	@param bIsPlaying is tracking whether there is already a game ongoing
 */
 void
-displayMenu(int* bIsPlaying)
+displayMenu(int nCurrProg)
 {
 	//displays the title screen
 	displayLine();
@@ -195,61 +184,288 @@ displayMenu(int* bIsPlaying)
 	printf("Input the number of the corresponding option:\n\n");
 	
 	//displays the options
-	displayOptions(*bIsPlaying);
+	displayMenuOptions(nCurrProg);
+}
+
+
+/*
+	This function displays options available for the menu
+	Preconditions: nCurrProg is a integer
+	@param bIsPlaying is tracking whether there is already a game ongoing
+*/
+void
+displayMenuOptions(int nCurrProg)
+{
+	//if there is already an ongoing game display the continue option
+	if (nCurrProg != 0)
+		printf("0. Continue Game\n\n");
+			
+		printf("1. Start new game\n\n");
+		printf("2. Credits\n\n");
+		printf("3. Exit\n\n");	
+}
+
+
+/*
+	This function displays the credits for the game
+	Preconditions: bIsPlaying is either 0 or 1
+	@param bIsPlaying is tracking whether there is already a game ongoing
+*/
+void
+displayCredits()
+{
+	displayLine();
+	printf("Credits:\n");
+	printf("Creator and programmer: Richmond Jase Von M. Salvador  S15\n");
+	printf("Special thanks to John Alexander Cox Santillana\n");
+	displayLine();
 	
-	//ask for an input and respond accordingly
-	switch (getChoice())
+	//give the option to stay or to return to the menu
+	printf("1. Stay.\n\n");
+	printf("2. Go back to menu.\n\n");
+	
+}
+
+
+/*
+	This function is changes the ranges of input based on the current
+		room the player is in currently
+	Preconditions: nCurrRoom, nMinInput, and nMaxInput are integers
+	@param nCurrRoom is tracking the current room the player is in
+	@param nMinInput is the minimum integer value the player can input
+	@param nMaxInput is the maximum integer value the player can input
+*/
+void
+updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
+{
+	switch (nCurrRoom)
 	{
-		//For continue game option
+		//Credits
+		case -2:
+			*nMinInput = 1;
+			*nMaxInput = 2;
+			break;
+			
+		//Menu with continue game option
+		case -1:
+			*nMinInput = 0;
+			*nMaxInput = 3;
+			break;
+			
+		//Menu
 		case 0:
-			//Check if there is a game ongoing
-			switch (*bIsPlaying)
-			{
-				//if there is a game saved then it continues the game
-				case 1:
-					printf("Continuing the game");
-				
-				/*if there was no prior game then it would inform the player
-					and calls the function again*/	
-				default:
-					clearScreen();
-					printf("There is no ongoing game.\nPlease start a new game.\n\n\n");
-					displayMenu(bIsPlaying);
-			}
+			*nMinInput = 1;
+			*nMaxInput = 3;
 			break;
 		
-		//For start new game option
-		case 1:
-			printf("%s", "new game\n");
-			*bIsPlaying = 1;
-			printf("%d", *bIsPlaying);
-			break;
-		
-		//for credit option	
-		case 2:
-			clearScreen();
-			displayCredit(bIsPlaying);
-			break;
-		
-		//for exit option	
-		case 3:
-			printf("Thank you for playing!");
-			exit(0); //This ends the program
-			break;
-		
-		/*informs the user that the number does not fall under the given options
-			and calls the function again to retry*/
-		default:
-			clearScreen();
-			printf("Please choose a valid number\n\n");
-			displayMenu(bIsPlaying);
 	}
+}
+
+
+/*
+	This function calls the functions that is responsible for
+		printing the information for the current room
+	Preconditions: nCurrRoom is an integer
+	@param nCurrRoom tracks the current room the player is in
+*/
+void
+displayCurrentRoom(int nCurrRoom, int nCurrProg)
+{
+	switch (nCurrRoom)
+	{
+		//Credits page
+		case -2:
+			displayCredits();
+			break;
+			
+		//Menu
+		case -1:
+		case 0:
+			displayMenu(nCurrProg);
+			break;
+	}
+}
+
+
+/*
+	This function is responsible for responding to the player's choice
+	Preconditions: nCurrRoom is an integer
+	@param nCurrRoom tracks the current room the player is in
+*/
+void
+updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
+			int* nHealth, int* Score, int* bShinyItem, int* bTorch,
+			int* bRustyKey)
+{
+	/*room number for each room
+	room_Credits = 0
+	room_Menu = -1 and 0
+	room_1 = 1
+	room_2 = 2
+	room_3 = 3
+	room_4 = 4
+	room_5 = 5
+	room_6 = 6
+	room_7 = 7
+	room_8 = 8
+	room_9 = 9
+	room_10 = 10
+	*/
+	
+	switch (*nCurrRoom)
+	{
+		//Credits page
+		case -2:
+			handleRoomCredits(*nInput, nCurrRoom, nCurrProg);
+			break;
+		
+		//Menu
+		case 0:
+		case -1:
+			handleRoomMenu(*nInput, nGameEnding, nCurrRoom, nCurrProg);
+			break;
+		
+		//Room 1
+		case 1:
+			*nCurrRoom = -1;
+			break;
+	}
+}
+
+
+void
+handleRoomCredits(int nInput, int* nCurrRoom, int* nCurrProg)
+{
+	/*The credit page has two (2) choices:
+		1. To stay
+		2. Go back to menu
+	*/
+	switch (nInput)
+	{
+		case 2:
+			if (*nCurrProg)
+				*nCurrRoom = -1; //where -1 is the menu page with a continue option
+			else
+				*nCurrRoom = 0; //where 0 is the normal menu page
+	}
+}
+
+
+void
+handleRoomMenu (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
+{
+	switch (nInput)
+		{
+		case 1:
+			*nCurrRoom = 0;
+			*nCurrProg = 1;
+			break;
+				
+		//Go to the credits
+		case 2:
+			*nCurrRoom = -2;
+			break;
+				
+		//terminate the program
+		case 3:
+			*nGameEnding = -1;
+		}
+}
+
+void
+displayGameEnding(int nGameEnding)
+{
+	switch (nGameEnding)
+	{
+		//For exiting the game at the menu
+		case -1:
+			printf("Thank you for playing!\n\n");
+			
+		//For health is equal or below 0
+		case 0:
+			printf("You ded. Git Gud\n\n");
+	}
+}
+
+
+void
+resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
+			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
+			int* bRustyKey)
+{
+	//reset everything back to its original values
+	*nInput = 0;
+	*nGameEnding = 0;
+	*nCurrRoom = 0;
+	*nCurrProg = 0;
+	*nHealth = 50;
+	*nScore = 0;
+	*bShinyItem = 0;
+	*bTorch = 0;
+	*bRustyKey = 0;
 }
 
 int main()
 {
-	int bIsPlaying = 0;
-	displayMenu(&bIsPlaying);
+	//tracks game state
+	int nGameEnding = 0; //tracks the ending the player will recieve
+	int nCurrRoom = 0; // tracks the current room
+	int nCurrProg = 0; //tracks total progress of the game by rooms; does not include the menu
+	int nInput = 0; //tracks the player's choice
+	int nMinInput = 0;
+	int nMaxInput = 0;
+	
+	//player stats
+	int nHealth = 50; //default health is 50
+	int nScore = 0; //default score is 0
+	
+	/*player items. 0 means the player does not have that item
+		and 1 means the player has the item*/
+	int bShinyItem = 0;
+	int bTorch = 0;
+	int bRustyKey = 0;
+	
+	//main game loop
+	while (nHealth > 0 && nGameEnding == 0)
+	{
+		nInput = 0; //reset the input
+		displayCurrentRoom(nCurrRoom, nCurrProg);
+		updateInputRange(nCurrRoom, &nMinInput, &nMaxInput);
+		getChoice(&nInput, nMinInput, nMaxInput);
+		
+		//respond to the choice made by the player
+		//updateHealth();
+		//updateScore();
+		//updateItems();
+		updateGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
+			&nHealth, &nScore, &bShinyItem, &bTorch,
+			&bRustyKey);
 
+		clearScreen();
+	}
+	
+	displayGameEnding(nGameEnding);
+	
+	/*get choice of the player whether to start a new game,
+		to go back to the menu, or to quit the program*/
+		printf("1. Start a new game?\n\n");
+		printf("2. Go back to menu.\n\n");
+		
+		getChoice(&nInput, 1, 2);
+		switch (nInput)
+		{
+			case 1:
+				resetGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
+							&nHealth, &nScore, &bShinyItem, &bTorch,
+							&bRustyKey);
+				break;
+				
+			case 2:
+				resetGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
+							&nHealth, &nScore, &bShinyItem, &bTorch,
+							&bRustyKey);
+				break;
+		}
+	
     return 0;
 }
