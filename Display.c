@@ -12,7 +12,6 @@ void changeColor(int nColor);
 void displayMenu(int nCurrProg);
 void displayMenuOptions(int nCurrProg);
 void displayCredits();
-void displayCurrentRoom(int nCurrRoom, int nCurrProg);
 /* --------------------------------------------------------------------- */
 
 
@@ -139,8 +138,7 @@ displayMenuOptions(int nCurrProg)
 
 /*
 	This function displays the credits for the game
-	Preconditions: bIsPlaying is either 0 or 1
-	@param bIsPlaying is tracking whether there is already a game ongoing
+	Preconditions: None
 */
 void
 displayCredits()
@@ -155,4 +153,23 @@ displayCredits()
 	printf("1. Stay.\n\n");
 	printf("2. Go back to menu.\n\n");
 	
+}
+
+
+displayOptions()
+{
+	//Display the option ascii art
+	displayLine();
+	printf("%s%s%s%s%s%s",
+		"  ___        _   _                  \n",
+		" / _ \\ _ __ | |_(_) ___  _ __  ___  \n",
+		"| | | | '_ \\| __| |/ _ \\| '_ \\/ __| \n",
+		"| |_| | |_) | |_| | (_) | | | \\__ \\ \n",
+		" \\___/| .__/ \\__|_|\\___/|_| |_|___/ \n",
+		"      |_|                           \n"
+	);
+	displayLine();
+	
+	//display the options
+	printf("1. Dialouge Wait [ON/OFF]");
 }

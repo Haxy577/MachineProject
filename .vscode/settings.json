@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "display": "c"
+        "display": "c",
+        "windows.h": "c",
+        "stdio.h": "c"
     }
 }

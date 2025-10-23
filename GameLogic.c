@@ -1,5 +1,7 @@
-//This file is responsible for deciding and updating the game based
-//on the decisions of the player
+/*This file is responsible for deciding and updating the game based
+	on the decisions of the player
+*/
+
 
 #include <stdio.h>
 #include <windows.h>
@@ -14,10 +16,10 @@ void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* bRustyKey);
 void handleRoomCredits(int nInput, int* nCurrRoom, int* nCurrProg);
 void handleRoomMenu (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
-void displayGameEnding(int nGameEnding);
 void resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
 			int* bRustyKey);
+void displayEnding (int nGameEnding);
 /* --------------------------------------------------------------------- */
 
 
@@ -204,21 +206,6 @@ handleRoomMenu (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 		}
 }
 
-void
-displayGameEnding(int nGameEnding)
-{
-	switch (nGameEnding)
-	{
-		//For exiting the game at the menu
-		case -1:
-			printf("Thank you for playing!\n\n");
-			
-		//For health is equal or below 0
-		case 0:
-			printf("You ded. Git Gud\n\n");
-	}
-}
-
 
 void
 resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
@@ -235,4 +222,42 @@ resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 	*bShinyItem = 0;
 	*bTorch = 0;
 	*bRustyKey = 0;
+}
+
+
+/*
+	This function is responsible for calling the function that is
+		responsible for displaying the ending
+	Preconditions: nGameEnding is an integer
+	@param nGameEnding tracks the type of ending the player got
+*/
+void
+displayEnding (int nGameEnding)
+{
+    switch (nGameEnding)
+    {
+		//Death ending
+        case 0:
+			printf("Death ending");
+			break;
+
+		//Trapped ending
+		case 1:
+			printf("Trapped ending");
+			break;
+		
+		//Good ending
+		case 2:
+			printf("Good ending");
+			break;
+
+		//Best ending
+		case 3:
+			printf("Best ending");
+			break;
+
+		//Exit
+		default:
+			printf("Thank You for Playing");
+    }
 }

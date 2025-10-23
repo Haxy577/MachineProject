@@ -25,7 +25,8 @@ plagiarized the work of other students and/or persons.
 #include <stdio.h>
 #include <windows.h>
 #include "Display.c"
-#include "Logic.c"
+#include "GameLogic.c"
+#include "RoomLogic.c"
 
 
 /* ------------------------ Function Prototypes ------------------------ */
@@ -74,41 +75,7 @@ int main()
 	}
 	
 	//display ending message
-	switch(nGameEnding){
-		case -1:
-			printf("Thank you for playing");
-			break;
-			
-		case 0:
-			printf("U is ded. Git Gud");
-			break;
-	}
-	
-	
-	/*get choice of the player whether to start a new game,
-		to go back to the menu, or to quit the program*/
-	/*
-		printf("1. Start a new game?\n\n");
-		printf("2. Go back to menu.\n\n");
-		
-		getChoice(&nInput, 1, 2);
-		switch (nInput)
-		{
-			case 1:
-				resetGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
-							&nHealth, &nScore, &bShinyItem, &bTorch,
-							&bRustyKey);
-				displayGameEnding(nGameEnding);
-				break;
-				
-			case 2:
-				resetGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
-							&nHealth, &nScore, &bShinyItem, &bTorch,
-							&bRustyKey);
-				displayGameEnding(nGameEnding);
-				break;
-		}
-		*/
+	displayEnding(nGameEnding);
 	
     return 0;
 }
