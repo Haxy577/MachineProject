@@ -1,17 +1,18 @@
 //This file contains all of the functions that are responsible for display
 
 #include <stdio.h>
-#include <windows.h>
+#include <stdlib.h>
 
 /* ------------------------ Function Prototypes ------------------------ */
 //Functions for display
 void displayTitle();
 void displayLine();
 void clearScreen();
-void changeColor(int nColor);
+void changeColor(int nNumber, int nRed, int nGreen, int nBlue);
 void displayMenu(int nCurrProg);
 void displayMenuOptions(int nCurrProg);
 void displayCredits();
+void displayEnding (int nGameEnding);
 /* --------------------------------------------------------------------- */
 
 
@@ -23,7 +24,7 @@ void displayCredits();
 void
 displayTitle()
 {
-	changeColor(8); // this changes the color into a dark gray
+	changeColor(1, 128, 128, 128); // this changes the color into a dark gray
 	//This prints the words "The Lost"
 	printf("%s%s%s%s%s%s%s",
 			" ______  __                    __                       __      \n",
@@ -45,7 +46,7 @@ displayTitle()
 		"              \\ \\____/\\ \\__/.\\_\\\\ \\___/ \\ \\____\\\\ \\_\\ \\ \\_\\ \\_\\  \n",
 		"               \\/___/  \\/__/\\/_/ \\/__/   \\/____/ \\/_/  \\/_/\\/_/  \n"
 	);
-	changeColor(7); //this changes back the color to white
+	changeColor(0, 255, 255, 255); //this changes back the color to white
 }
 
 
@@ -78,7 +79,7 @@ displayLine()
 void
 clearScreen()
 {
-	system("cls"); //clears the screen of all text
+	system("clear"); //clears the screen of all text
 }
 
 
@@ -88,10 +89,16 @@ clearScreen()
 	@param nColor decides the color of the text
 */
 void
-changeColor(int nColor)
+changeColor(int nNumber, int nRed, int nGreen, int nBlue)
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // Get handle to CMD output
-	SetConsoleTextAttribute(hConsole, nColor);
+	//validate if the rgb values are within 0 to 255
+	if (nRed > -1 && nRed < 256 &&
+		nGreen > -1 && nGreen < 256 &&
+		nBlue > -1 && nBlue < 256)
+		{
+		printf("\x1b[%d;38;2;%d;%d;%dm", nNumber, nRed, nGreen, nBlue);
+		//fflush(stdout);
+		}
 }
 
 
@@ -155,7 +162,7 @@ displayCredits()
 	
 }
 
-
+void
 displayOptions()
 {
 	//Display the option ascii art
@@ -172,4 +179,42 @@ displayOptions()
 	
 	//display the options
 	printf("1. Dialouge Wait [ON/OFF]");
+}
+
+
+/*
+	This function is responsible for calling the function that is
+		responsible for displaying the ending
+	Preconditions: nGameEnding is an integer
+	@param nGameEnding tracks the type of ending the player got
+*/
+void
+displayEnding (int nGameEnding)
+{
+    switch (nGameEnding)
+    {
+		//Death ending
+        case 0:
+			printf("Death ending\n");
+			break;
+
+		//Trapped ending
+		case 1:
+			printf("Trapped ending\n");
+			break;
+		
+		//Good ending
+		case 2:
+			printf("Good ending\n");
+			break;
+
+		//Best ending
+		case 3:
+			printf("Best ending\n");
+			break;
+
+		//Exit
+		default:
+			printf("Thank You for Playing\n");
+    }
 }

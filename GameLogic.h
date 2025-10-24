@@ -3,8 +3,7 @@
 */
 
 
-#include <stdio.h>
-#include <windows.h>
+
 
 
 /* ------------------------ Function Prototypes ------------------------ */
@@ -14,12 +13,11 @@ void displayCurrentRoom(int nCurrRoom, int nCurrProg);
 void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
 				int* bRustyKey);
-void handleRoomCredits(int nInput, int* nCurrRoom, int* nCurrProg);
-void handleRoomMenu (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
+void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
+void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
 void resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
 			int* bRustyKey);
-void displayEnding (int nGameEnding);
 /* --------------------------------------------------------------------- */
 
 
@@ -48,9 +46,9 @@ getChoice(int* nInput, int nMinInput, int nMaxInput)
 			
 			//inform the player to retry
 			default:
-				changeColor(4); //change to color red
+				changeColor(1, 255, 0, 0); //change to color red
 				printf("Invalid choice. Please try again.\n");
-				changeColor(7); //change back to white
+				changeColor(0, 255, 255, 255); //change back to white
 				printf("Your choice: ");
 				scanf("%d", nInput);
 		}
@@ -150,13 +148,15 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 	{
 		//Credits page
 		case -2:
-			handleRoomCredits(*nInput, nCurrRoom, nCurrProg);
+			roomCreditsLogic(*nInput, nCurrRoom, nCurrProg);
 			break;
 		
 		//Menu
 		case 0:
+			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
+			break;
 		case -1:
-			handleRoomMenu(*nInput, nGameEnding, nCurrRoom, nCurrProg);
+			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
 			break;
 		
 		//Room 1
@@ -168,7 +168,7 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 
 
 void
-handleRoomCredits(int nInput, int* nCurrRoom, int* nCurrProg)
+roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 {
 	/*The credit page has two (2) choices:
 		1. To stay
@@ -186,7 +186,7 @@ handleRoomCredits(int nInput, int* nCurrRoom, int* nCurrProg)
 
 
 void
-handleRoomMenu (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
+roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 {
 	switch (nInput)
 		{
@@ -225,39 +225,3 @@ resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 }
 
 
-/*
-	This function is responsible for calling the function that is
-		responsible for displaying the ending
-	Preconditions: nGameEnding is an integer
-	@param nGameEnding tracks the type of ending the player got
-*/
-void
-displayEnding (int nGameEnding)
-{
-    switch (nGameEnding)
-    {
-		//Death ending
-        case 0:
-			printf("Death ending");
-			break;
-
-		//Trapped ending
-		case 1:
-			printf("Trapped ending");
-			break;
-		
-		//Good ending
-		case 2:
-			printf("Good ending");
-			break;
-
-		//Best ending
-		case 3:
-			printf("Best ending");
-			break;
-
-		//Exit
-		default:
-			printf("Thank You for Playing");
-    }
-}

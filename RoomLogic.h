@@ -3,9 +3,6 @@
 */
 
 
-#include <stdio.h>
-#include <windows.h>
-
 
 /* ------------------------ Function Prototypes ------------------------ */
 void handleRoomCredits(int nInput, int* nCurrRoom, int* nCurrProg);

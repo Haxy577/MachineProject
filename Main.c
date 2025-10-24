@@ -16,17 +16,17 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 23, 2025
+	Last Modified: October 24, 2025
 	Version: 1.0
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art - for providing the title art
 						https://stackoverflow.com/questions/9203362/c-color-text-in-terminal-applications-in-windows - for the changing the color code
 */
 
 #include <stdio.h>
-#include <windows.h>
-#include "Display.c"
-#include "GameLogic.c"
-#include "RoomLogic.c"
+#include <stdlib.h>
+#include "Display.h"
+#include "GameLogic.h"
+#include "RoomLogic.h"
 
 
 /* ------------------------ Function Prototypes ------------------------ */
