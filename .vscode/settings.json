@@ -2,6 +2,8 @@
     "files.associations": {
         "display": "c",
         "windows.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "gamelogic.h": "c",
+        "stdlib.h": "c"
     }
 }

@@ -7,11 +7,12 @@
 //Functions for display
 void displayTitle();
 void displayLine();
-void clearScreen();
+void clearScreen(int bToggleClear);
 void changeColor(int nNumber, int nRed, int nGreen, int nBlue);
 void displayMenu(int nCurrProg);
 void displayMenuOptions(int nCurrProg);
 void displayCredits();
+void displayOptioms();
 void displayEnding (int nGameEnding);
 /* --------------------------------------------------------------------- */
 
@@ -74,12 +75,15 @@ displayLine()
 
 /*
 	This function is responsible for clearing the screen in command prompt
-	Preconditions: None since its only for display
+	Preconditions: bToggleClear is 0 or 1
+	@param bToggleClear tracks the setting on whether to clear the
+		screen when moving rooms
 */
 void
-clearScreen()
+clearScreen(int bToggleClear)
 {
-	system("clear"); //clears the screen of all text
+	if (bToggleClear)
+		system("clear"); //clears the screen of all text
 }
 
 
@@ -139,7 +143,8 @@ displayMenuOptions(int nCurrProg)
 			
 		printf("1. Start new game\n\n");
 		printf("2. Credits\n\n");
-		printf("3. Exit\n\n");	
+		printf("3. Options\n\n");
+		printf("4. Exit\n\n");	
 }
 
 
@@ -178,7 +183,10 @@ displayOptions()
 	displayLine();
 	
 	//display the options
-	printf("1. Dialouge Wait [ON/OFF]");
+	printf("%-35s%35s\n", "Options:", "Status");
+	printf("%-35s%35s\n", "1. Wait Between Dialouge (ON/OFF)", "[ON]");
+
+	displayLine();
 }
 
 

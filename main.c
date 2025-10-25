@@ -18,15 +18,16 @@ plagiarized the work of other students and/or persons.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
 	Last Modified: October 24, 2025
 	Version: 1.0
-	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art - for providing the title art
-						https://stackoverflow.com/questions/9203362/c-color-text-in-terminal-applications-in-windows - for the changing the color code
+	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
+						https://en.wikipedia.org/wiki/ANSI_escape_code -> for the changing the color code
+						https://stackoverflow.com/questions/7898215/how-can-i-clear-an-input-buffer-in-c -> for the scanf fix
 */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Display.h"
-#include "GameLogic.h"
-#include "RoomLogic.h"
+#include "display.h"
+#include "gameLogic.h"
+#include "roomLogic.h"
 
 
 /* ------------------------ Function Prototypes ------------------------ */
@@ -37,19 +38,25 @@ plagiarized the work of other students and/or persons.
 
 int main()
 {
+	//Tracks game settings
+	int bToggleColor = 1;
+	int bToggleWait = 1;
+	int bToggleClear = 1;
+
 	//tracks game state
 	int nGameEnding = 0; //tracks the ending the player will recieve
 	int nCurrRoom = 0; // tracks the current room
 	int nCurrProg = 0; //tracks total progress of the game by rooms; does not include the menu
 	int nInput = 0; //tracks the player's choice
-	int nMinInput = 0;
-	int nMaxInput = 0;
+	int nMinInput = 0; //tracks the minumum range a player can input
+	int nMaxInput = 0; //tracks the maximum range a player can input
 	
 	//player stats
 	int nHealth = 50; //default health is 50
 	int nScore = 0; //default score is 0
 	
-	/*player items. 0 means the player does not have that item
+	/*Player items 
+	0 means the player does not have that item
 		and 1 means the player has the item*/
 	int bShinyItem = 0;
 	int bTorch = 0;
@@ -59,6 +66,7 @@ int main()
 	while (nHealth > 0 && nGameEnding == 0)
 	{
 		nInput = 0; //reset the input
+		clearScreen(bToggleClear);
 		displayCurrentRoom(nCurrRoom, nCurrProg);
 		updateInputRange(nCurrRoom, &nMinInput, &nMaxInput);
 		getChoice(&nInput, nMinInput, nMaxInput);
@@ -70,8 +78,6 @@ int main()
 		updateGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
 			&nHealth, &nScore, &bShinyItem, &bTorch,
 			&bRustyKey);
-
-		clearScreen();
 	}
 	
 	//display ending message
