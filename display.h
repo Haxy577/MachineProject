@@ -12,7 +12,9 @@ void changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue)
 void displayMenu(int nCurrProg, int bToggleColor);
 void displayMenuOptions(int nCurrProg);
 void displayCredits();
-void displayOptioms(int bToggleColor, int bToggleWait, int bToggleClear);
+void displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
+					int bToggleHUD, int bToggleShowMenu);
+void displayOptionStatus(int bStatus, int bToggleColor);
 void displayEnding (int nGameEnding);
 /* --------------------------------------------------------------------- */
 
@@ -169,8 +171,28 @@ displayCredits()
 	
 }
 
+
 void
-displayOptions(int bToggleColor, int bToggleWait, int bToggleClear)
+displayOptionStatus(int bStatus, int bToggleColor)
+{
+	if (bStatus)
+	{
+		changeColor(bToggleColor,1,0,125,0);
+		printf("%6s\n", "[ON]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+	else
+	{
+		changeColor(bToggleColor,1,255,0,0);
+		printf("%6s\n", "[OFF]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+}
+
+
+void
+displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
+				int bToggleHUD, int bToggleShowMenu)
 {
 	//Display the option ascii art
 	displayLine();
@@ -185,52 +207,27 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear)
 	displayLine();
 	
 	//display the options
-	printf("%-35s%35s\n", "Options:", "Status");
+	printf("%-64s%6s\n", "Options:", "Status");
 
 	//Colored Text option
-	printf("%-35s", "1. Colored Texts (ON/OFF)");
-	if (bToggleColor)
-	{
-		changeColor(bToggleColor,1,0,125,0);
-		printf("%35s\n", "[ON]");
-		changeColor(bToggleColor,0,255,255,255);
-	}
-	else
-	{
-		changeColor(bToggleColor,1,255,0,0);
-		printf("%35s\n", "[OFF]");
-		changeColor(bToggleColor,0,255,255,255);
-	}
+	printf("%-64s", "1. Colored Texts (ON/OFF)");
+	displayOptionStatus(bToggleColor, bToggleColor);
 
 	//Dialouge Wait option
-	printf("%-35s", "2. Dialouge Wait (ON/OFF)");
-	if (bToggleWait)
-	{
-		changeColor(bToggleColor,1,0,125,0);
-		printf("%35s\n", "[ON]");
-		changeColor(bToggleColor,0,255,255,255);
-	}
-	else
-	{
-		changeColor(bToggleColor,1,255,0,0);
-		printf("%35s\n", "[OFF]");
-		changeColor(bToggleColor,0,255,255,255);
-	}
+	printf("%-64s", "2. Dialouge Wait (ON/OFF)");
+	displayOptionStatus(bToggleWait, bToggleColor);
 
 	//Clear Screen option
-	printf("%-35s", "3. Clear Screen (ON/OFF)");
-	if (bToggleClear)
-	{
-		changeColor(bToggleColor,1,0,125,0);
-		printf("%35s\n", "[ON]");
-		changeColor(bToggleColor,0,255,255,255);
-	}
-	else
-	{
-		changeColor(bToggleColor,1,255,0,0);
-		printf("%35s\n", "[OFF]");
-		changeColor(bToggleColor,0,255,255,255);
-	}
+	printf("%-64s", "3. Clear Screen (ON/OFF)");
+	displayOptionStatus(bToggleClear, bToggleColor);
+
+	//Display HUD option
+	printf("%-64s", "4. Display Heads-up Display(HUD) (ON/OFF)");
+	displayOptionStatus(bToggleHUD, bToggleColor);
+
+	//Display whether to show the return to menu option while playing
+	printf("%-64s", "5. Display Return to Menu Choice (ON/OFF)");
+	displayOptionStatus(bToggleShowMenu, bToggleColor);
 
 	//Show the go back to menu option
 	printf("\n");
@@ -273,6 +270,24 @@ displayEnding (int nGameEnding)
 
 		//Exit
 		default:
-			printf("Thank You for Playing\n");
+			printf("Thank You For Playing!\n");
     }
+}
+
+
+void
+displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey)
+{
+	displayLine();
+
+	displayLine();
+}
+
+
+void
+displayRoom1()
+{
+	displayLine();
+	printf("Room one yay!!!");
 }

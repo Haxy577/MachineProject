@@ -42,6 +42,8 @@ int main()
 	int bToggleColor = 1;
 	int bToggleWait = 1;
 	int bToggleClear = 1;
+	int bToggleHUD = 1;
+	int bToggleShowMenu = 1;
 
 	//tracks game state
 	int nGameEnding = 0; //tracks the ending the player will recieve
@@ -66,25 +68,30 @@ int main()
 	//main game loop
 	while (nHealth > 0 && nGameEnding == 0)
 	{
-		nInput = 0; //reset the input
+		//clear the screen
 		clearScreen(bToggleClear);
+		
+		//display the room the player is currently in
 		displayCurrentRoom(nCurrRoom, nCurrProg, bToggleColor,
-							bToggleWait, bToggleClear);
+							bToggleWait, bToggleClear, bToggleHUD,
+							bToggleShowMenu);
+
+		//update the minimum and maximum integer the player can input depending on the room
 		updateInputRange(nCurrRoom, &nMinInput, &nMaxInput);
+
+		//ask for the player to input their choice
 		getChoice(&nInput, nMinInput, nMaxInput, bToggleColor);
 		
-		//respond to the choice made by the player
-		//updateHealth();
-		//updateScore();
-		//updateItems();
+		//update the game
 		updateGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
 					&nHealth, &nScore, &bShinyItem, &bTorch,
 					&bRustyKey, &bToggleColor, &bToggleWait,
-					&bToggleClear);
+					&bToggleClear, &bToggleHUD, &bToggleShowMenu);
 	}
 	
 	//display ending message
 	displayEnding(nGameEnding);
+
 	
     return 0;
 }

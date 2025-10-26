@@ -10,19 +10,18 @@
 void getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
 void updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput);
 void displayCurrentRoom(int nCurrRoom, int nCurrProg, int bToggleColor,
-						int bToggleWait, int bToggleClear);
+						int bToggleWait, int bToggleClear, int bToggleHUD,
+						int bToggleShowMenu);
 void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
 				int* bRustyKey, int* bToggleColor, int* bToggleWait,
-				int* bToggleClear);
+				int* bToggleClear, int*bToggleHUD, int* bToggleShowMenu);
 void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 						int* bToggleColor, int* bToggleWait,
-						int* bToggleClear);
+						int* bToggleClear, int* bToggleHUD,
+						int* bToggleShowMenu);
 void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
-void resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
-			int* bRustyKey);
 /* --------------------------------------------------------------------- */
 
 
@@ -93,7 +92,7 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 		//Options
 		case -3:
 			*nMinInput = 0;
-			*nMaxInput = 3;
+			*nMaxInput = 10;
 			break;
 
 		//Credits
@@ -126,25 +125,30 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 */
 void
 displayCurrentRoom(int nCurrRoom, int nCurrProg, int bToggleColor,
-					int bToggleWait, int bToggleClear)
+					int bToggleWait, int bToggleClear, int bToggleHUD,
+					int bToggleShowMenu)
 {
 	switch (nCurrRoom)
 	{
 		//Options
 		case -3:
-			displayOptions(bToggleColor, bToggleWait, bToggleClear);
+			displayOptions(bToggleColor, bToggleWait, bToggleClear,
+							bToggleHUD, bToggleShowMenu);
 			break;
 
 		//Credits page
 		case -2:
 			displayCredits();
-			break;
+			break;	
 			
 		//Menu
 		case -1:
 		case 0:
 			displayMenu(nCurrProg, bToggleColor);
 			break;
+
+		case 1:
+			displayRoom1();
 	}
 }
 
@@ -158,7 +162,7 @@ void
 updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			int* nHealth, int* Score, int* bShinyItem, int* bTorch,
 			int* bRustyKey, int* bToggleColor, int* bToggleWait,
-			int* bToggleClear)
+			int* bToggleClear, int* bToggleHUD, int* bToggleShowMenu)
 {
 	/*room number for each room
 	room_Optioms = -3
@@ -182,7 +186,8 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 		case -3:
 			roomOptionsLogic(*nInput, nCurrRoom, nCurrProg,
 								bToggleColor, bToggleWait,
-								bToggleClear);
+								bToggleClear, bToggleHUD,
+								bToggleShowMenu);
 			break;
 
 		//Credits page
@@ -200,27 +205,8 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 		
 		//Room 1
 		case 1:
-			*nCurrRoom = -1;
+			*nCurrRoom = 1;
 			break;
 	}
 }
-
-
-void
-resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
-			int* bRustyKey)
-{
-	//reset everything back to its original values
-	*nInput = 0;
-	*nGameEnding = 0;
-	*nCurrRoom = 0;
-	*nCurrProg = 0;
-	*nHealth = 50;
-	*nScore = 0;
-	*bShinyItem = 0;
-	*bTorch = 0;
-	*bRustyKey = 0;
-}
-
 
