@@ -9,9 +9,10 @@
 /* ------------------------ Function Prototypes ------------------------ */
 void getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
 void updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput);
-void displayCurrentRoom(int nCurrRoom, int nCurrProg, int bToggleColor,
-						int bToggleWait, int bToggleClear, int bToggleHUD,
-						int bToggleShowMenu);
+void displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
+					int nScore, int bShinyItem, int bTorch,
+					int bRustyKey, int bToggleColor, int bToggleWait,
+					int bToggleClear, int bToggleHUD, int bToggleShowMenu);
 void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
 				int* bRustyKey, int* bToggleColor, int* bToggleWait,
@@ -22,6 +23,8 @@ void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 						int* bToggleShowMenu);
 void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
+void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+					int* nHealth);
 /* --------------------------------------------------------------------- */
 
 
@@ -112,6 +115,11 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 			*nMinInput = 1;
 			*nMaxInput = 4;
 			break;
+
+		case 1:
+			*nMinInput = 0;
+			*nMaxInput = 2;
+			break;
 		
 	}
 }
@@ -124,9 +132,10 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 	@param nCurrRoom tracks the current room the player is in
 */
 void
-displayCurrentRoom(int nCurrRoom, int nCurrProg, int bToggleColor,
-					int bToggleWait, int bToggleClear, int bToggleHUD,
-					int bToggleShowMenu)
+displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
+					int nScore, int bShinyItem, int bTorch,
+					int bRustyKey, int bToggleColor, int bToggleWait,
+					int bToggleClear, int bToggleHUD, int bToggleShowMenu)
 {
 	switch (nCurrRoom)
 	{
@@ -148,7 +157,9 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int bToggleColor,
 			break;
 
 		case 1:
-			displayRoom1();
+			displayRoom1(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu);
 	}
 }
 
@@ -205,7 +216,7 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 		
 		//Room 1
 		case 1:
-			*nCurrRoom = 1;
+			room1Logic(*nInput, nCurrRoom, nCurrProg, nHealth);
 			break;
 	}
 }

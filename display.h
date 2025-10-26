@@ -1,7 +1,6 @@
 //This file contains all of the functions that are responsible for display
 
-#include <stdio.h>
-#include <stdlib.h>
+
 
 /* ------------------------ Function Prototypes ------------------------ */
 //Functions for display
@@ -16,6 +15,11 @@ void displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 					int bToggleHUD, int bToggleShowMenu);
 void displayOptionStatus(int bStatus, int bToggleColor);
 void displayEnding (int nGameEnding);
+void displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor);
+void displayRoom1(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu);
 /* --------------------------------------------------------------------- */
 
 
@@ -277,17 +281,50 @@ displayEnding (int nGameEnding)
 
 void
 displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey)
+					int bTorch, int bRustyKey, int bToggleColor)
 {
-	displayLine();
+	//makes the red more intense the closer nHealth is to zero
+	int nRed;
+	nRed = 255 - nHealth * 2;
+
+	printf("%s%s%s%s%s%s%s",
+			".---------", "----------",
+			"----------", "----------",
+			"----------", "----------",
+			"---------.\n");
+	//Display player health
+	printf("|%-8s", "Health:");
+	changeColor(bToggleColor,1,nRed,0,0);//set color to red
+	printf("%-2d\n", nHealth);
+	changeColor(bToggleColor,0,255,255,255);
+
+	//show
+	printf("|%-8s", "Score:");
+	changeColor(bToggleColor,1,255,255,0);//set color to red
+	printf("%-2d\n", nScore);
+	changeColor(bToggleColor,0,255,255,255);
 
 	displayLine();
 }
 
 
 void
-displayRoom1()
+displayRoom1(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu)
 {
-	displayLine();
-	printf("Room one yay!!!");
+	if(bToggleHUD)
+	{
+	displayPlayerHUD(nHealth, nScore, bShinyItem,
+						bTorch, bRustyKey, bToggleColor);
+	}
+
+	//display the options
+
+	if(bToggleShowMenu)
+	{
+		changeColor(bToggleColor,0,32,32,32);
+		printf("0. Return to the menu.\n\n");
+		changeColor(bToggleColor,0,255,255,255);
+	}
 }

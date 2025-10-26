@@ -16,11 +16,12 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 26, 2025
-	Version: 1.0
+	Last Modified: October 27, 2025
+	Version: 1.9
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://en.wikipedia.org/wiki/ANSI_escape_code -> for the changing the color code
 						https://stackoverflow.com/questions/7898215/how-can-i-clear-an-input-buffer-in-c -> for the scanf fix
+						https://www.asciiart.eu/art-and-design/borders -> for providing the ascii art used in the borders
 */
 
 #include <stdio.h>
@@ -34,6 +35,14 @@ plagiarized the work of other students and/or persons.
 
 /* --------------------------------------------------------------------- */
 
+
+/*
+Ideas for additional content:
+1. Make a gambling house where the player can bet their poitns
+2. Make points acutally useful like tying points to the player's strength. Something like experience poitns.
+3. Add a secret ending maybe?
+4. Boss fight? definitely
+*/
 
 
 int main()
@@ -72,9 +81,10 @@ int main()
 		clearScreen(bToggleClear);
 		
 		//display the room the player is currently in
-		displayCurrentRoom(nCurrRoom, nCurrProg, bToggleColor,
-							bToggleWait, bToggleClear, bToggleHUD,
-							bToggleShowMenu);
+		displayCurrentRoom(nCurrRoom, nCurrProg, nHealth,
+							nScore, bShinyItem, bTorch,
+							bRustyKey, bToggleColor, bToggleWait,
+							bToggleClear, bToggleHUD, bToggleShowMenu);
 
 		//update the minimum and maximum integer the player can input depending on the room
 		updateInputRange(nCurrRoom, &nMinInput, &nMaxInput);

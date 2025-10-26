@@ -12,6 +12,8 @@ void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, 
                         int* nCurrProg);
+void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+				int* nHealth);
 /* --------------------------------------------------------------------- */
 
 
@@ -113,6 +115,10 @@ roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 {
 	switch (nInput)
 		{
+		case 0:
+			*nCurrRoom = *nCurrProg;
+			break;
+		
 		case 1:
 			*nCurrRoom = 1;
 			*nCurrProg = 1;
@@ -136,7 +142,8 @@ roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 
 
 void
-room1Logic()
+room1Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nHealth)
 {
 	/*
 	This room has 3 choices:
@@ -144,6 +151,16 @@ room1Logic()
 		1. Go to room 2
 		2. Go to room 3
 	*/
+	switch (nInput)
+	{
+		case 0:
+			*nCurrRoom = -1;
+			break;
+		
+		case 1:
+			*nHealth -= 2;
+			break;
+	}
 }
 
 
