@@ -16,7 +16,7 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 24, 2025
+	Last Modified: October 26, 2025
 	Version: 1.0
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://en.wikipedia.org/wiki/ANSI_escape_code -> for the changing the color code
@@ -62,22 +62,25 @@ int main()
 	int bTorch = 0;
 	int bRustyKey = 0;
 	
+
 	//main game loop
 	while (nHealth > 0 && nGameEnding == 0)
 	{
 		nInput = 0; //reset the input
 		clearScreen(bToggleClear);
-		displayCurrentRoom(nCurrRoom, nCurrProg);
+		displayCurrentRoom(nCurrRoom, nCurrProg, bToggleColor,
+							bToggleWait, bToggleClear);
 		updateInputRange(nCurrRoom, &nMinInput, &nMaxInput);
-		getChoice(&nInput, nMinInput, nMaxInput);
+		getChoice(&nInput, nMinInput, nMaxInput, bToggleColor);
 		
 		//respond to the choice made by the player
 		//updateHealth();
 		//updateScore();
 		//updateItems();
 		updateGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
-			&nHealth, &nScore, &bShinyItem, &bTorch,
-			&bRustyKey);
+					&nHealth, &nScore, &bShinyItem, &bTorch,
+					&bRustyKey, &bToggleColor, &bToggleWait,
+					&bToggleClear);
 	}
 	
 	//display ending message

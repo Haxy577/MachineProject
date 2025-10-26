@@ -5,14 +5,14 @@
 
 /* ------------------------ Function Prototypes ------------------------ */
 //Functions for display
-void displayTitle();
+void displayTitle(int bToggleColor);
 void displayLine();
 void clearScreen(int bToggleClear);
-void changeColor(int nNumber, int nRed, int nGreen, int nBlue);
-void displayMenu(int nCurrProg);
+void changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue);
+void displayMenu(int nCurrProg, int bToggleColor);
 void displayMenuOptions(int nCurrProg);
 void displayCredits();
-void displayOptioms();
+void displayOptioms(int bToggleColor, int bToggleWait, int bToggleClear);
 void displayEnding (int nGameEnding);
 /* --------------------------------------------------------------------- */
 
@@ -23,9 +23,9 @@ void displayEnding (int nGameEnding);
 	Preconditions: None since its only for display
 */
 void
-displayTitle()
+displayTitle(int bToggleColor)
 {
-	changeColor(1, 128, 128, 128); // this changes the color into a dark gray
+	changeColor(bToggleColor, 1, 128, 128, 128); // this changes the color into a dark gray
 	//This prints the words "The Lost"
 	printf("%s%s%s%s%s%s%s",
 			" ______  __                    __                       __      \n",
@@ -47,7 +47,7 @@ displayTitle()
 		"              \\ \\____/\\ \\__/.\\_\\\\ \\___/ \\ \\____\\\\ \\_\\ \\ \\_\\ \\_\\  \n",
 		"               \\/___/  \\/__/\\/_/ \\/__/   \\/____/ \\/_/  \\/_/\\/_/  \n"
 	);
-	changeColor(0, 255, 255, 255); //this changes back the color to white
+	changeColor(bToggleColor, 0, 255, 255, 255); //this changes back the color to white
 }
 
 
@@ -84,6 +84,8 @@ clearScreen(int bToggleClear)
 {
 	if (bToggleClear)
 		system("clear"); //clears the screen of all text
+	else
+		printf("\n\n\n");
 }
 
 
@@ -93,16 +95,16 @@ clearScreen(int bToggleClear)
 	@param nColor decides the color of the text
 */
 void
-changeColor(int nNumber, int nRed, int nGreen, int nBlue)
+changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue)
 {
-	//validate if the rgb values are within 0 to 255
-	if (nRed > -1 && nRed < 256 &&
-		nGreen > -1 && nGreen < 256 &&
-		nBlue > -1 && nBlue < 256)
-		{
-		printf("\x1b[%d;38;2;%d;%d;%dm", nNumber, nRed, nGreen, nBlue);
-		//fflush(stdout);
-		}
+	if (bToggleColor)
+	{
+		//validate if the rgb values are within 0 to 255
+		if (nRed > -1 && nRed < 256 &&
+			nGreen > -1 && nGreen < 256 &&
+			nBlue > -1 && nBlue < 256)
+				printf("\x1b[%d;38;2;%d;%d;%dm", nNumber, nRed, nGreen, nBlue);
+	}
 }
 
 
@@ -113,11 +115,11 @@ changeColor(int nNumber, int nRed, int nGreen, int nBlue)
 	@param bIsPlaying is tracking whether there is already a game ongoing
 */
 void
-displayMenu(int nCurrProg)
+displayMenu(int nCurrProg, int bToggleColor)
 {
 	//displays the title screen
 	displayLine();
-	displayTitle();
+	displayTitle(bToggleColor);
 	displayLine();
 	
 	//displays opening remarks
@@ -168,11 +170,11 @@ displayCredits()
 }
 
 void
-displayOptions()
+displayOptions(int bToggleColor, int bToggleWait, int bToggleClear)
 {
 	//Display the option ascii art
 	displayLine();
-	printf("%s%s%s%s%s%s",
+	printf("%53s%53s%53s%53s%53s%53s",
 		"  ___        _   _                  \n",
 		" / _ \\ _ __ | |_(_) ___  _ __  ___  \n",
 		"| | | | '_ \\| __| |/ _ \\| '_ \\/ __| \n",
@@ -184,7 +186,55 @@ displayOptions()
 	
 	//display the options
 	printf("%-35s%35s\n", "Options:", "Status");
-	printf("%-35s%35s\n", "1. Wait Between Dialouge (ON/OFF)", "[ON]");
+
+	//Colored Text option
+	printf("%-35s", "1. Colored Texts (ON/OFF)");
+	if (bToggleColor)
+	{
+		changeColor(bToggleColor,1,0,125,0);
+		printf("%35s\n", "[ON]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+	else
+	{
+		changeColor(bToggleColor,1,255,0,0);
+		printf("%35s\n", "[OFF]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+
+	//Dialouge Wait option
+	printf("%-35s", "2. Dialouge Wait (ON/OFF)");
+	if (bToggleWait)
+	{
+		changeColor(bToggleColor,1,0,125,0);
+		printf("%35s\n", "[ON]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+	else
+	{
+		changeColor(bToggleColor,1,255,0,0);
+		printf("%35s\n", "[OFF]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+
+	//Clear Screen option
+	printf("%-35s", "3. Clear Screen (ON/OFF)");
+	if (bToggleClear)
+	{
+		changeColor(bToggleColor,1,0,125,0);
+		printf("%35s\n", "[ON]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+	else
+	{
+		changeColor(bToggleColor,1,255,0,0);
+		printf("%35s\n", "[OFF]");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+
+	//Show the go back to menu option
+	printf("\n");
+	printf("0. Go back to menu\n");
 
 	displayLine();
 }

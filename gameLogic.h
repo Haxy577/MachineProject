@@ -7,13 +7,17 @@
 
 
 /* ------------------------ Function Prototypes ------------------------ */
-void getChoice(int* nInput, int nMinInput, int nMaxInput);
+void getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
 void updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput);
-void displayCurrentRoom(int nCurrRoom, int nCurrProg);
+void displayCurrentRoom(int nCurrRoom, int nCurrProg, int bToggleColor,
+						int bToggleWait, int bToggleClear);
 void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
-				int* bRustyKey);
-void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
+				int* bRustyKey, int* bToggleColor, int* bToggleWait,
+				int* bToggleClear);
+void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
+						int* bToggleColor, int* bToggleWait,
+						int* bToggleClear);
 void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
 void resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
@@ -32,7 +36,7 @@ void resetGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 	@param nMaxInput is the maximum integer value the player can input
 */
 void
-getChoice(int* nInput, int nMinInput, int nMaxInput)
+getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
 {
     int bIsInputValid = 0; //tracks if the input made by the user is valid and within the range
     int nIsScanValid; //tracks if the input follows the scanf format specifiers
@@ -50,9 +54,9 @@ getChoice(int* nInput, int nMinInput, int nMaxInput)
 
                 else
                 {
-					changeColor(1,255,0,0); //change the color to red
+					changeColor(bToggleColor,1,255,0,0); //change the color to red
 					printf("Invalid input. Please input a integer between %d and %d\n", nMinInput, nMaxInput);
-					changeColor(0,255,255,255); // change the color back to white
+					changeColor(bToggleColor,0,255,255,255); // change the color back to white
 				}
 
 				//clear the buffer if there are extra characters
@@ -62,9 +66,9 @@ getChoice(int* nInput, int nMinInput, int nMaxInput)
 
 
             default:
-				changeColor(1,255,0,0); //change the color to red
+				changeColor(bToggleColor,1,255,0,0); //change the color to red
                 printf("Invalid input. Please input a valid integer.\n");
-				changeColor(0,255,255,255); // change the color back to white
+				changeColor(bToggleColor,0,255,255,255); // change the color back to white
 				
 				//clear the buffer
                 while (getchar() != '\n');
@@ -121,13 +125,14 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 	@param nCurrRoom tracks the current room the player is in
 */
 void
-displayCurrentRoom(int nCurrRoom, int nCurrProg)
+displayCurrentRoom(int nCurrRoom, int nCurrProg, int bToggleColor,
+					int bToggleWait, int bToggleClear)
 {
 	switch (nCurrRoom)
 	{
 		//Options
 		case -3:
-			displayOptions();
+			displayOptions(bToggleColor, bToggleWait, bToggleClear);
 			break;
 
 		//Credits page
@@ -138,7 +143,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg)
 		//Menu
 		case -1:
 		case 0:
-			displayMenu(nCurrProg);
+			displayMenu(nCurrProg, bToggleColor);
 			break;
 	}
 }
@@ -152,7 +157,8 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg)
 void
 updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			int* nHealth, int* Score, int* bShinyItem, int* bTorch,
-			int* bRustyKey)
+			int* bRustyKey, int* bToggleColor, int* bToggleWait,
+			int* bToggleClear)
 {
 	/*room number for each room
 	room_Optioms = -3
@@ -174,7 +180,9 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 	{
 		//Options page
 		case -3:
-			roomOptionsLogic(*nInput, nCurrRoom, nCurrProg);
+			roomOptionsLogic(*nInput, nCurrRoom, nCurrProg,
+								bToggleColor, bToggleWait,
+								bToggleClear);
 			break;
 
 		//Credits page
@@ -195,71 +203,6 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			*nCurrRoom = -1;
 			break;
 	}
-}
-
-
-void
-roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
-{
-	/*
-	The option page has n choices
-	0. Return to meni
-	1...
-	*/
-	switch (nInput)
-	{
-		case 0:
-			if (*nCurrProg)
-				*nCurrRoom = -1; //where -1 is the menu page with a continue option
-			else
-				*nCurrRoom = 0; //where 0 is the normal menu page
-			break;
-	}
-}
-
-void
-roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
-{
-	/*
-	The credit page has two (2) choices:
-		1. To stay
-		2. Go back to menu
-	*/
-	switch (nInput)
-	{
-		case 2:
-			if (*nCurrProg)
-				*nCurrRoom = -1; //where -1 is the menu page with a continue option
-			else
-				*nCurrRoom = 0; //where 0 is the normal menu page
-	}
-}
-
-
-void
-roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
-{
-	switch (nInput)
-		{
-		case 1:
-			*nCurrRoom = 0;
-			*nCurrProg = 1;
-			break;
-				
-		//Go to the credits
-		case 2:
-			*nCurrRoom = -2;
-			break;
-
-		//Go to the credits
-		case 3:
-			*nCurrRoom = -3;
-			break;
-				
-		//terminate the program
-		case 4:
-			*nGameEnding = -1;
-		}
 }
 
 
