@@ -287,22 +287,47 @@ displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 	int nRed;
 	nRed = 255 - nHealth * 2;
 
-	printf("%s%s%s%s%s%s%s",
-			".---------", "----------",
-			"----------", "----------",
-			"----------", "----------",
-			"---------.\n");
-	//Display player health
-	printf("|%-8s", "Health:");
-	changeColor(bToggleColor,1,nRed,0,0);//set color to red
-	printf("%-2d\n", nHealth);
-	changeColor(bToggleColor,0,255,255,255);
+	displayLine();
+	
+	printf("%9s   ||", "Player");
+	printf("%29s\n", "Items");
 
-	//show
-	printf("|%-8s", "Score:");
-	changeColor(bToggleColor,1,255,255,0);//set color to red
-	printf("%-2d\n", nScore);
+	//Display player health
+	printf("%-8s", "Health:");
+	changeColor(bToggleColor,1,nRed,0,0);//set color to red
+	printf("%-2d", nHealth);
 	changeColor(bToggleColor,0,255,255,255);
+	printf("  ||   ");
+
+	if(bShinyItem)
+	{
+		changeColor(bToggleColor,1,239,191,4);
+		printf(" %-15s ","Shiny Item?");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+	
+	if(bTorch)
+	{
+		changeColor(bToggleColor,1,255,153,51);
+		printf(" %-15s ","Lit Torch");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+	
+	if(bRustyKey)
+	{
+		changeColor(bToggleColor,1,183,65,14);
+		printf(" %-15s ","Rusted Key");
+		changeColor(bToggleColor,0,255,255,255);
+	}
+	
+	printf("\n");
+	
+	//show
+	printf("%-8s", "Score:");
+	changeColor(bToggleColor,1,255,255,0);//set color to red
+	printf("%-2d", nScore);
+	changeColor(bToggleColor,0,255,255,255);
+	printf("  ||\n");
 
 	displayLine();
 }
