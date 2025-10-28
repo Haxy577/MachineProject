@@ -16,12 +16,11 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 27, 2025
-	Version: 1.9
+	Last Modified: October 29, 2025
+	Version: 1.10
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://en.wikipedia.org/wiki/ANSI_escape_code -> for the changing the color code
 						https://stackoverflow.com/questions/7898215/how-can-i-clear-an-input-buffer-in-c -> for the scanf fix
-						https://www.asciiart.eu/art-and-design/borders -> for providing the ascii art used in the borders
 */
 
 #include <stdio.h>

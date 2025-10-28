@@ -91,7 +91,10 @@ clearScreen(int bToggleClear)
 	if (bToggleClear)
 		system("clear"); //clears the screen of all text
 	else
+	{
+		displayLine();
 		printf("\n\n\n");
+	}
 }
 
 
@@ -296,28 +299,28 @@ displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 	printf("%-8s", "Health:");
 	changeColor(bToggleColor,1,nRed,0,0);//set color to red
 	printf("%-2d", nHealth);
-	changeColor(bToggleColor,0,255,255,255);
+	changeColor(bToggleColor,0,255,255,255);//reset color to white
 	printf("  ||   ");
 
 	if(bShinyItem)
 	{
-		changeColor(bToggleColor,1,239,191,4);
+		changeColor(bToggleColor,1,239,191,4);//set color to gold
 		printf(" %-15s ","Shiny Item?");
-		changeColor(bToggleColor,0,255,255,255);
+		changeColor(bToggleColor,0,255,255,255);//reset the color to white
 	}
 	
 	if(bTorch)
 	{
-		changeColor(bToggleColor,1,255,153,51);
+		changeColor(bToggleColor,1,255,153,51);//set the color to orange
 		printf(" %-15s ","Lit Torch");
-		changeColor(bToggleColor,0,255,255,255);
+		changeColor(bToggleColor,0,255,255,255);//reset the color to white
 	}
 	
 	if(bRustyKey)
 	{
-		changeColor(bToggleColor,1,183,65,14);
+		changeColor(bToggleColor,1,183,65,14);//set the color to a rust-like color
 		printf(" %-15s ","Rusted Key");
-		changeColor(bToggleColor,0,255,255,255);
+		changeColor(bToggleColor,0,255,255,255);//reset the color to white
 	}
 	
 	printf("\n");
@@ -326,7 +329,7 @@ displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 	printf("%-8s", "Score:");
 	changeColor(bToggleColor,1,255,255,0);//set color to red
 	printf("%-2d", nScore);
-	changeColor(bToggleColor,0,255,255,255);
+	changeColor(bToggleColor,0,255,255,255);//reset the color to white
 	printf("  ||\n");
 
 	displayLine();
@@ -339,17 +342,65 @@ displayRoom1(int nHealth, int nScore, int bShinyItem,
 					int bToggleWait, int bToggleHUD, int bToggleShowMenu)
 {
 	if(bToggleHUD)
-	{
-	displayPlayerHUD(nHealth, nScore, bShinyItem,
-						bTorch, bRustyKey, bToggleColor);
-	}
+		displayPlayerHUD(nHealth, nScore, bShinyItem, bTorch, bRustyKey, bToggleColor);
+	else
+		displayLine();
+
+/*
+123456789-123456789-12346789-123456789-123456789-123456789-123456789-
+Despite your incessant questioning, it was only met by the maddening
+repetition. The phrase repeated again and again, multiplying, growing
+into a crowd screaming for you to find their treasure.
+You instinctively try to cover your ears with your hands to stop the
+sound. However the voices only grew louder and louder to the point
+where it felt like it was tearing your mind apart. Until, as abruptly
+as it began, the voices vanished. Feeling confused you lower your
+hands and look around, ears still ringing. When the voices suddenly
+came back like a bomb, screaming
+
+"Wake up!”
+*/
+
+	//display the dialouge
+	printf("%s\n%s\n%s\n%s\n\n",
+		"There was only nothingness. No light, no sound, no texture, not even ",
+		"the feeling of your heart beating. Just a pure void where you are ",
+		"left with nothing but your thoughts. You waited for what felt like ",
+		"an eternity, a consciousness without a body."
+		);
+
+	printf("%s\n%s\n\n",
+		"Then, as if responding to your pleas, the void crackled. A faint and",
+		"dry whisper echoes in your head."
+		);
+
+	printf("%s\n\n%s\n\n%s\n\n%s\n\n%s\n\n",
+		"“Find our treasure and make it yours.”",	
+		"You scream to the void the questions that are lingering in your mind.",
+		"“Where am I?”",
+		"“Who are you?”",
+		"“What treasure?”"
+		);
+
+	printf("%s\n%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n",
+		"Despite your incessant questioning, it was only met by the maddening",
+		"repetition. The phrase repeated again and again, multiplying, growing",
+		"into a crowd screaming for you to find their treasure.",
+		"You instinctively try to cover your ears with your hands to stop the",
+		"sound. However the voices only grew louder and louder to the point",
+		"where it felt like it was tearing your mind apart. Until, as abruptly",
+		"as it began, the voices vanished. Feeling confused you lower your",
+		"hands and look around, ears still ringing. When the voices suddenly",
+		"came back like a bomb, screaming",
+		"“Wake up!”"
+		);
 
 	//display the options
 
 	if(bToggleShowMenu)
 	{
-		changeColor(bToggleColor,0,32,32,32);
+		changeColor(bToggleColor,0,32,32,32);//set the color to gray
 		printf("0. Return to the menu.\n\n");
-		changeColor(bToggleColor,0,255,255,255);
+		changeColor(bToggleColor,0,255,255,255);//reset the color to white
 	}
 }
