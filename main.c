@@ -16,8 +16,8 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 29, 2025
-	Version: 1.10
+	Last Modified: October 30, 2025
+	Version: 1.12
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://en.wikipedia.org/wiki/ANSI_escape_code -> for the changing the color code
 						https://stackoverflow.com/questions/7898215/how-can-i-clear-an-input-buffer-in-c -> for the scanf fix
@@ -25,6 +25,7 @@ plagiarized the work of other students and/or persons.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "display.h"
 #include "gameLogic.h"
 #include "roomLogic.h"
@@ -37,10 +38,11 @@ plagiarized the work of other students and/or persons.
 
 /*
 Ideas for additional content:
-1. Make a gambling house where the player can bet their poitns
+1. Make a gambling house where the player can bet their points
 2. Make points acutally useful like tying points to the player's strength. Something like experience poitns.
 3. Add a secret ending maybe?
 4. Boss fight? definitely
+5. Add achievements
 */
 
 
@@ -65,9 +67,11 @@ int main()
 	int nHealth = 50; //default health is 50
 	int nScore = 0; //default score is 0
 	
-	/*Player items 
+	/*
+	Player items 
 	0 means the player does not have that item
-		and 1 means the player has the item*/
+		and 1 means the player has the item
+	*/
 	int bShinyItem = 0;
 	int bTorch = 0;
 	int bRustyKey = 0;

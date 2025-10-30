@@ -32,10 +32,11 @@ void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 /*
 	This function gets the value inputted by the player and
 		checks if its valid, if not then it asks again
-	Preconditions: input is an integer
+	Preconditions: parameters are integers
 	@param nInput is where the function will store the choice
 	@param nMinInput is the minimum integer value the player can input
 	@param nMaxInput is the maximum integer value the player can input
+	@param bToggleColor tracks whether to display color or not
 */
 void
 getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
@@ -80,7 +81,7 @@ getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
 
 
 /*
-	This function is changes the ranges of input based on the current
+	This function changes the ranges of input based on the current
 		room the player is in currently
 	Preconditions: nCurrRoom, nMinInput, and nMaxInput are integers
 	@param nCurrRoom is tracking the current room the player is in
@@ -128,8 +129,19 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 /*
 	This function calls the functions that is responsible for
 		printing the information for the current room
-	Preconditions: nCurrRoom is an integer
+	Preconditions: parameters are integers
 	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg traks the current progress of an ongoing game
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyKey tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleWait tracks whether there is a pause between dialouges or not
+	@param bToggleClear tracks whether to clear the screen when moving between screens or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
 */
 void
 displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
@@ -165,9 +177,22 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 
 
 /*
-	This function is responsible for responding to the player's choice
-	Preconditions: nCurrRoom is an integer
+	This function is responsible for updating the game based on the input of the player
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nGameEnding tracks the type of ending the player got
 	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg traks the current progress of an ongoing game
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyKey tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleWait tracks whether there is a pause between dialouges or not
+	@param bToggleClear tracks whether to clear the screen when moving between screens or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
 */
 void
 updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,

@@ -16,7 +16,8 @@ void displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 void displayOptionStatus(int bStatus, int bToggleColor);
 void displayEnding (int nGameEnding);
 void displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor);
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleHUD);
 void displayRoom1(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
 					int bToggleWait, int bToggleHUD, int bToggleShowMenu);
@@ -26,7 +27,8 @@ void displayRoom1(int nHealth, int nScore, int bShinyItem,
 /*
 	This function is responsible for printing the ASCII art
 		of the title screen
-	Preconditions: None since its only for display
+	Preconditions: bToggleColor is a integer
+	@param bToggleColor tracks whether to display different colors or not
 */
 void
 displayTitle(int bToggleColor)
@@ -99,9 +101,14 @@ clearScreen(int bToggleClear)
 
 
 /*
-	This function is responsible for changing the text color in command prompt
-	Preconditions: nColor is between 0 to 15
-	@param nColor decides the color of the text
+	This function is responsible for changing the text color in the command prompt
+	Preconditions: the parameters are an integer and nRed, nGreen, and nBlue are
+					a number from 0 to 255.
+	@param bToggleColor tracks whether to display color or not
+	@param nNumber tracks the modifier, for example inputing "1" would make the text bold
+	@param nRed tracks the intensity of the color red
+	@param nGreen tracks the intensity of the color green
+	@param nBlue tracks the intensity of the color blue
 */
 void
 changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue)
@@ -120,8 +127,9 @@ changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue)
 /*
 	This function displays the title screen, start the game,
 		view the credits, or to close/exit the game
-	Preconditions: bIsPlaying is either 0 or 1
-	@param bIsPlaying is tracking whether there is already a game ongoing
+	Preconditions: the parameters are non-negative integers
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param bToggleColor tracks whether to display color or not
 */
 void
 displayMenu(int nCurrProg, int bToggleColor)
@@ -142,15 +150,17 @@ displayMenu(int nCurrProg, int bToggleColor)
 
 /*
 	This function displays options available for the menu
-	Preconditions: nCurrProg is a integer
-	@param bIsPlaying is tracking whether there is already a game ongoing
+	Preconditions: nCurrProg is a non-negative integer
+	@param nCurrProg tracks the current progress of an ongoing game
 */
 void
 displayMenuOptions(int nCurrProg)
 {
 	//if there is already an ongoing game display the continue option
-	if (nCurrProg != 0)
+	if (nCurrProg)
+	{
 		printf("0. Continue Game\n\n");
+	}
 			
 		printf("1. Start new game\n\n");
 		printf("2. Credits\n\n");
@@ -179,6 +189,13 @@ displayCredits()
 }
 
 
+/*
+	This funciton displays whether the option is on or off depending on the
+		status of the option
+	Preconditions: the parameters are non-negative integers
+	@param bStatus tracks whether the option is active or inactive
+	@param bToggleColor tracks whether to display color or not
+*/
 void
 displayOptionStatus(int bStatus, int bToggleColor)
 {
@@ -197,6 +214,16 @@ displayOptionStatus(int bStatus, int bToggleColor)
 }
 
 
+/*
+	This function displays the options page and displays the options available
+		and their status whether they are turned off or on
+	Preconditions: the parameters are non-negative integers
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleWait tracks whether there is a wait between dialouge
+	@param bToggleClear tracks whether to clear the screen when moving between rooms
+	@param bToggleHUD tracks whether to display a Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+*/
 void
 displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 				int bToggleHUD, int bToggleShowMenu)
@@ -282,83 +309,138 @@ displayEnding (int nGameEnding)
 }
 
 
+/*
+	This function displays the Heads-up Display where it displays the current
+		health, score, and items the player has
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+*/
 void
 displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor)
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleHUD)
 {
 	//makes the red more intense the closer nHealth is to zero
 	int nRed;
 	nRed = 255 - nHealth * 2;
 
-	displayLine();
-	
-	printf("%9s   ||", "Player");
-	printf("%29s\n", "Items");
-
-	//Display player health
-	printf("%-8s", "Health:");
-	changeColor(bToggleColor,1,nRed,0,0);//set color to red
-	printf("%-2d", nHealth);
-	changeColor(bToggleColor,0,255,255,255);//reset color to white
-	printf("  ||   ");
-
-	if(bShinyItem)
+	//display when the option is turned on
+	if (bToggleHUD)
 	{
-		changeColor(bToggleColor,1,239,191,4);//set color to gold
-		printf(" %-15s ","Shiny Item?");
-		changeColor(bToggleColor,0,255,255,255);//reset the color to white
-	}
+		displayLine();
 	
-	if(bTorch)
-	{
-		changeColor(bToggleColor,1,255,153,51);//set the color to orange
-		printf(" %-15s ","Lit Torch");
-		changeColor(bToggleColor,0,255,255,255);//reset the color to white
-	}
-	
-	if(bRustyKey)
-	{
-		changeColor(bToggleColor,1,183,65,14);//set the color to a rust-like color
-		printf(" %-15s ","Rusted Key");
-		changeColor(bToggleColor,0,255,255,255);//reset the color to white
-	}
-	
-	printf("\n");
-	
-	//show
-	printf("%-8s", "Score:");
-	changeColor(bToggleColor,1,255,255,0);//set color to red
-	printf("%-2d", nScore);
-	changeColor(bToggleColor,0,255,255,255);//reset the color to white
-	printf("  ||\n");
+		printf("%9s   ||", "Player");
+		printf("%29s\n", "Items");
 
-	displayLine();
+		//Display player health
+		printf("%-8s", "Health:");
+		changeColor(bToggleColor,1,nRed,0,0);//set color to red
+		printf("%-2d", nHealth);
+		changeColor(bToggleColor,0,255,255,255);//reset color to white
+		printf("  ||   ");
+
+		if(bShinyItem)
+		{
+			changeColor(bToggleColor,1,239,191,4);//set color to gold
+			printf(" %-15s ","Shiny Item?");
+			changeColor(bToggleColor,0,255,255,255);//reset the color to white
+		}
+	
+		if(bTorch)
+		{
+			changeColor(bToggleColor,1,255,153,51);//set the color to orange
+			printf(" %-15s ","Lit Torch");
+			changeColor(bToggleColor,0,255,255,255);//reset the color to white
+		}
+	
+		if(bRustyKey)
+		{
+			changeColor(bToggleColor,1,183,65,14);//set the color to a rust-like color
+			printf(" %-15s ","Rusted Key");
+			changeColor(bToggleColor,0,255,255,255);//reset the color to white
+		}
+
+		printf("\n");
+	
+		//show
+		printf("%-8s", "Score:");
+		changeColor(bToggleColor,1,255,255,0);//set color to red
+		printf("%-2d", nScore);
+		changeColor(bToggleColor,0,255,255,255);//reset the color to white
+		printf("  ||\n");
+
+		displayLine();
+	}
+
+	//if the option is off print a line instead
+	else
+		displayLine();
 }
 
 
+/*
+	This function adds a pause between the dialouge
+	Preconditions: the parameters are non-negative integers
+	@param nSeconds tracks how long it would pause in seconds
+	@param bToggleWait tracks whether to add a pause between dialouge or not
+*/
+void
+dialougeWait(int nSeconds, int bToggleWait)
+{
+	int nDuration = nSeconds;
+	if (bToggleWait)
+		sleep(nDuration);
+}
+
+/*
+	This function displays the option to return to menu when playing depending if the option
+		is turned on or off
+	Preconditions: Parameters are non-negative integers
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+*/
+void
+displayMenuChoice(int bToggleColor, int bToggleShowMenu)
+{
+	if(bToggleShowMenu)
+	{
+		changeColor(bToggleColor,0,32,32,32);//set the color to gray
+		printf("0. Return to the menu.\n\n");
+		changeColor(bToggleColor,0,255,255,255);//reset the color to white
+	}
+}
+
+
+/*
+	This function displays the dialouge for the introduction
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+*/
 void
 displayRoom1(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
 					int bToggleWait, int bToggleHUD, int bToggleShowMenu)
 {
-	if(bToggleHUD)
-		displayPlayerHUD(nHealth, nScore, bShinyItem, bTorch, bRustyKey, bToggleColor);
-	else
-		displayLine();
+	displayPlayerHUD(nHealth, nScore, bShinyItem,
+						bTorch, bRustyKey, bToggleColor,
+						bToggleHUD);
 
 /*
+Text cutter (70 characters)
 123456789-123456789-12346789-123456789-123456789-123456789-123456789-
-Despite your incessant questioning, it was only met by the maddening
-repetition. The phrase repeated again and again, multiplying, growing
-into a crowd screaming for you to find their treasure.
-You instinctively try to cover your ears with your hands to stop the
-sound. However the voices only grew louder and louder to the point
-where it felt like it was tearing your mind apart. Until, as abruptly
-as it began, the voices vanished. Feeling confused you lower your
-hands and look around, ears still ringing. When the voices suddenly
-came back like a bomb, screaming
-
-"Wake up!”
 */
 
 	//display the dialouge
@@ -369,10 +451,14 @@ came back like a bomb, screaming
 		"an eternity, a consciousness without a body."
 		);
 
+	dialougeWait(5, bToggleWait);
+
 	printf("%s\n%s\n\n",
 		"Then, as if responding to your pleas, the void crackled. A faint and",
 		"dry whisper echoes in your head."
 		);
+
+		dialougeWait(3, bToggleWait);
 
 	printf("%s\n\n%s\n\n%s\n\n%s\n\n%s\n\n",
 		"“Find our treasure and make it yours.”",	
@@ -381,6 +467,8 @@ came back like a bomb, screaming
 		"“Who are you?”",
 		"“What treasure?”"
 		);
+
+		dialougeWait(5, bToggleWait);
 
 	printf("%s\n%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n",
 		"Despite your incessant questioning, it was only met by the maddening",
@@ -396,11 +484,5 @@ came back like a bomb, screaming
 		);
 
 	//display the options
-
-	if(bToggleShowMenu)
-	{
-		changeColor(bToggleColor,0,32,32,32);//set the color to gray
-		printf("0. Return to the menu.\n\n");
-		changeColor(bToggleColor,0,255,255,255);//reset the color to white
-	}
+	displayMenuChoice(bToggleColor, bToggleShowMenu);
 }

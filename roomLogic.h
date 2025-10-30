@@ -36,6 +36,12 @@ Room Index:
 */
 
 
+/*
+	This funtion is responsible of switching the value of the option from
+		1 to 0 or 0 to 1 when called
+	Precondition: bOption is a integer
+	@param bOption contains the value of the option that is being changed
+*/
 void
 toggleOptionLogic(int* bOption)
 {
@@ -49,6 +55,18 @@ toggleOptionLogic(int* bOption)
 }
 
 
+/*
+	This funtion turns the setting off or on based on the input of the player
+	Precondition: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg traks the current progress of an ongoing game
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleWait tracks whether there is a wait between dialouge
+	@param bToggleClear tracks whether to clear the screen when moving between rooms
+	@param bToggleHUD tracks whether to display a Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+*/
 void
 roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 				int* bToggleColor, int* bToggleWait,
@@ -91,6 +109,15 @@ roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 	}
 }
 
+
+/*
+	This funtion responds to the input of the player based on the choices
+		in the credits page
+	Precondition: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg traks the current progress of an ongoing game
+*/
 void
 roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 {
@@ -110,6 +137,15 @@ roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 }
 
 
+/*
+	This funtion responds to the input of the player based on the choices
+		in the menu page
+	Precondition: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nGameEnding tracks the type of ending the player got
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg traks the current progress of an ongoing game
+*/
 void
 roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 {
