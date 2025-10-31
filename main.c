@@ -16,8 +16,8 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 30, 2025
-	Version: 1.12
+	Last Modified: October 31, 2025
+	Version: 1.13
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://en.wikipedia.org/wiki/ANSI_escape_code -> for the changing the color code
 						https://stackoverflow.com/questions/7898215/how-can-i-clear-an-input-buffer-in-c -> for the scanf fix
@@ -39,7 +39,7 @@ plagiarized the work of other students and/or persons.
 /*
 Ideas for additional content:
 1. Make a gambling house where the player can bet their points
-2. Make points acutally useful like tying points to the player's strength. Something like experience poitns.
+2. Make points actually useful like tying points to the player's strength. Something like experience points.
 3. Add a secret ending maybe?
 4. Boss fight? definitely
 5. Add achievements
@@ -54,10 +54,11 @@ int main()
 	int bToggleClear = 1;
 	int bToggleHUD = 1;
 	int bToggleShowMenu = 1;
+	int bToggleSimple = 1;
 
 	//tracks game state
-	int nGameEnding = 0; //tracks the ending the player will recieve
-	int nCurrRoom = 0; // tracks the current room
+	int nGameEnding = 0; //tracks the ending the player will receive
+	int nCurrRoom = 0; // tracks the current room the player is in
 	int nCurrProg = 0; //tracks total progress of the game by rooms; does not include the menu
 	int nInput = 0; //tracks the player's choice
 	int nMinInput = 0; //tracks the minumum range a player can input
@@ -87,7 +88,8 @@ int main()
 		displayCurrentRoom(nCurrRoom, nCurrProg, nHealth,
 							nScore, bShinyItem, bTorch,
 							bRustyKey, bToggleColor, bToggleWait,
-							bToggleClear, bToggleHUD, bToggleShowMenu);
+							bToggleClear, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
 
 		//update the minimum and maximum integer the player can input depending on the room
 		updateInputRange(nCurrRoom, &nMinInput, &nMaxInput);
@@ -99,7 +101,9 @@ int main()
 		updateGame(&nInput, &nGameEnding, &nCurrRoom, &nCurrProg,
 					&nHealth, &nScore, &bShinyItem, &bTorch,
 					&bRustyKey, &bToggleColor, &bToggleWait,
-					&bToggleClear, &bToggleHUD, &bToggleShowMenu);
+					&bToggleClear, &bToggleHUD, &bToggleShowMenu,
+					&bToggleSimple);
+
 	}
 	
 	//display ending message

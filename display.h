@@ -12,15 +12,16 @@ void displayMenu(int nCurrProg, int bToggleColor);
 void displayMenuOptions(int nCurrProg);
 void displayCredits();
 void displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
-					int bToggleHUD, int bToggleShowMenu);
+					int bToggleHUD, int bToggleShowMenu, int bToggleSimple);
 void displayOptionStatus(int bStatus, int bToggleColor);
 void displayEnding (int nGameEnding);
 void displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
 					int bToggleHUD);
-void displayRoom1(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu);
+void displayIntroduction(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
 /* --------------------------------------------------------------------- */
 
 
@@ -190,7 +191,7 @@ displayCredits()
 
 
 /*
-	This funciton displays whether the option is on or off depending on the
+	This function displays whether the option is on or off depending on the
 		status of the option
 	Preconditions: the parameters are non-negative integers
 	@param bStatus tracks whether the option is active or inactive
@@ -219,14 +220,15 @@ displayOptionStatus(int bStatus, int bToggleColor)
 		and their status whether they are turned off or on
 	Preconditions: the parameters are non-negative integers
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleWait tracks whether there is a wait between dialouge
+	@param bToggleWait tracks whether there is a wait between dialogue
 	@param bToggleClear tracks whether to clear the screen when moving between rooms
 	@param bToggleHUD tracks whether to display a Heads-up Display when playing
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
 displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
-				int bToggleHUD, int bToggleShowMenu)
+				int bToggleHUD, int bToggleShowMenu, int bToggleSimple)
 {
 	//Display the option ascii art
 	displayLine();
@@ -247,8 +249,8 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 	printf("%-64s", "1. Colored Texts (ON/OFF)");
 	displayOptionStatus(bToggleColor, bToggleColor);
 
-	//Dialouge Wait option
-	printf("%-64s", "2. Dialouge Wait (ON/OFF)");
+	//Dialogue Wait option
+	printf("%-64s", "2. Dialogue Wait (ON/OFF)");
 	displayOptionStatus(bToggleWait, bToggleColor);
 
 	//Clear Screen option
@@ -262,6 +264,10 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 	//Display whether to show the return to menu option while playing
 	printf("%-64s", "5. Display Return to Menu Choice (ON/OFF)");
 	displayOptionStatus(bToggleShowMenu, bToggleColor);
+
+	//Display the simple dialogue option
+	printf("%-64s", "6. Simple / Skeleton Dialogue (ON/OFF)");
+	displayOptionStatus(bToggleSimple, bToggleColor);
 
 	//Show the go back to menu option
 	printf("\n");
@@ -385,13 +391,13 @@ displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 
 
 /*
-	This function adds a pause between the dialouge
+	This function adds a pause between the dialogue
 	Preconditions: the parameters are non-negative integers
 	@param nSeconds tracks how long it would pause in seconds
-	@param bToggleWait tracks whether to add a pause between dialouge or not
+	@param bToggleWait tracks whether to add a pause between dialogue or not
 */
 void
-dialougeWait(int nSeconds, int bToggleWait)
+dialogueWait(int nSeconds, int bToggleWait)
 {
 	int nDuration = nSeconds;
 	if (bToggleWait)
@@ -418,7 +424,7 @@ displayMenuChoice(int bToggleColor, int bToggleShowMenu)
 
 
 /*
-	This function displays the dialouge for the introduction
+	This function displays the dialogue for the introduction
 	Preconditions: the parameters are non-negative integers
 	@param nHealth tracks the current health of the player
 	@param nScore tracks the current health of the player
@@ -428,61 +434,383 @@ displayMenuChoice(int bToggleColor, int bToggleShowMenu)
 	@param bToggleColor tracks whether to display color or not
 	@param bToggleHUD tracks whether to show the Heads-up Display when playing
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom1(int nHealth, int nScore, int bShinyItem,
+displayIntroduction(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu)
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
 {
-	displayPlayerHUD(nHealth, nScore, bShinyItem,
-						bTorch, bRustyKey, bToggleColor,
-						bToggleHUD);
+
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
 
 /*
 Text cutter (70 characters)
 123456789-123456789-12346789-123456789-123456789-123456789-123456789-
 */
 
-	//display the dialouge
-	printf("%s\n%s\n%s\n%s\n\n",
-		"There was only nothingness. No light, no sound, no texture, not even ",
-		"the feeling of your heart beating. Just a pure void where you are ",
-		"left with nothing but your thoughts. You waited for what felt like ",
-		"an eternity, a consciousness without a body."
+	//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("Welcome to The Lost Cavern. Press ""1"" to continue\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. Continue\n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		printf("%s\n%s\n%s\n%s\n\n",
+			"There was only nothingness. No light, no sound, no texture, not even ",
+			"the feeling of your heart beating. Just a pure void where you are ",
+			"left with nothing but your thoughts. You waited for what felt like ",
+			"an eternity, a consciousness without a body."
 		);
 
-	dialougeWait(5, bToggleWait);
+		dialogueWait(5, bToggleWait);
 
-	printf("%s\n%s\n\n",
-		"Then, as if responding to your pleas, the void crackled. A faint and",
-		"dry whisper echoes in your head."
-		);
+		printf("%s\n%s\n\n",
+			"Then, as if responding to your pleas, the void crackled. A faint and",
+			"dry whisper echoes in your head."
+			);
 
-		dialougeWait(3, bToggleWait);
+			dialogueWait(3, bToggleWait);
 
-	printf("%s\n\n%s\n\n%s\n\n%s\n\n%s\n\n",
-		"“Find our treasure and make it yours.”",	
-		"You scream to the void the questions that are lingering in your mind.",
-		"“Where am I?”",
-		"“Who are you?”",
-		"“What treasure?”"
-		);
+		printf("%s\n\n%s\n\n%s\n\n%s\n\n%s\n\n",
+			"“Find our treasure and make it yours.”",	
+			"You scream to the void the questions that are lingering in your mind.",
+			"“Where am I?”",
+			"“Who are you?”",
+			"“What treasure?”"
+			);
 
-		dialougeWait(5, bToggleWait);
+			dialogueWait(5, bToggleWait);
 
-	printf("%s\n%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n",
-		"Despite your incessant questioning, it was only met by the maddening",
-		"repetition. The phrase repeated again and again, multiplying, growing",
-		"into a crowd screaming for you to find their treasure.",
-		"You instinctively try to cover your ears with your hands to stop the",
-		"sound. However the voices only grew louder and louder to the point",
-		"where it felt like it was tearing your mind apart. Until, as abruptly",
-		"as it began, the voices vanished. Feeling confused you lower your",
-		"hands and look around, ears still ringing. When the voices suddenly",
-		"came back like a bomb, screaming",
-		"“Wake up!”"
-		);
+		printf("%s\n%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n",
+			"Despite your incessant questioning, it was only met by the maddening",
+			"repetition. The phrase repeated again and again, multiplying, growing",
+			"into a crowd screaming for you to find their treasure.",
+			"You instinctively try to cover your ears with your hands to stop the",
+			"sound. However the voices only grew louder and louder to the point",
+			"where it felt like it was tearing your mind apart. Until, as abruptly",
+			"as it began, the voices vanished. Feeling confused you lower your",
+			"hands and look around, ears still ringing. When the voices suddenly",
+			"came back like a bomb, screaming",
+			"“Wake up!”"
+			);
 
-	//display the options
-	displayMenuChoice(bToggleColor, bToggleShowMenu);
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+
+void
+displayRoom1(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. Go to the Left\n\n");
+		printf("2. Go to the Right\n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+
+void
+displayRoom2(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("You lose 10 health and gain 2 points\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+
+void
+displayRoom3(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+
+void
+displayRoom4(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+void
+displayRoom5(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+void
+displayRoom6(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+
+void
+displayRoom7(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+void
+displayRoom8(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+void
+displayRoom9(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+}
+
+void
+displayRoom10(int nHealth, int nScore, int bShinyItem,
+					int bTorch, int bRustyKey, int bToggleColor,
+					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+					int bToggleSimple)
+{
+//display the HUD
+displayPlayerHUD(nHealth, nScore, bShinyItem,
+					bTorch, bRustyKey, bToggleColor,
+					bToggleHUD);
+
+//display the dialogue
+	if (bToggleSimple)
+	{
+		printf("\n\n");
+		
+		//display the options
+		printf("Choices:\n\n");
+		printf("1. \n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
+	else
+	{
+		//Temp
+
+		//display the options
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
+	}
 }

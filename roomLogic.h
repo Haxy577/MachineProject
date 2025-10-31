@@ -8,7 +8,7 @@
 void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 						int* bToggleColor, int* bToggleWait,
 						int* bToggleClear, int* bToggleHUD,
-						int* bToggleShowMenu);
+						int* bToggleShowMenu, int* bToggleSimple);
 void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, 
                         int* nCurrProg);
@@ -37,7 +37,7 @@ Room Index:
 
 
 /*
-	This funtion is responsible of switching the value of the option from
+	This function is responsible of switching the value of the option from
 		1 to 0 or 0 to 1 when called
 	Precondition: bOption is a integer
 	@param bOption contains the value of the option that is being changed
@@ -56,13 +56,13 @@ toggleOptionLogic(int* bOption)
 
 
 /*
-	This funtion turns the setting off or on based on the input of the player
+	This function turns the setting off or on based on the input of the player
 	Precondition: parameters are integers
 	@param nInput tracks the choice the player has made
 	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg traks the current progress of an ongoing game
+	@param nCurrProg tracks the current progress of an ongoing game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleWait tracks whether there is a wait between dialouge
+	@param bToggleWait tracks whether there is a wait between dialogue
 	@param bToggleClear tracks whether to clear the screen when moving between rooms
 	@param bToggleHUD tracks whether to display a Heads-up Display when playing
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
@@ -71,7 +71,7 @@ void
 roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 				int* bToggleColor, int* bToggleWait,
 				int* bToggleClear, int* bToggleHUD,
-				int* bToggleShowMenu)
+				int* bToggleShowMenu, int* bToggleSimple)
 {
 	/*
 	The option page has n choices
@@ -106,23 +106,27 @@ roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 		case 5:
 			toggleOptionLogic(bToggleShowMenu);
 			break;
+
+		case 6:
+			toggleOptionLogic(bToggleSimple);
+			break;
 	}
 }
 
 
 /*
-	This funtion responds to the input of the player based on the choices
+	This function responds to the input of the player based on the choices
 		in the credits page
 	Precondition: parameters are integers
 	@param nInput tracks the choice the player has made
 	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg traks the current progress of an ongoing game
+	@param nCurrProg tracks the current progress of an ongoing game
 */
 void
 roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 {
 	/*
-	The credit page has two (2) choices:
+	The credit page has two 2 choices:
 		1. To stay
 		2. Go back to menu
 	*/
@@ -138,13 +142,13 @@ roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 
 
 /*
-	This funtion responds to the input of the player based on the choices
+	This function responds to the input of the player based on the choices
 		in the menu page
 	Precondition: parameters are integers
 	@param nInput tracks the choice the player has made
 	@param nGameEnding tracks the type of ending the player got
 	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg traks the current progress of an ongoing game
+	@param nCurrProg tracks the current progress of an ongoing game
 */
 void
 roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
@@ -156,8 +160,8 @@ roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 			break;
 		
 		case 1:
-			*nCurrRoom = 1;
-			*nCurrProg = 1;
+			*nCurrRoom = -4;
+			*nCurrProg = -4;
 			break;
 				
 		//Go to the credits
@@ -178,8 +182,7 @@ roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 
 
 void
-room1Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nHealth)
+introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 {
 	/*
 	This room has 3 choices:
@@ -194,7 +197,7 @@ room1Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 			break;
 		
 		case 1:
-			*nHealth -= 2;
+			
 			break;
 	}
 }
