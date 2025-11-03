@@ -3,7 +3,7 @@
 
 
 /* ------------------------ Function Prototypes ------------------------ */
-//Functions for display
+//These functions are responsible for the display
 void displayTitle(int bToggleColor);
 void displayLine();
 void clearScreen(int bToggleClear);
@@ -19,6 +19,46 @@ void displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
 					int bToggleHUD);
 void displayIntroduction(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom1(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom2(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom3(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom4(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom5(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom6(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom7(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom8(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom9(int nHealth, int nScore, int bShinyItem,
+						int bTorch, int bRustyKey, int bToggleColor,
+						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
+						int bToggleSimple);
+void displayRoom10(int nHealth, int nScore, int bShinyItem,
 						int bTorch, int bRustyKey, int bToggleColor,
 						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
 						int bToggleSimple);
@@ -103,7 +143,7 @@ clearScreen(int bToggleClear)
 
 /*
 	This function is responsible for changing the text color in the command prompt
-	Preconditions: the parameters are an integer and nRed, nGreen, and nBlue are
+	Preconditions: the parameters are non-negative integers and nRed, nGreen, and nBlue are
 					a number from 0 to 255.
 	@param bToggleColor tracks whether to display color or not
 	@param nNumber tracks the modifier, for example inputing "1" would make the text bold
@@ -241,21 +281,26 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 		"      |_|                           \n"
 	);
 	displayLine();
-	
+
+
 	//display the options
-	printf("%-64s%6s\n", "Options:", "Status");
+	printf("%-64s%6s\n\n", "Options:", "Status");
+
+	printf("Display Options:\n");
 
 	//Colored Text option
 	printf("%-64s", "1. Colored Texts (ON/OFF)");
 	displayOptionStatus(bToggleColor, bToggleColor);
 
-	//Dialogue Wait option
-	printf("%-64s", "2. Dialogue Wait (ON/OFF)");
-	displayOptionStatus(bToggleWait, bToggleColor);
-
 	//Clear Screen option
-	printf("%-64s", "3. Clear Screen (ON/OFF)");
+	printf("%-64s", "2. Clear Screen (ON/OFF)");
 	displayOptionStatus(bToggleClear, bToggleColor);
+
+	printf("\nGameplay Options:\n");
+
+	//Dialogue Wait option
+	printf("%-64s", "3. Dialogue Wait (ON/OFF)");
+	displayOptionStatus(bToggleWait, bToggleColor);
 
 	//Display HUD option
 	printf("%-64s", "4. Display Heads-up Display(HUD) (ON/OFF)");
@@ -288,29 +333,30 @@ displayEnding (int nGameEnding)
 {
     switch (nGameEnding)
     {
+		//Exit
+		case 0:
+			printf("Thank You For Playing!\n");
+			break;
+
 		//Death ending
-        case 0:
+        case 1:
 			printf("Death ending\n");
 			break;
 
 		//Trapped ending
-		case 1:
+		case 2:
 			printf("Trapped ending\n");
 			break;
 		
 		//Good ending
-		case 2:
+		case 3:
 			printf("Good ending\n");
 			break;
 
 		//Best ending
-		case 3:
+		case 4:
 			printf("Best ending\n");
 			break;
-
-		//Exit
-		default:
-			printf("Thank You For Playing!\n");
     }
 }
 
@@ -424,7 +470,7 @@ displayMenuChoice(int bToggleColor, int bToggleShowMenu)
 
 
 /*
-	This function displays the dialogue for the introduction
+	This function displays the dialogue for room 10
 	Preconditions: the parameters are non-negative integers
 	@param nHealth tracks the current health of the player
 	@param nScore tracks the current health of the player
@@ -442,16 +488,15 @@ displayIntroduction(int nHealth, int nScore, int bShinyItem,
 					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
 					int bToggleSimple)
 {
+	//display the HUD
+	displayPlayerHUD(nHealth, nScore, bShinyItem,
+						bTorch, bRustyKey, bToggleColor,
+						bToggleHUD);
 
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
-/*
-Text cutter (70 characters)
-123456789-123456789-12346789-123456789-123456789-123456789-123456789-
-*/
+	/*
+	Text cutter (70 characters)
+	123456789-123456789-12346789-123456789-123456789-123456789-123456789-
+	*/
 
 	//display the dialogue
 	if (bToggleSimple)
@@ -510,6 +555,19 @@ Text cutter (70 characters)
 }
 
 
+/*
+	This function displays the dialogue for room 1
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom1(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -542,6 +600,19 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 }
 
 
+/*
+	This function displays the dialogue for room 2
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom2(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -556,11 +627,11 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("You lose 10 health and gain 2 points\n\n");
+		printf("Room 2: lose 10 health and gain 2 points\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Continue\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -573,6 +644,19 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 }
 
 
+/*
+	This function displays the dialogue for room 3
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom3(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -587,11 +671,12 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 3\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Pick up shiny item and gain 5 points\n\n");
+		printf("2. Ignore\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -604,6 +689,19 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 }
 
 
+/*
+	This function displays the dialogue for room 4
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom4(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -618,11 +716,12 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 4\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Take the boat\n\n");
+		printf("2. Swim\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -634,6 +733,20 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	}
 }
 
+
+/*
+	This function displays the dialogue for room 5
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom5(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -648,11 +761,12 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 5\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Take the torch\n\n");
+		printf("2. Ignore\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -664,6 +778,20 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	}
 }
 
+
+/*
+	This function displays the dialogue for room 6
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom6(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -678,11 +806,11 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 6\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Continue\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -695,6 +823,19 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 }
 
 
+/*
+	This function displays the dialogue for room 7
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom7(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -709,11 +850,12 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 7\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Go to the left\n\n");
+		printf("2. Go to the right\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -725,6 +867,20 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	}
 }
 
+
+/*
+	This function displays the dialogue for room 8
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom8(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -739,11 +895,11 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 8\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Open the door\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -755,6 +911,20 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	}
 }
 
+
+/*
+	This function displays the dialogue for room 9
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom9(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -769,11 +939,12 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 9\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
+		printf("1. Take the rusty key\n\n");
+		printf("2. Ignore it\n\n");
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
@@ -785,6 +956,20 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	}
 }
 
+
+/*
+	This function displays the dialogue for room 10
+	Preconditions: the parameters are non-negative integers
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current health of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+*/
 void
 displayRoom10(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
@@ -799,12 +984,12 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 10\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. \n\n");
-		displayMenuChoice(bToggleColor, bToggleShowMenu);
+		printf("1. Return to menu\n\n");
+		printf("2. Quit\n\n");
 	}
 	else
 	{

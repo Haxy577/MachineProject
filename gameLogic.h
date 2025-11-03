@@ -4,9 +4,8 @@
 
 
 
-
-
 /* ------------------------ Function Prototypes ------------------------ */
+//These functions are responsible for the game logic
 void getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
 void updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput);
 void displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
@@ -19,13 +18,6 @@ void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* bRustyKey, int* bToggleColor, int* bToggleWait,
 				int* bToggleClear, int*bToggleHUD, int* bToggleShowMenu,
 				int* bToggleSimple);
-void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
-						int* bToggleColor, int* bToggleWait,
-						int* bToggleClear, int* bToggleHUD,
-						int* bToggleShowMenu, int* bToggleSimple);
-void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
-void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
-void introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 /* --------------------------------------------------------------------- */
 
 
@@ -168,7 +160,7 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 		//Room 8
 		case 8:
 			*nMinInput = 0;
-			*nMaxInput = 2;
+			*nMaxInput = 1;
 			break;
 
 		//Room 9
@@ -179,10 +171,9 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 
 		//Room 10
 		case 10:
-			*nMinInput = 0;
+			*nMinInput = 1;
 			*nMaxInput = 2;
 			break;
-		
 	}
 }
 
@@ -194,7 +185,7 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 	@param nCurrRoom tracks the current room the player is in
 	@param nCurrProg tracks the current progress of an ongoing game
 	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
+	@param nScore tracks the current score of the player
 	@param bShinyItem tracks whether the player has the Shiny Item or not
 	@param bTorch tracks whether the player has the Torch or not
 	@param bRustyKey tracks whether the player has the Rusty Key or not
@@ -237,12 +228,75 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 									bToggleSimple);
 			break;
 		
-		/*case 1:
+		case 1:
 			displayRoom1(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
 							bToggleWait, bToggleHUD, bToggleShowMenu,
 							bToggleSimple);
-			break;*/
+			break;
+
+		case 2:
+			displayRoom2(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 3:
+			displayRoom3(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 4:
+			displayRoom4(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 5:
+			displayRoom5(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 6:
+			displayRoom6(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 7:
+			displayRoom7(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 8:
+			displayRoom8(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 9:
+			displayRoom9(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
+
+		case 10:
+			displayRoom10(nHealth, nScore, bShinyItem,
+							bTorch, bRustyKey, bToggleColor,
+							bToggleWait, bToggleHUD, bToggleShowMenu,
+							bToggleSimple);
+			break;
 	}
 }
 
@@ -255,9 +309,9 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 	@param nCurrRoom tracks the current room the player is in
 	@param nCurrProg tracks the current progress of an ongoing game
 	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
+	@param nScore tracks the current score of the player
 	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
+	@param bTorch tracks whether the player has the item Torch or not
 	@param bRustyKey tracks whether the player has the Rusty Key or not
 	@param bToggleColor tracks whether to display color or not
 	@param bToggleWait tracks whether there is a pause between dialogues or not
@@ -267,7 +321,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 */
 void
 updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* Score, int* bShinyItem, int* bTorch,
+			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
 			int* bRustyKey, int* bToggleColor, int* bToggleWait,
 			int* bToggleClear, int* bToggleHUD, int* bToggleShowMenu,
 			int* bToggleSimple)
@@ -303,23 +357,77 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			roomCreditsLogic(*nInput, nCurrRoom, nCurrProg);
 			break;
 		
-		//Menu
-		case 0:
-			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
-			break;
+		//Menu with continue option
 		case -1:
 			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
 			break;
 		
-		//Introduction
+		//Menu page
+		case 0:
+			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
+			break;
+		
+		//Introduction page
 		case -4:
 			introductionLogic(*nInput, nCurrRoom, nCurrProg);
 			break;
+
+		//Room 1
+		case 1:
+			room1Logic(*nInput, nCurrRoom, nCurrProg);
+			break;
+
+		//Room 2
+		case 2:
+			room2Logic(*nInput, nCurrRoom, nCurrProg,
+						nHealth, nScore);
+			break;
+
+		//Room 3
+		case 3:
+			room3Logic(*nInput, nCurrRoom, nCurrProg,
+						nScore, bShinyItem);
+			break;
+
+		//Room 4
+		case 4:
+			room4Logic(*nInput, nCurrRoom, nCurrProg,
+						nHealth);
+			break;
+
+		//Room 5
+		case 5:
+			room5Logic(*nInput, nCurrRoom, nCurrProg,
+						bTorch);
+			break;
+
+		//Room 6
+		case 6:
+			room6Logic(*nInput, nCurrRoom, nCurrProg,
+						nHealth, nScore, *bTorch);
+			break;
+
+		//Room 7
+		case 7:
+			room7Logic(*nInput, nCurrRoom, nCurrProg);
+			break;
+
+		//Room 8
+		case 8:
+			room8Logic(*nInput, nCurrRoom, nCurrProg,
+						*bRustyKey);
+			break;
+
+		//Room 9
+		case 9:
+			room9Logic(*nInput, nCurrRoom, nCurrProg,
+						nGameEnding, nHealth, bRustyKey);
+			break;
+
+		//Room 10
+		case 10:
+			room10Logic(*nInput, nCurrRoom, nCurrProg,
+						nGameEnding, nScore, *bShinyItem);
+			break;
 	}
 }
-
-
-/*
-	This function updates the variables that track whether the player has been in the room before.
-	Preconditions:
-*/

@@ -5,15 +5,33 @@
 
 
 /* ------------------------ Function Prototypes ------------------------ */
+//These functions are responsible for the logic for each individual room
+void toggleOptionLogic(int* bOption);
 void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 						int* bToggleColor, int* bToggleWait,
 						int* bToggleClear, int* bToggleHUD,
 						int* bToggleShowMenu, int* bToggleSimple);
 void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
-void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, 
-                        int* nCurrProg);
-void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nHealth);
+void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
+void introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg);
+void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg);
+void room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nHealth, int* nScore);
+void room3Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nScore, int* bShinyItem);
+void room4Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nHealth);
+void room5Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* bTorch);
+void room6Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nHealth, int* nScore, int bTorch);
+void room7Logic(int nInput, int* nCurrRoom, int* nCurrProg);
+void room8Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int bRustyKey);
+void room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nGameEnding, int* nHealth, int* bRustyKey);
+void room10Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nGameEnding, int* nScore, int bShinyItem);
 /* --------------------------------------------------------------------- */
 
 
@@ -69,17 +87,23 @@ toggleOptionLogic(int* bOption)
 */
 void
 roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* bToggleColor, int* bToggleWait,
-				int* bToggleClear, int* bToggleHUD,
-				int* bToggleShowMenu, int* bToggleSimple)
+					int* bToggleColor, int* bToggleWait,
+					int* bToggleClear, int* bToggleHUD,
+					int* bToggleShowMenu, int* bToggleSimple)
 {
 	/*
-	The option page has n choices
+	The option page has 7 choices
 	0. Return to menu
-	1...
+	1. Toggle text color
+	3. Toggle clear screen
+	2. Toggle dialogue wait
+	4. Toggle display HUD
+	5. Toggle display return to menu option
+	6. Toggle simple dialogue
 	*/
 	switch (nInput)
 	{
+		//Return to menu
 		case 0:
 			if (*nCurrProg)
 				*nCurrRoom = -1; //where -1 is the menu page with a continue option
@@ -87,16 +111,18 @@ roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 				*nCurrRoom = 0; //where 0 is the normal menu page
 			break;
 		
+		//These options are responsible for the game display
+		//Toggle text color
 		case 1:
 			toggleOptionLogic(bToggleColor);
 			break;
 
 		case 2:
-			toggleOptionLogic(bToggleWait);
+			toggleOptionLogic(bToggleClear);
 			break;
 
 		case 3:
-			toggleOptionLogic(bToggleClear);
+			toggleOptionLogic(bToggleWait);
 			break;
 			
 		case 4:
@@ -176,13 +202,50 @@ roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 				
 		//terminate the program
 		case 4:
-			*nGameEnding = -1;
+			*nGameEnding = 0;
 		}
 }
 
-
+/*
+	This function is responsible for the logic of the introduction page
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+*/
 void
 introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg)
+{
+	/*
+	This room has 2 choices:
+		0. Return to menu
+		1. Continue
+	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1;
+			break;
+		
+		//move to room 1
+		case 1:
+			*nCurrRoom = 1;
+			*nCurrProg = 1;
+			break;
+	}
+}
+
+
+/*
+	This function is responsible for the logic of room 1
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+*/
+void
+room1Logic(int nInput, int* nCurrRoom, int* nCurrProg)
 {
 	/*
 	This room has 3 choices:
@@ -192,30 +255,76 @@ introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 	*/
 	switch (nInput)
 	{
+		//return to menu
 		case 0:
 			*nCurrRoom = -1;
 			break;
 		
+		//move to room 2
 		case 1:
-			
+			*nCurrRoom = 2;
+			*nCurrProg = 2;
+			break;
+
+		//move to room 3
+		case 2:
+			*nCurrRoom = 3;
+			*nCurrProg = 3;
 			break;
 	}
 }
 
 
+/*
+	This function is responsible for the logic of room 2
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current score of the player
+*/
 void
-room2Logic()
+room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nHealth, int* nScore)
 {
+	//The player loses 10 health and gains 2 points
+	*nHealth -= 10; //subtracts 10 from the player's health
+	*nScore += 2; //adds 2 to the player's score
+
 	/*
 	This room has 2 choices:
 		0. Return to menu
 		1. Go to room 4
 	*/
+	switch (nInput)
+	{
+	//return to menu
+	case 0:
+		*nCurrRoom = -1;
+		break;
+
+	//move to room 4
+	case 1:
+		*nCurrRoom = 4;
+		*nCurrProg = 4;
+		break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 3
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param nScore tracks the current score of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+*/
 void
-room3Logic()
+room3Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nScore, int* bShinyItem)
 {
 	/*
 	This room has 3 choices:
@@ -223,11 +332,39 @@ room3Logic()
 		1. Pick up the Shiny Item and gain 5 points then move to room 4
 		2. Ignore then move to room 4
 	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1;
+			break;
+
+		//obtain the shiny item and gain 5 points
+		case 1:
+			*bShinyItem = 1;//update that the player has the shiny item
+			*nScore += 5; 	//adds 5 points to the player's score
+							//fall through to move to the next room
+		
+		//move to room 4
+		case 2:
+			*nCurrRoom = 4;
+			*nCurrProg = 4;
+			break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 4
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param nHealth tracks the current health of the player
+*/
 void
-room4Logic()
+room4Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nHealth)
 {
 	/*
 	This room has 3 choices:
@@ -235,11 +372,38 @@ room4Logic()
 		1. Take the boat then move to room 5
 		2. Swim and lose 20 health then move to room 5
 	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1; //go to the menu with the continue option
+			break;
+
+		//lose 20 health then move to room 5
+		case 2:
+			*nHealth -= 20; //The player loses 20 health
+							//fall through to move to the next room
+
+		//move to room 5
+		case 1:
+			*nCurrRoom = 5;	//update the current room with the next room
+			*nCurrProg = 5;	//update the current progress with the next room
+			break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 5
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param bTorch tracks whether the player has the item Torch or not
+*/
 void
-room5Logic()
+room5Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* bTorch)
 {
 	/*
 	This room has 3 choices:
@@ -247,24 +411,80 @@ room5Logic()
 		1. Take the torch then move to room 6
 		2. Ignore then move to room 6
 	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1; //go to the menu with the continue option
+			break;
+
+		case 1:
+			*bTorch = 1; //updates that the player has the torch item
+						 //falls through to move to the next room
+
+		//move to room 6
+		case 2:
+			*nCurrRoom = 6;	//update the current room with the next room
+			*nCurrProg = 6;	//update the current progress with the next room
+			break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 6
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current score of the player
+	@param bTorch tracks whether the player has the item Torch or not
+*/
 void
-room6Logic()
+room6Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nHealth, int* nScore, int bTorch)
 {
 	/*
-	This room has 2 choices:
-		0. Return to menu
-		1. display the actions
-			1.1. Take out the torch and gain 5 points then move to room 7
-			1.2. Run and lose 15 health then move to room 7
+	This room has 2 possible outcomes:
+	1. The player gains 5 points if the player has the torch item
+	2. The player loses 15 health if the player does not have the torch item
 	*/
+	if (bTorch)
+		*nScore += 5;
+	else
+		*nHealth -= 15;
+
+	/*
+	This room has 2 choices:
+	0. Retrun to menu
+	1. Move to room 7
+	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1; //go to the menu with the continue option
+			break;
+
+		//move to room 7
+		case 1:
+			*nCurrRoom = 7;	//update the current room with the next room
+			*nCurrProg = 7;	//update the current progress with the next room
+			break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 7
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+*/
 void
-room7Logic()
+room7Logic(int nInput, int* nCurrRoom, int* nCurrProg)
 {
 	/*
 	This room has 3 choices:
@@ -272,11 +492,39 @@ room7Logic()
 		1. Move to room 8
 		2. Move to room 9
 	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1; //go to the menu with the continue option
+			break;
+
+		//move to room 8
+		case 1:
+			*nCurrRoom = 8;	//update the current room with the next room
+			*nCurrProg = 8;	//update the current progress with the next room
+			break;
+		
+		//move to room 9
+		case 2:
+			*nCurrRoom = 9;	//update the current room with the next room
+			*nCurrProg = 9;	//update the current progress with the next room
+			break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 8
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param bRustyKey tracks whether the player has the Rusty Key or not
+*/
 void
-room8Logic()
+room8Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int bRustyKey)
 {
 	/*
 	This room has 2 choices:
@@ -285,29 +533,118 @@ room8Logic()
 			1.1. If the player does not have the key then move back to room 9
 			1.2. If the player does have the key then move to room 10
 	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1; //go to the menu with the continue option
+			break;
+
+		//move to room 9 or 10 depending if the player has the rusty key or not
+		case 1:
+			//if the player has the rusty key item, move to room 10
+			if (bRustyKey)
+			{
+				*nCurrRoom = 10;	//update the current room with the next room
+				*nCurrProg = 10;	//update the current progress with the next room
+			}
+			//if the player does not have the rusty key item, move to room 9
+			else
+			{
+				*nCurrRoom = 9;	//update the current room with the next room
+				*nCurrProg = 9;	//update the current progress with the next room
+			}
+			break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 9
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param nGameEnding tracks the type of ending the player got
+	@param nHealth tracks the current health of the player
+	@param bRustyKey tracks whether the player has the Rusty Key or not
+*/
 void
-room9Logic()
+room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nGameEnding, int* nHealth, int* bRustyKey)
 {
+	//This room starts with the player losing 10 health:
+	*nHealth -= 10;
+
 	/*
-	This room has 3 choices and starts with losing 10 health:
+	This room has 3 choices:
 		0. Return to menu
 		1. Take the rusty key then move to room 8
 		2. Ignore the rusty key then set the ending to the "trapped ending"
 	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 0:
+			*nCurrRoom = -1; //go to the menu with the continue option
+			break;
+
+		//obtain the rusty key item and move to room 8
+		case 1:
+			*bRustyKey = 1; //updates that the player has the rusty key item
+			*nCurrRoom = 8;	//update the current room with the next room
+			*nCurrProg = 8;	//update the current progress with the next room
+			break;
+
+		//the player gets the trapped ending
+		case 2:
+			*nGameEnding = 2; //number 2 represents the trapped ending
+			break;
+	}
 }
 
 
+/*
+	This function is responsible for the logic of room 1
+	Preconditions: parameters are integers
+	@param nInput tracks the choice the player has made
+	@param nCurrRoom tracks the current room the player is in
+	@param nCurrProg tracks the current progress of an ongoing game
+	@param nGameEnding tracks the type of ending the player got
+	@param nScore tracks the current score of the player
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+*/
 void
-room10Logic()
+room10Logic(int nInput, int* nCurrRoom, int* nCurrProg,
+			int* nGameEnding, int* nScore, int bShinyItem)
 {
+	
+	//The player earns 20 points and the best ending if the player has the shiny item
+	if (bShinyItem)
+	{
+		*nScore += 20; //the player gains 20 points
+		*nGameEnding = 4; //number 4 represents the best ending
+	}
+	//else the player only gets the good ending
+	else
+		*nGameEnding = 3; //number 3 represents the good ending
+
 	/*
-	This room has 3 choices:
+	This room has 2 choices:
 	The player gains 20 points if the player has the shiny item
-		0. Return to menu
-		1. New game
+		1. Return to menu
 		2. Quit
 	*/
+	switch (nInput)
+	{
+		//return to menu
+		case 1:
+			*nCurrRoom = -1; //go to the menu with the continue option
+			break;
+
+		//Terminate the program
+		case 2:
+			*nGameEnding = 0; //terminates the main game loop
+			break;
+	}
 }

@@ -4,6 +4,7 @@
         "windows.h": "c",
         "stdio.h": "c",
         "gamelogic.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "prototypes": "c"
     }
 }

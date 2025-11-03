@@ -16,8 +16,8 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: October 31, 2025
-	Version: 1.13
+	Last Modified: November 3, 2025
+	Version: 1.14
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://en.wikipedia.org/wiki/ANSI_escape_code -> for the changing the color code
 						https://stackoverflow.com/questions/7898215/how-can-i-clear-an-input-buffer-in-c -> for the scanf fix
@@ -27,8 +27,8 @@ plagiarized the work of other students and/or persons.
 #include <stdlib.h>
 #include <unistd.h>
 #include "display.h"
-#include "gameLogic.h"
 #include "roomLogic.h"
+#include "gameLogic.h"
 
 
 /* ------------------------ Function Prototypes ------------------------ */
@@ -57,7 +57,7 @@ int main()
 	int bToggleSimple = 1;
 
 	//tracks game state
-	int nGameEnding = 0; //tracks the ending the player will receive
+	int nGameEnding = 1; //tracks the ending the player will receive
 	int nCurrRoom = 0; // tracks the current room the player is in
 	int nCurrProg = 0; //tracks total progress of the game by rooms; does not include the menu
 	int nInput = 0; //tracks the player's choice
@@ -79,7 +79,7 @@ int main()
 	
 
 	//main game loop
-	while (nHealth > 0 && nGameEnding == 0)
+	while (nHealth > 0 && nGameEnding)
 	{
 		//clear the screen
 		clearScreen(bToggleClear);
