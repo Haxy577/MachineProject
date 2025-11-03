@@ -11,10 +11,12 @@ void changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue)
 void displayMenu(int nCurrProg, int bToggleColor);
 void displayMenuOptions(int nCurrProg);
 void displayCredits();
+void displayOptionStatus(int bStatus, int bToggleColor);
 void displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 					int bToggleHUD, int bToggleShowMenu, int bToggleSimple);
 void displayOptionStatus(int bStatus, int bToggleColor);
-void displayEnding (int nGameEnding);
+void displayEnding (int nInput, int* nCurrRoom, int* nCurrProg,
+					int* nGameEnding);
 void displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
 					int bToggleHUD);
@@ -319,45 +321,6 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 	printf("0. Go back to menu\n");
 
 	displayLine();
-}
-
-
-/*
-	This function is responsible for calling the function that is
-		responsible for displaying the ending
-	Preconditions: nGameEnding is an integer
-	@param nGameEnding tracks the type of ending the player got
-*/
-void
-displayEnding (int nGameEnding)
-{
-    switch (nGameEnding)
-    {
-		//Exit
-		case 0:
-			printf("Thank You For Playing!\n");
-			break;
-
-		//Death ending
-        case 1:
-			printf("Death ending\n");
-			break;
-
-		//Trapped ending
-		case 2:
-			printf("Trapped ending\n");
-			break;
-		
-		//Good ending
-		case 3:
-			printf("Good ending\n");
-			break;
-
-		//Best ending
-		case 4:
-			printf("Best ending\n");
-			break;
-    }
 }
 
 
@@ -998,4 +961,66 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 		//display the options
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
+}
+
+
+/*
+	This function is responsible for calling the function that is
+		responsible for displaying the ending
+	Preconditions: nGameEnding is an integer
+	@param nGameEnding tracks the type of ending the player got
+*/
+void
+displayEnding (int nInput, int* nCurrRoom, int* nCurrProg,
+					int* nGameEnding)
+{
+    switch (*nGameEnding)
+    {
+		//Exit
+		case 0:
+			printf("Thank You For Playing!\n");
+			break;
+
+		//Death ending
+        case 1:
+			printf("Death ending\n");
+			break;
+
+		//Trapped ending
+		case 2:
+			printf("Trapped ending\n");
+			break;
+		
+		//Good ending
+		case 3:
+			printf("Good ending\n");
+			break;
+
+		//Best ending
+		case 4:
+			printf("Best ending\n");
+			break;
+    }
+}
+
+
+void
+displayUnknownAchievements()
+{
+	displayLine();
+	printf("|| ");
+	displayLine();
+}
+
+
+void
+displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3, 
+						int bGotEnding4, int bGotHealthy, int bGotPlentiful,
+						int bGotCollector, int bGotSpeedrun, int bGotCompletionist)
+{
+	//display achievement 1
+	displayLine();
+	printf("|| ");
+
+
 }

@@ -87,33 +87,34 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 	switch (nCurrRoom)
 	{
 		//Options
-		case -3:
+		case -4:
 			*nMinInput = 0;
 			*nMaxInput = 10;
 			break;
 
 		//Credits
-		case -2:
+		case -3:
 			*nMinInput = 1;
 			*nMaxInput = 2;
 			break;
 			
 		//Menu with continue game option
-		case -1:
+		case -2:
 			*nMinInput = 0;
 			*nMaxInput = 4;
 			break;
 			
 		//Menu
-		case 0:
+		case -1:
 			*nMinInput = 1;
 			*nMaxInput = 4;
 			break;
 
 		//Introduction
-		case -4:
+		case 0:
 			*nMinInput = 0;
 			*nMaxInput = 1;
+			break;
 
 		//Room 1
 		case 1:
@@ -205,29 +206,31 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 	switch (nCurrRoom)
 	{
 		//Options
-		case -3:
+		case -4:
 			displayOptions(bToggleColor, bToggleWait, bToggleClear,
 							bToggleHUD, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Credits page
-		case -2:
+		case -3:
 			displayCredits();
 			break;	
 			
 		//Menu
+		case -2:
 		case -1:
-		case 0:
 			displayMenu(nCurrProg, bToggleColor);
 			break;
-
-		case -4:
+		
+		//Introduction
+		case 0:
 			displayIntroduction(nHealth, nScore, bShinyItem,
 									bTorch, bRustyKey, bToggleColor,
 									bToggleWait, bToggleHUD, bToggleShowMenu,
 									bToggleSimple);
 			break;
 		
+		//Room 1
 		case 1:
 			displayRoom1(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -235,6 +238,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 2
 		case 2:
 			displayRoom2(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -242,6 +246,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 3
 		case 3:
 			displayRoom3(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -249,6 +254,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 4
 		case 4:
 			displayRoom4(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -256,6 +262,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 5
 		case 5:
 			displayRoom5(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -263,6 +270,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 6
 		case 6:
 			displayRoom6(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -270,6 +278,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 7
 		case 7:
 			displayRoom7(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -277,6 +286,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 8
 		case 8:
 			displayRoom8(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -284,6 +294,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 9
 		case 9:
 			displayRoom9(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -291,6 +302,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 							bToggleSimple);
 			break;
 
+		//Room 10
 		case 10:
 			displayRoom10(nHealth, nScore, bShinyItem,
 							bTorch, bRustyKey, bToggleColor,
@@ -345,7 +357,7 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 	switch (*nCurrRoom)
 	{
 		//Options page
-		case -3:
+		case -4:
 			roomOptionsLogic(*nInput, nCurrRoom, nCurrProg,
 								bToggleColor, bToggleWait,
 								bToggleClear, bToggleHUD,
@@ -353,22 +365,22 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			break;
 
 		//Credits page
-		case -2:
+		case -3:
 			roomCreditsLogic(*nInput, nCurrRoom, nCurrProg);
 			break;
 		
 		//Menu with continue option
-		case -1:
+		case -2:
 			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
 			break;
 		
 		//Menu page
-		case 0:
+		case -1:
 			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
 			break;
 		
 		//Introduction page
-		case -4:
+		case 0:
 			introductionLogic(*nInput, nCurrRoom, nCurrProg);
 			break;
 
@@ -426,8 +438,8 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 
 		//Room 10
 		case 10:
-			room10Logic(*nInput, nCurrRoom, nCurrProg,
-						nGameEnding, nScore, *bShinyItem);
+			room10Logic(*nInput, nCurrRoom, nGameEnding,
+							nScore, *bShinyItem);
 			break;
 	}
 }

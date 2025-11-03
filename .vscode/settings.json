@@ -5,6 +5,7 @@
         "stdio.h": "c",
         "gamelogic.h": "c",
         "stdlib.h": "c",
-        "prototypes": "c"
+        "prototypes": "c",
+        "roomlogic.h": "c"
     }
 }

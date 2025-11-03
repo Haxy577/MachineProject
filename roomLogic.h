@@ -16,22 +16,28 @@ void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg
 void introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg);
 void room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* nScore);
+				int* nHealth, int* nScore);
 void room3Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nScore, int* bShinyItem);
+				int* nScore, int* bShinyItem);
 void room4Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nHealth);
+				int* nHealth);
 void room5Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* bTorch);
+				int* bTorch);
 void room6Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* nScore, int bTorch);
+				int* nHealth, int* nScore, int bTorch);
 void room7Logic(int nInput, int* nCurrRoom, int* nCurrProg);
 void room8Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int bRustyKey);
+				int bRustyKey);
 void room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nGameEnding, int* nHealth, int* bRustyKey);
-void room10Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nGameEnding, int* nScore, int bShinyItem);
+				int* nGameEnding, int* nHealth, int* bRustyKey);
+void room10Logic(int nInput, int* nCurrRoom, int* nGameEnding,
+					int* nScore, int bShinyItem);
+void achievementsLogic(int nGameEnding, int nMoveCount, int nHealth,
+						int nScore, int bShinyItem, int bTorch,
+						int bRustyKey, int* bGotEnding1, int* bGotEnding2,
+						int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
+						int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
+						int* bGotCompletionist);
 /* --------------------------------------------------------------------- */
 
 
@@ -106,9 +112,9 @@ roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 		//Return to menu
 		case 0:
 			if (*nCurrProg)
-				*nCurrRoom = -1; //where -1 is the menu page with a continue option
+				*nCurrRoom = -2; //where -2 is the menu page with a continue option
 			else
-				*nCurrRoom = 0; //where 0 is the normal menu page
+				*nCurrRoom = -1; //where -1 is the normal menu page
 			break;
 		
 		//These options are responsible for the game display
@@ -160,9 +166,9 @@ roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 	{
 		case 2:
 			if (*nCurrProg)
-				*nCurrRoom = -1; //where -1 is the menu page with a continue option
+				*nCurrRoom = -2; //where -2 is the menu page with a continue option
 			else
-				*nCurrRoom = 0; //where 0 is the normal menu page
+				*nCurrRoom = -1; //where -1 is the normal menu page
 	}
 }
 
@@ -186,18 +192,18 @@ roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
 			break;
 		
 		case 1:
-			*nCurrRoom = -4;
-			*nCurrProg = -4;
+			*nCurrRoom = 0;
+			*nCurrProg = 0;
 			break;
 				
 		//Go to the credits
 		case 2:
-			*nCurrRoom = -2;
+			*nCurrRoom = -3;
 			break;
 
-		//Go to the credits
+		//Go to the options
 		case 3:
-			*nCurrRoom = -3;
+			*nCurrRoom = -4;
 			break;
 				
 		//terminate the program
@@ -225,7 +231,7 @@ introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1;
+			*nCurrRoom = -2;
 			break;
 		
 		//move to room 1
@@ -257,7 +263,7 @@ room1Logic(int nInput, int* nCurrRoom, int* nCurrProg)
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1;
+			*nCurrRoom = -2;
 			break;
 		
 		//move to room 2
@@ -301,7 +307,7 @@ room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 	//return to menu
 	case 0:
-		*nCurrRoom = -1;
+		*nCurrRoom = -2;
 		break;
 
 	//move to room 4
@@ -336,14 +342,14 @@ room3Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1;
+			*nCurrRoom = -2;
 			break;
 
 		//obtain the shiny item and gain 5 points
 		case 1:
 			*bShinyItem = 1;//update that the player has the shiny item
 			*nScore += 5; 	//adds 5 points to the player's score
-							//fall through to move to the next room
+			//Intentional Fallthrough
 		
 		//move to room 4
 		case 2:
@@ -376,13 +382,13 @@ room4Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1; //go to the menu with the continue option
+			*nCurrRoom = -2; //go to the menu with the continue option
 			break;
 
 		//lose 20 health then move to room 5
 		case 2:
 			*nHealth -= 20; //The player loses 20 health
-							//fall through to move to the next room
+			//Intentional fallthrough
 
 		//move to room 5
 		case 1:
@@ -415,12 +421,13 @@ room5Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1; //go to the menu with the continue option
+			*nCurrRoom = -2; //go to the menu with the continue option
 			break;
 
+		//obtain torch item
 		case 1:
 			*bTorch = 1; //updates that the player has the torch item
-						 //falls through to move to the next room
+			//Intentional Fallthrough
 
 		//move to room 6
 		case 2:
@@ -464,7 +471,7 @@ room6Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1; //go to the menu with the continue option
+			*nCurrRoom = -2; //go to the menu with the continue option
 			break;
 
 		//move to room 7
@@ -496,7 +503,7 @@ room7Logic(int nInput, int* nCurrRoom, int* nCurrProg)
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1; //go to the menu with the continue option
+			*nCurrRoom = -2; //go to the menu with the continue option
 			break;
 
 		//move to room 8
@@ -537,7 +544,7 @@ room8Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1; //go to the menu with the continue option
+			*nCurrRoom = -2; //go to the menu with the continue option
 			break;
 
 		//move to room 9 or 10 depending if the player has the rusty key or not
@@ -586,7 +593,7 @@ room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 		//return to menu
 		case 0:
-			*nCurrRoom = -1; //go to the menu with the continue option
+			*nCurrRoom = -2; //go to the menu with the continue option
 			break;
 
 		//obtain the rusty key item and move to room 8
@@ -615,8 +622,8 @@ room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	@param bShinyItem tracks whether the player has the Shiny Item or not
 */
 void
-room10Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nGameEnding, int* nScore, int bShinyItem)
+room10Logic(int nInput, int* nCurrRoom, int* nGameEnding,
+				int* nScore, int bShinyItem)
 {
 	
 	//The player earns 20 points and the best ending if the player has the shiny item
@@ -639,7 +646,7 @@ room10Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 	{
 		//return to menu
 		case 1:
-			*nCurrRoom = -1; //go to the menu with the continue option
+			*nCurrRoom = -2; //go to the menu with the continue option
 			break;
 
 		//Terminate the program
@@ -647,4 +654,51 @@ room10Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 			*nGameEnding = 0; //terminates the main game loop
 			break;
 	}
+}
+
+
+void
+achievementsLogic(int nGameEnding, int nMoveCount, int nHealth,
+					int nScore, int bShinyItem, int bTorch,
+					int bRustyKey, int* bGotEnding1, int* bGotEnding2,
+					int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
+					int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
+					int* bGotCompletionist)
+{
+	//Ending achievements
+	switch (nGameEnding)
+	{
+		case 1:
+			*bGotEnding1 += 1;
+			break;
+		
+		case 2:
+			*bGotEnding2 += 1;
+			break;
+
+		case 3:
+			*bGotEnding3 += 1;
+			break;
+
+		case 4:
+			*bGotEnding4 += 1;
+	}
+
+	//Other achievements
+	if (nHealth >= 40)
+		*bGotHealthy += 1;
+
+	if (nScore >= 30)
+		*bGotPlentiful += 1;
+
+	if (bShinyItem && bTorch && bRustyKey)
+		*bGotCollector += 1;
+
+	if (nMoveCount <= 10)
+		*bGotSpeedrun += 1;
+
+	if (*bGotEnding1 && *bGotEnding2 &&*bGotEnding3 && 
+			*bGotEnding4 && *bGotHealthy && *bGotPlentiful && 
+			*bGotCollector && *bGotSpeedrun && *bGotCompletionist)
+		*bGotCompletionist += 1;
 }
