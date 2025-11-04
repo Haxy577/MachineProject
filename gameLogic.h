@@ -8,16 +8,38 @@
 //These functions are responsible for the game logic
 void getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
 void updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput);
-void displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
-					int nScore, int bShinyItem, int bTorch,
-					int bRustyKey, int bToggleColor, int bToggleWait,
-					int bToggleClear, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple);
-void updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
+void displayCurrentRoom(
+		/*Global game stats*/
+			int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
+			int nTotalInputError, int nTotalHealthLost, int nTotalScore, int nTotalShinyItem,
+			int nTotalTorchItem, int nTotalRustyKeyItem,
+
+		/*Local game states*/
+			int nCurrRoom, int nCurrProg,
+
+		/*Player stats and inventory*/
+			int nHealth, int nScore, int bShinyItem, int bTorch, int bRustyKey,
+			
+		/*Achievements*/
+			int bGotEnding1, int bGotEnding2, int bGotEnding3, int bGotEnding4,
+			int bGotHealthy, int bGotPlentiful, int bGotCollector, int bGotSpeedrun,
+			int bGotCompletionist,
+			
+		/*UI and gameplay settings*/
+			int bToggleColor, int bToggleWait, int bToggleClear, int bToggleHUD,
+			int bToggleShowMenu, int bToggleSimple
+		);
+void updateGame(int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
 				int* bRustyKey, int* bToggleColor, int* bToggleWait,
 				int* bToggleClear, int*bToggleHUD, int* bToggleShowMenu,
 				int* bToggleSimple);
+void updateAchievements(int nGameEnding, int nMoveCount, int nHealth,
+						int nScore, int bShinyItem, int bTorch,
+						int bRustyKey, int* bGotEnding1, int* bGotEnding2,
+						int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
+						int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
+						int* bGotCompletionist);
 /* --------------------------------------------------------------------- */
 
 
@@ -87,12 +109,24 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 	switch (nCurrRoom)
 	{
 		//Options
-		case -4:
+		case -6:
 			*nMinInput = 0;
 			*nMaxInput = 10;
 			break;
 
 		//Credits
+		case -5:
+			*nMinInput = 1;
+			*nMaxInput = 2;
+			break;
+		
+		//Statistics
+		case -4:
+			*nMinInput = 1;
+			*nMaxInput = 2;
+			break;
+
+		//Achievements
 		case -3:
 			*nMinInput = 1;
 			*nMaxInput = 2;
@@ -101,13 +135,13 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 		//Menu with continue game option
 		case -2:
 			*nMinInput = 0;
-			*nMaxInput = 4;
+			*nMaxInput = 7;
 			break;
 			
 		//Menu
 		case -1:
 			*nMinInput = 1;
-			*nMaxInput = 4;
+			*nMaxInput = 7;
 			break;
 
 		//Introduction
@@ -197,27 +231,63 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
 */
 void
-displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
-					int nScore, int bShinyItem, int bTorch,
-					int bRustyKey, int bToggleColor, int bToggleWait,
-					int bToggleClear, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayCurrentRoom(
+		/*Global game stats*/
+			int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
+			int nTotalInputError, int nTotalHealthLost, int nTotalScore, int nTotalShinyItem,
+			int nTotalTorchItem, int nTotalRustyKeyItem,
+
+		/*Local game states*/
+			int nCurrRoom, int nCurrProg,
+
+		/*Player stats and inventory*/
+			int nHealth, int nScore, int bShinyItem, int bTorch, int bRustyKey,
+			
+		/*Achievements*/
+			int bGotEnding1, int bGotEnding2, int bGotEnding3, int bGotEnding4,
+			int bGotHealthy, int bGotPlentiful, int bGotCollector, int bGotSpeedrun,
+			int bGotCompletionist,
+			
+		/*UI and gameplay settings*/
+			int bToggleColor, int bToggleWait, int bToggleClear, int bToggleHUD,
+			int bToggleShowMenu, int bToggleSimple
+		)
 {
 	switch (nCurrRoom)
 	{
 		//Options
-		case -4:
+		case -6:
 			displayOptions(bToggleColor, bToggleWait, bToggleClear,
 							bToggleHUD, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Credits page
-		case -3:
+		case -5:
 			displayCredits();
-			break;	
+			break;
+
+		//Statistics page
+		case -4:
+			displayStatistics(
+				nGameCount, nGameCompletion, nTotalMoveCount, nTotalInputs,
+				nTotalInputError, nTotalHealthLost, nTotalScore, nTotalShinyItem,
+				nTotalTorchItem, nTotalRustyKeyItem
+			);
+			break;
 			
-		//Menu
+		//Achievements page
+		case -3:
+			displayAchievements(bGotEnding1, bGotEnding2, bGotEnding3, 
+						bGotEnding4, bGotHealthy, bGotPlentiful,
+						bGotCollector, bGotSpeedrun, bGotCompletionist,
+						bToggleColor);
+			break;
+
+		//Menu with continue choice
 		case -2:
+		//Intentional fallthrough
+
+		//Menu page
 		case -1:
 			displayMenu(nCurrProg, bToggleColor);
 			break;
@@ -332,7 +402,7 @@ displayCurrentRoom(int nCurrRoom, int nCurrProg, int nHealth,
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
 */
 void
-updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
+updateGame(int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
 			int* bRustyKey, int* bToggleColor, int* bToggleWait,
 			int* bToggleClear, int* bToggleHUD, int* bToggleShowMenu,
@@ -357,89 +427,150 @@ updateGame(int* nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 	switch (*nCurrRoom)
 	{
 		//Options page
-		case -4:
-			roomOptionsLogic(*nInput, nCurrRoom, nCurrProg,
+		case -6:
+			roomOptionsLogic(nInput, nCurrRoom, nCurrProg,
 								bToggleColor, bToggleWait,
 								bToggleClear, bToggleHUD,
 								bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Credits page
-		case -3:
-			roomCreditsLogic(*nInput, nCurrRoom, nCurrProg);
+		case -5:
+			roomCreditsLogic(nInput, nCurrRoom, nCurrProg);
 			break;
-		
+
+		//Statistics page
+		case -4:
+			roomStatisticsLogic(nInput, nCurrRoom, nCurrProg);
+			break;
+
+		//Achievements page
+		case -3:
+			roomAchievementsLogic(nInput, nCurrRoom, nCurrProg);
+			break;
+
 		//Menu with continue option
 		case -2:
-			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
+			roomMenuLogic(nInput, nCurrRoom, nCurrProg,
+							nGameEnding, nHealth, nScore,
+							bShinyItem, bTorch, bRustyKey);
 			break;
 		
 		//Menu page
 		case -1:
-			roomMenuLogic(*nInput, nGameEnding, nCurrRoom, nCurrProg);
+			roomMenuLogic(nInput, nCurrRoom, nCurrProg,
+							nGameEnding, nHealth, nScore,
+							bShinyItem, bTorch, bRustyKey);
 			break;
 		
 		//Introduction page
 		case 0:
-			introductionLogic(*nInput, nCurrRoom, nCurrProg);
+			introductionLogic(nInput, nCurrRoom, nCurrProg);
 			break;
 
 		//Room 1
 		case 1:
-			room1Logic(*nInput, nCurrRoom, nCurrProg);
+			room1Logic(nInput, nCurrRoom, nCurrProg);
 			break;
 
 		//Room 2
 		case 2:
-			room2Logic(*nInput, nCurrRoom, nCurrProg,
+			room2Logic(nInput, nCurrRoom, nCurrProg,
 						nHealth, nScore);
 			break;
 
 		//Room 3
 		case 3:
-			room3Logic(*nInput, nCurrRoom, nCurrProg,
+			room3Logic(nInput, nCurrRoom, nCurrProg,
 						nScore, bShinyItem);
 			break;
 
 		//Room 4
 		case 4:
-			room4Logic(*nInput, nCurrRoom, nCurrProg,
+			room4Logic(nInput, nCurrRoom, nCurrProg,
 						nHealth);
 			break;
 
 		//Room 5
 		case 5:
-			room5Logic(*nInput, nCurrRoom, nCurrProg,
+			room5Logic(nInput, nCurrRoom, nCurrProg,
 						bTorch);
 			break;
 
 		//Room 6
 		case 6:
-			room6Logic(*nInput, nCurrRoom, nCurrProg,
+			room6Logic(nInput, nCurrRoom, nCurrProg,
 						nHealth, nScore, *bTorch);
 			break;
 
 		//Room 7
 		case 7:
-			room7Logic(*nInput, nCurrRoom, nCurrProg);
+			room7Logic(nInput, nCurrRoom, nCurrProg);
 			break;
 
 		//Room 8
 		case 8:
-			room8Logic(*nInput, nCurrRoom, nCurrProg,
+			room8Logic(nInput, nCurrRoom, nCurrProg,
 						*bRustyKey);
 			break;
 
 		//Room 9
 		case 9:
-			room9Logic(*nInput, nCurrRoom, nCurrProg,
+			room9Logic(nInput, nCurrRoom, nCurrProg,
 						nGameEnding, nHealth, bRustyKey);
 			break;
 
 		//Room 10
 		case 10:
-			room10Logic(*nInput, nCurrRoom, nGameEnding,
+			room10Logic(nInput, nCurrRoom, nGameEnding,
 							nScore, *bShinyItem);
 			break;
 	}
+}
+
+
+void
+updateAchievements(int nGameEnding, int nMoveCount, int nHealth,
+					int nScore, int bShinyItem, int bTorch,
+					int bRustyKey, int* bGotEnding1, int* bGotEnding2,
+					int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
+					int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
+					int* bGotCompletionist)
+{
+	//Ending achievements
+	switch (nGameEnding)
+	{
+		case 1:
+			*bGotEnding1 += 1;
+			break;
+		
+		case 2:
+			*bGotEnding2 += 1;
+			break;
+
+		case 3:
+			*bGotEnding3 += 1;
+			break;
+
+		case 4:
+			*bGotEnding4 += 1;
+	}
+
+	//Other achievements
+	if (nHealth >= 40)
+		*bGotHealthy += 1;
+
+	if (nScore >= 30)
+		*bGotPlentiful += 1;
+
+	if (bShinyItem && bTorch && bRustyKey)
+		*bGotCollector += 1;
+
+	if (nMoveCount <= 10)
+		*bGotSpeedrun += 1;
+
+	if (*bGotEnding1 && *bGotEnding2 &&*bGotEnding3 && 
+			*bGotEnding4 && *bGotHealthy && *bGotPlentiful && 
+			*bGotCollector && *bGotSpeedrun && *bGotCompletionist)
+		*bGotCompletionist += 1;
 }

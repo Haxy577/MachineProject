@@ -9,7 +9,6 @@ void displayLine();
 void clearScreen(int bToggleClear);
 void changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue);
 void displayMenu(int nCurrProg, int bToggleColor);
-void displayMenuOptions(int nCurrProg);
 void displayCredits();
 void displayOptionStatus(int bStatus, int bToggleColor);
 void displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
@@ -64,42 +63,17 @@ void displayRoom10(int nHealth, int nScore, int bShinyItem,
 						int bTorch, int bRustyKey, int bToggleColor,
 						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
 						int bToggleSimple);
+void displayEndingPage(int nGameEnding, int nHealth, int nScore,
+						int bShinyItem, int bTorch, int bRustyKey,
+						int bGotEnding1, int bGotEnding2, int bGotEnding3,
+						int bGotEnding4, int bGotHealthy, int bGotPlentiful,
+						int bGotCollector, int bGotSpeedrun, int bGotCompletionist);
+void displayUnknownAchievement();
+void displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3, 
+							int bGotEnding4, int bGotHealthy, int bGotPlentiful,
+							int bGotCollector, int bGotSpeedrun, int bGotCompletionist,
+							int bToggleColor);
 /* --------------------------------------------------------------------- */
-
-
-/*
-	This function is responsible for printing the ASCII art
-		of the title screen
-	Preconditions: bToggleColor is a integer
-	@param bToggleColor tracks whether to display different colors or not
-*/
-void
-displayTitle(int bToggleColor)
-{
-	changeColor(bToggleColor, 1, 128, 128, 128); // this changes the color into a dark gray
-	//This prints the words "The Lost"
-	printf("%s%s%s%s%s%s%s",
-			" ______  __                    __                       __      \n",
-			"/\\__  _\\/\\ \\                  /\\ \\                     /\\ \\__   \n",
-			"\\/_/\\ \\/\\ \\ \\___      __      \\ \\ \\        ___     ____\\ \\ ,_\\  \n",
-			"   \\ \\ \\ \\ \\  _ `\\  /'__`\\     \\ \\ \\  __  / __`\\  /',__\\\\ \\ \\/  \n",
-			"    \\ \\ \\ \\ \\ \\ \\ \\/\\  __/      \\ \\ \\L\\ \\/\\ \\L\\ \\/\\__, `\\\\ \\ \\_ \n",
-			"     \\ \\_\\ \\ \\_\\ \\_\\ \\____\\      \\ \\____/\\ \\____/\\/\\____/ \\ \\__\\ \n",
-			"      \\/_/  \\/_/\\/_/\\/____/       \\/___/  \\/___/  \\/___/   \\/__/ \n"
-	);
-	
-	//This prints the word "Cavern"
-	printf("%s%s%s%s%s%s%s",
-		"            ____                                                 \n",
-		"           /\\  _`\\                                               \n",
-		"           \\ \\ \\/\\_\\     __     __  __     __   _ __    ___      \n",
-		"            \\ \\ \\/_/_  /'__`\\  /\\ \\/\\ \\  /'__`\\/\\`'__\\/' _ `\\    \n",
-		"             \\ \\ \\L\\ \\/\\ \\L\\.\\_\\ \\ \\_/ |/\\  __/\\ \\ \\/ /\\ \\/\\ \\   \n",
-		"              \\ \\____/\\ \\__/.\\_\\\\ \\___/ \\ \\____\\\\ \\_\\ \\ \\_\\ \\_\\  \n",
-		"               \\/___/  \\/__/\\/_/ \\/__/   \\/____/ \\/_/  \\/_/\\/_/  \n"
-	);
-	changeColor(bToggleColor, 0, 255, 255, 255); //this changes back the color to white
-}
 
 
 /*
@@ -110,17 +84,14 @@ displayTitle(int bToggleColor)
 void
 displayLine()
 {
-	/*This would repeat a total of seven times for a total 
-		of seventy (70) characters*/
-	printf("%s%s%s%s%s%s%s",
-		"==========",
-		"==========",
-		"==========",
-		"==========",
-		"==========",
-		"==========",
-		"==========\n"
-	);
+	int i; //used as a counter for the for loop
+	/*This would repeat a total of eight times for a total 
+		of seventy (80) characters*/
+	for (i = 0; i < 8; i++)
+		printf("==========");
+	
+	//print a next line
+	printf("\n");
 }
 
 
@@ -179,7 +150,27 @@ displayMenu(int nCurrProg, int bToggleColor)
 {
 	//displays the title screen
 	displayLine();
-	displayTitle(bToggleColor);
+	changeColor(bToggleColor, 1, 128, 128, 128); // this changes the color into a dark gray
+	//displays the word "THE LOST"
+	printf("%s%s%s%s%s%s",
+		":::::::::::: ::   .: .,::::::       :::         ...      .::::::.:::::::::::: \n",
+		";;;;;;;;'''',;;   ;;,;;;;''''       ;;;      .;;;;;;;.  ;;;`    `;;;;;;;;'''' \n",
+		"     [[    ,[[[,,,[[[ [[cccc        [[[     ,[[     \\[[,'[==/[[[[,    [[      \n",
+		"     $$    \"$$$\"\"\"$$$ $$\"\"\"\"        $$'     $$$,     $$$  '''    $    $$      \n",
+		"     88,    888   \"88 888oo,__     o88oo,.__\"888,_ _,88P 88b    dP    88,     \n",
+		"     MMM    MMM    YM \"\"\"\"YUMMM    \"\"\"\"YUMMM  \"YMMMMMP\"   \"YMmMY\"     MMM     \n\n"
+	);
+	//displays the word "CAVERN"
+	printf("%s%s%s%s%s%s",
+		"         .,-:::::   :::.  :::      .::..,:::::: :::::::.. :::.    :::.       \n",
+		"       ,;;;'````'   ;;`;; ';;,   ,;;;' ;;;;'''' ;;;;``;;;;`;;;;,  `;;;       \n",
+		"       [[[         ,[[ '[[,\\[[  .[[/    [[cccc   [[[,/[[['  [[[[[. '[[       \n",
+		"       $$$        c$$$cc$$$cY$c.$$\"     $$\"\"\"\"   $$$$$$c    $$$ \"Y$c$$       \n",
+		"       `88bo,__,o, 888   888,Y88P       888oo,__ 888b \"88bo,888    Y88       \n",
+		"         \"YUMMMMMP\"YMM   \"\"`  MP        \"\"\"\"YUMMMMMMM   \"W\" MMM     YM     \n"
+	);
+
+	changeColor(bToggleColor, 0, 255, 255, 255); //this changes back the color to white
 	displayLine();
 	
 	//displays opening remarks
@@ -187,28 +178,17 @@ displayMenu(int nCurrProg, int bToggleColor)
 	printf("Input the number of the corresponding option:\n\n");
 	
 	//displays the options
-	displayMenuOptions(nCurrProg);
-}
-
-
-/*
-	This function displays options available for the menu
-	Preconditions: nCurrProg is a non-negative integer
-	@param nCurrProg tracks the current progress of an ongoing game
-*/
-void
-displayMenuOptions(int nCurrProg)
-{
-	//if there is already an ongoing game display the continue option
-	if (nCurrProg)
-	{
+	//if there is already an ongoing game display the continue choice
+	if (nCurrProg >= 0)
 		printf("0. Continue Game\n\n");
-	}
-			
-		printf("1. Start new game\n\n");
-		printf("2. Credits\n\n");
-		printf("3. Options\n\n");
-		printf("4. Exit\n\n");	
+
+	//display the rest of the choice	
+	printf("1. Start new game\n\n");
+	printf("2. Achievements\n\n");
+	printf("3. Statistics\n\n");
+	printf("4. Credits\n\n");
+	printf("5. Options\n\n");
+	printf("6. Exit\n\n");	
 }
 
 
@@ -274,46 +254,47 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 {
 	//Display the option ascii art
 	displayLine();
-	printf("%53s%53s%53s%53s%53s%53s",
-		"  ___        _   _                  \n",
-		" / _ \\ _ __ | |_(_) ___  _ __  ___  \n",
-		"| | | | '_ \\| __| |/ _ \\| '_ \\/ __| \n",
-		"| |_| | |_) | |_| | (_) | | | \\__ \\ \n",
-		" \\___/| .__/ \\__|_|\\___/|_| |_|___/ \n",
-		"      |_|                           \n"
+	changeColor(bToggleColor,0,82,90,163); //change the color to green
+	printf("%s%s%s%s%s",
+		"   ooooooo  oooooooooo  ooooooooooo ooooo  ooooooo  oooo   oooo oooooooo8   \n",
+		"   o888   888o 888    888 88  888  88  888 o888   888o 8888o  88 888          \n",
+		"   888     888 888oooo88      888      888 888     888 88 888o88  888oooooo   \n",
+		"   888o   o888 888            888      888 888o   o888 88   8888         888  \n",
+		"     88ooo88  o888o          o888o    o888o  88ooo88  o88o    88 o88oooo888   \n"
 	);
+	changeColor(bToggleColor,0,255,255,255); //reset the color back to white
 	displayLine();
 
 
 	//display the options
-	printf("%-64s%6s\n\n", "Options:", "Status");
+	printf("%-74s%6s\n\n", "Options:", "Status");
 
 	printf("Display Options:\n");
 
 	//Colored Text option
-	printf("%-64s", "1. Colored Texts (ON/OFF)");
+	printf("%-74s", "1. Colored Texts (ON/OFF)");
 	displayOptionStatus(bToggleColor, bToggleColor);
 
 	//Clear Screen option
-	printf("%-64s", "2. Clear Screen (ON/OFF)");
+	printf("%-74s", "2. Clear Screen (ON/OFF)");
 	displayOptionStatus(bToggleClear, bToggleColor);
 
 	printf("\nGameplay Options:\n");
 
 	//Dialogue Wait option
-	printf("%-64s", "3. Dialogue Wait (ON/OFF)");
+	printf("%-74s", "3. Dialogue Wait (ON/OFF)");
 	displayOptionStatus(bToggleWait, bToggleColor);
 
 	//Display HUD option
-	printf("%-64s", "4. Display Heads-up Display(HUD) (ON/OFF)");
+	printf("%-74s", "4. Display Heads-up Display(HUD) (ON/OFF)");
 	displayOptionStatus(bToggleHUD, bToggleColor);
 
 	//Display whether to show the return to menu option while playing
-	printf("%-64s", "5. Display Return to Menu Choice (ON/OFF)");
+	printf("%-74s", "5. Display Return to Menu Choice (ON/OFF)");
 	displayOptionStatus(bToggleShowMenu, bToggleColor);
 
 	//Display the simple dialogue option
-	printf("%-64s", "6. Simple / Skeleton Dialogue (ON/OFF)");
+	printf("%-74s", "6. Simple / Skeleton Dialogue (ON/OFF)");
 	displayOptionStatus(bToggleSimple, bToggleColor);
 
 	//Show the go back to menu option
@@ -1005,10 +986,184 @@ displayEnding (int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 void
-displayUnknownAchievements()
+displayEndingPage(int nGameEnding, int nHealth, int nScore,
+					int bShinyItem, int bTorch, int bRustyKey,
+					int bGotEnding1, int bGotEnding2, int bGotEnding3,
+					int bGotEnding4, int bGotHealthy, int bGotPlentiful,
+					int bGotCollector, int bGotSpeedrun, int bGotCompletionist)
+{
+	//display heading
+		printf("%s%s",
+			"   ______________________________ \n",
+			" / \\                             \\. \n"
+		);
+		
+		//display the type of game ending
+		switch (nGameEnding)
+		{
+			//death ending
+			case 1:
+				printf("|   |  %18s        |. \n", "Death Ending");
+				break;
+			
+			//trapped ending
+			case 2:
+				printf("|   |  %19s       |. \n", "Trapped Ending");
+				break;
+			
+			//good ending
+			case 3:
+				printf("|   |  %17s         |. \n", "Good Ending");
+				break;
+
+			//best ending
+			case 4:
+				printf("|   |  %17s         |. \n", "Best Ending");
+				break;
+		}
+
+		//display player stats
+		printf(" \\_ |                            |. \n");
+		printf("    |  Player 1                  |. \n");
+		printf("    |  Health: %02d                |. \n", nHealth);
+		printf("    |  Score: %02d                 |. \n", nScore);
+		printf("    |  Items:                    |. \n");
+
+		//display the player items
+		if (bShinyItem)
+			printf("    |     Shiny Item             |. \n");
+		if (bTorch)
+			printf("    |     Torch                  |. \n");
+		if (bRustyKey)
+			printf("    |     Rusty Key              |. \n");
+
+		//display achievements
+		printf("    |                            |. \n");
+		printf("    |        Achievements        |. \n");
+
+		//display unique obtained achievements
+		//Ending 1 achievement
+		if (bGotEnding1 == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Ending 1 (Death Ending)");
+
+			//increment by 1 so that it does not display again
+			bGotEnding1++;
+		}
+
+		//Ending 2 achievement
+		if (bGotEnding2 == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s |. \n", "Ending 2 (Trapped Ending)");
+
+			//increment by 1 so that it does not display again
+			bGotEnding2++;
+		}
+
+		//Ending 3 achievement
+		if (bGotEnding3 == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Ending 3 (Good Ending)");
+
+			//increment by 1 so that it does not display again
+			bGotEnding3++;
+		}
+
+		//Ending 4 achievement
+		if (bGotEnding4 == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Ending 4 (Best Ending)");
+
+			//increment by 1 so that it does not display again
+			bGotEnding4++;
+		}
+
+		//Healthy achievement
+		if (bGotHealthy == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Healthy");
+
+			//increment by 1 so that it does not display again
+			bGotHealthy++;
+		}
+
+		//Plentiful achievement
+		if (bGotPlentiful == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Plentiful");
+
+			//increment by 1 so that it does not display again
+			bGotPlentiful++;
+		}
+
+		//Collector achievement
+		if (bGotCollector == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Collector");
+
+			//increment by 1 so that it does not display again
+			bGotCollector++;
+		}
+
+		//Speedrunner achievement
+		if (bGotSpeedrun == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Speedrunner");
+
+			//increment by 1 so that it does not display again
+			bGotSpeedrun++;
+		}
+
+		//Completionist achievement
+		if (bGotCompletionist == 1)
+		{
+			//display the achievement
+			printf("    |  %-24s  |. \n", "Completionist");
+
+			//increment by 1 so that it does not display again
+			bGotCompletionist++;
+		}
+		
+		//display footer
+		printf("%s%s%s%s",
+			"    |                            |. \n",
+			"    |   _________________________|___ \n",
+			"    |  /                            /. \n",
+			"    \\_/____________________________/. \n\n\n"
+		);
+}
+
+
+void
+displayUnknownAchievement()
 {
 	displayLine();
-	printf("|| ");
+	//display achievement and its description then display its achievement art
+	printf("|| %29s%21s ||  ", "?? ??? ??? ?","");
+	printf("%17s", "_________  \n");
+
+	printf("|| %29s%21s ||  ", "?? ??? ??? ?","");
+	printf("%17s", "\\_____   \\ \n");
+
+	printf("|| %29s%21s ||   ", "?? ??? ??? ?","");
+	printf("%17s", "   /   __/  \n");
+
+	printf("|| %29s%21s ||   ", "?? ??? ??? ?","");
+	printf("%17s", "   |   |     \n");
+
+	printf("|| %29s%21s ||   ", "?? ??? ??? ?","");
+	printf("%17s", "   |   |     \n");
+
+	printf("|| %29s%21s ||  ", "?? ??? ??? ?","");
+	printf("%17s", "   <___>    \n");
 	displayLine();
 }
 
@@ -1016,11 +1171,68 @@ displayUnknownAchievements()
 void
 displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3, 
 						int bGotEnding4, int bGotHealthy, int bGotPlentiful,
-						int bGotCollector, int bGotSpeedrun, int bGotCompletionist)
+						int bGotCollector, int bGotSpeedrun, int bGotCompletionist,
+						int bToggleColor)
 {
-	//display achievement 1
+	//display achievement ascii art
 	displayLine();
-	printf("|| ");
+	printf("%s%s%s%s%s%s",
+		"   _____         .__    .__                                          __           \n",
+		"  /  _  \\   ____ |  |__ |__| _______  __ ____   _____   ____   _____/  |_  ______ \n",
+		" /  /_\\  \\_/ ___\\|  |  \\|  |/ __ \\  \\/ // __ \\ /     \\_/ __ \\ /    \\   __\\/  ___/ \n",
+		"/    |    \\  \\___|   Y  \\  \\  ___/\\   /\\  ___/|  Y Y  \\  ___/|   |  \\  |  \\___ \\  \n",
+		"\\____|__  /\\___  >___|  /__|\\___  >\\_/  \\___  >__|_|  /\\___  >___|  /__| /____  > \n",
+		"        \\/     \\/     \\/        \\/          \\/      \\/     \\/     \\/          \\/  \n"
+	);
+	displayLine();
+
+	//display achievement 1
+	changeColor(bToggleColor,1,255,0,0); //change color to red
+	if (bGotEnding1)
+	{
+		
+	}
+	else
+		displayUnknownAchievement();
+	changeColor(bToggleColor,0,255,255,255); //change color back to white
+}
 
 
+void
+displayStatistics(int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
+					int nTotalInputError, int nTotalHealthLost, int nTotalScore, int nTotalShinyItem,
+					int nTotalTorchItem, int nTotalRustyKeyItem)
+{
+	displayLine();
+	printf("%67s%67s%67s%67s%67s",
+		" oooooooo8 ooooooooooo   o   ooooooooooo  oooooooo8   \n",
+		"888        88  888  88  888  88  888  88 888          \n",
+		" 888oooooo     888     8  88     888      888oooooo   \n",
+		"        888    888    8oooo88    888             888  \n",
+		"o88oooo888    o888o o88o  o888o o888o    o88oooo888   \n"
+	);
+	displayLine();
+	
+	printf("%-70s%10s\n", "Name:", "Statistic:");
+
+	//game stats
+	printf("-------------------------------- Game Statistics ------------------------------- \n");
+	printf("%-70s%10d\n", "Amount of times you have started a new game:", nGameCount);
+	printf("%-70s%10d\n", "Amount of times you have reached an ending:", nGameCompletion);
+	printf("%-70s%10d\n", "Amount of times you moved between rooms in a game:", nTotalMoveCount);
+	printf("%-70s%10d\n", "Amount of times you made a choice:", nTotalInputs);
+	printf("%-70s%10d\n\n", "Amount of times you inputted a invalid input:", nTotalInputError);
+
+	//player stats
+	printf("------------------------------- Player Statistics ------------------------------ \n");
+	printf("%-70s%10d\n", "Total amount of health you have lost:", nTotalHealthLost);
+	printf("%-70s%10d\n", "Total amount of the scores you have obtained:", nTotalScore);
+	printf("%-70s%10d\n", "Amount of times you have obtained the Shiny Item:", nTotalShinyItem);
+	printf("%-70s%10d\n", "Amount of tines you have obtained the Torch item:", nTotalTorchItem);
+	printf("%-70s%10d\n\n\n", "Amount of times you have obtained the Rusty Key item:", nTotalRustyKeyItem);
+
+	//display the choices:
+	printf("Choices:\n\n");
+	printf("1. Stay.\n\n");
+	printf("2. Go back to menu.\n\n");
 }

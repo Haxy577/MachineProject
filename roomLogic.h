@@ -12,7 +12,9 @@ void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 						int* bToggleClear, int* bToggleHUD,
 						int* bToggleShowMenu, int* bToggleSimple);
 void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
-void roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg);
+void roomMenuLogic (int nInput, int* nCurrRoom, int* nCurrProg,
+					int* nGameEnding, int* nHealth, int* nScore,
+					int* bShinyItem, int* bTorch, int* bRustyKey);
 void introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg);
 void room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
@@ -32,31 +34,33 @@ void room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 				int* nGameEnding, int* nHealth, int* bRustyKey);
 void room10Logic(int nInput, int* nCurrRoom, int* nGameEnding,
 					int* nScore, int bShinyItem);
-void achievementsLogic(int nGameEnding, int nMoveCount, int nHealth,
-						int nScore, int bShinyItem, int bTorch,
-						int bRustyKey, int* bGotEnding1, int* bGotEnding2,
-						int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
-						int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
-						int* bGotCompletionist);
+void roomEndingLogic(int nInput, int* nCurrRoom, int* nCurrProg,
+				int* nGameEnding, int* nMoveCount, int* nHealth,
+				int* nScore, int* bShinyItem, int* bTorch,
+				int* bRustyKey);
+void roomAchievementsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
+void roomStatisticsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
 /* --------------------------------------------------------------------- */
 
 
 /*
 Room Index:
--3 = options
--2 = credits
--1 = menu with continue option
-0 = menu
-1 = room 1
-2 = room 2
-3 = room 3
-4 = room 4
-5 = room 5
-6 = room 6
-7 = room 7
-8 = room 8
-9 = room 9
-10 = room 10
+-5 = Options
+-4 = Credits
+-3 = Achievements
+-2 = Menu with continue choice
+-1 = Menu
+0 = Introduction
+1 = Room 1
+2 = Room 2
+3 = Room 3
+4 = Room 4
+5 = Room 5
+6 = Room 6
+7 = Room 7
+8 = Room 8
+9 = Room 9
+10 = Room 10
 */
 
 
@@ -162,13 +166,12 @@ roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 		1. To stay
 		2. Go back to menu
 	*/
-	switch (nInput)
+	if (nInput == 2)
 	{
-		case 2:
-			if (*nCurrProg)
-				*nCurrRoom = -2; //where -2 is the menu page with a continue option
-			else
-				*nCurrRoom = -1; //where -1 is the normal menu page
+		if (*nCurrProg)
+			*nCurrRoom = -2; //where -2 is the menu page with a continue option
+		else
+			*nCurrRoom = -1; //where -1 is the normal menu page
 	}
 }
 
@@ -183,31 +186,59 @@ roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 	@param nCurrProg tracks the current progress of an ongoing game
 */
 void
-roomMenuLogic (int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg)
+roomMenuLogic (int nInput, int* nCurrRoom, int* nCurrProg,
+				int* nGameEnding, int* nHealth, int* nScore,
+				int* bShinyItem, int* bTorch, int* bRustyKey)
 {
 	switch (nInput)
 		{
+		//continue with an ongoing game
 		case 0:
 			*nCurrRoom = *nCurrProg;
 			break;
 		
+		//start a new game
 		case 1:
+			//reset all game variable to its default
+			//tracks game state
+			*nGameEnding = 1; //tracks the ending the player will receive
+	
+			//player stats
+			*nHealth = 50; //default health is 50
+			*nScore = 0; //default score is 0
+	
+			//player items
+			*bShinyItem = 0; //tracks whether the player has the item "shiny item" or not
+			*bTorch = 0; //tracks whether the player has the item "torch" or not
+			*bRustyKey = 0; // tracks whether the player has the item "rusty key" or not
+
+			//set the current room and progress to the introduction
 			*nCurrRoom = 0;
 			*nCurrProg = 0;
 			break;
-				
-		//Go to the credits
+		
+		//go to the achievements
 		case 2:
 			*nCurrRoom = -3;
 			break;
 
-		//Go to the options
+		//go to statistics
 		case 3:
 			*nCurrRoom = -4;
 			break;
-				
-		//terminate the program
+
+		//go to the credits
 		case 4:
+			*nCurrRoom = -5;
+			break;
+		
+		//go to options
+		case 5:
+			*nCurrRoom = -6;
+			break;
+
+		//terminate the program
+		case 6:
 			*nGameEnding = 0;
 		}
 }
@@ -656,49 +687,76 @@ room10Logic(int nInput, int* nCurrRoom, int* nGameEnding,
 	}
 }
 
+void
+roomEndingLogic(int nInput, int* nCurrRoom, int* nCurrProg,
+				int* nGameEnding, int* nMoveCount, int* nHealth,
+				int* nScore, int* bShinyItem, int* bTorch,
+				int* bRustyKey)
+{
+	/*
+	This room has 2 choices
+		1. Return to the menu and reset all the game variables
+		2. Terminate the program
+	*/
+	switch (nInput)
+		{
+			//reset game variables to its default
+			case 1:
+			//tracks game state
+			*nGameEnding = 1; //tracks the ending the player will receive
+			*nCurrRoom = -1; // tracks the current room the player is in
+			*nCurrProg = -1; //tracks total progress of the game by rooms; does not include the menu
+			*nMoveCount = 0; //tracks the number of rooms the player has been in
+	
+			//player stats
+			*nHealth = 50; //default health is 50
+			*nScore = 0; //default score is 0
+	
+			//player items
+			*bShinyItem = 0; //tracks whether the player has the item "shiny item" or not
+			*bTorch = 0; //tracks whether the player has the item "torch" or not
+			*bRustyKey = 0; // tracks whether the player has the item "rusty key" or not
+			break;
+
+			//terminate the loop and program
+			case 2:
+				*nGameEnding = 0;
+				break;
+		}
+}
+
 
 void
-achievementsLogic(int nGameEnding, int nMoveCount, int nHealth,
-					int nScore, int bShinyItem, int bTorch,
-					int bRustyKey, int* bGotEnding1, int* bGotEnding2,
-					int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
-					int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
-					int* bGotCompletionist)
+roomAchievementsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 {
-	//Ending achievements
-	switch (nGameEnding)
+	/*
+	The credit page has two 2 choices:
+		1. To stay
+		2. Go back to menu
+	*/
+	if (nInput == 2)
 	{
-		case 1:
-			*bGotEnding1 += 1;
-			break;
-		
-		case 2:
-			*bGotEnding2 += 1;
-			break;
-
-		case 3:
-			*bGotEnding3 += 1;
-			break;
-
-		case 4:
-			*bGotEnding4 += 1;
+		if (*nCurrProg)
+			*nCurrRoom = -2; //where -2 is the menu page with a continue option
+		else
+			*nCurrRoom = -1; //where -1 is the normal menu page
 	}
+}
 
-	//Other achievements
-	if (nHealth >= 40)
-		*bGotHealthy += 1;
 
-	if (nScore >= 30)
-		*bGotPlentiful += 1;
-
-	if (bShinyItem && bTorch && bRustyKey)
-		*bGotCollector += 1;
-
-	if (nMoveCount <= 10)
-		*bGotSpeedrun += 1;
-
-	if (*bGotEnding1 && *bGotEnding2 &&*bGotEnding3 && 
-			*bGotEnding4 && *bGotHealthy && *bGotPlentiful && 
-			*bGotCollector && *bGotSpeedrun && *bGotCompletionist)
-		*bGotCompletionist += 1;
+void
+roomStatisticsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
+{
+	/*
+	The credit page has two 2 choices:
+		1. To stay
+		2. Go back to menu
+	*/
+	if (nInput == 2)
+	{
+		if (*nCurrProg)
+			*nCurrRoom = -2; //where -2 is the menu page with a continue option
+		else
+			*nCurrRoom = -1; //where -1 is the normal menu page
+	}
 }
