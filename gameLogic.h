@@ -6,13 +6,13 @@
 
 /* ------------------------ Function Prototypes ------------------------ */
 //These functions are responsible for the game logic
-void getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
-void updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput);
+void getChoice(int* nTotalInputs, int* nTotalInputError, int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
+void updateInputRange( int nCurrRoom, int* nMinInput, int* nMaxInput);
 void displayCurrentRoom(
 		/*Global game stats*/
 			int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
-			int nTotalInputError, int nTotalHealthLost, int nTotalScore, int nTotalShinyItem,
-			int nTotalTorchItem, int nTotalRustyKeyItem,
+			int nTotalInputError, int nAverageInput, int nTotalHealthLost, int nTotalScore,
+			int nTotalShinyItem, int nTotalTorchItem, int nTotalRustyKeyItem,
 
 		/*Local game states*/
 			int nCurrRoom, int nCurrProg,
@@ -29,11 +29,22 @@ void displayCurrentRoom(
 			int bToggleColor, int bToggleWait, int bToggleClear, int bToggleHUD,
 			int bToggleShowMenu, int bToggleSimple
 		);
+void updateGame(
+		/*Local game states*/
+		int nInput, int* nGameEnding, int* nCurrRoom, int* nPrevRoom, int* nCurrProg,
+
+		/*Player stats and inventory*/
+		int* nHealth, int* nScore, int* bShinyItem, int* bTorch, int* bRustyKey,
+
+		/*UI and gameplay settings*/
+		int* bToggleColor, int* bToggleWait, int* bToggleClear, int* bToggleHUD,
+		int* bToggleShowMenu, int* bToggleSimple);
+/*
 void updateGame(int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
 				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
 				int* bRustyKey, int* bToggleColor, int* bToggleWait,
 				int* bToggleClear, int*bToggleHUD, int* bToggleShowMenu,
-				int* bToggleSimple);
+				int* bToggleSimple);*/
 void updateAchievements(int nGameEnding, int nMoveCount, int nHealth,
 						int nScore, int bShinyItem, int bTorch,
 						int bRustyKey, int* bGotEnding1, int* bGotEnding2,
@@ -54,13 +65,14 @@ void updateAchievements(int nGameEnding, int nMoveCount, int nHealth,
 	@param bToggleColor tracks whether to display color or not
 */
 void
-getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
+getChoice(int* nTotalInputs, int* nTotalInputError, int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
 {
     int bIsInputValid = 0; //tracks if the input made by the user is valid and within the range
     int nIsScanValid; //tracks if the input follows the scanf format specifiers
     char cChar; //stores inputted characters
     do
     {
+		*nTotalInputs += 1;
         printf("Your choice: ");
         nIsScanValid = scanf("%d%c", nInput, &cChar);
         
@@ -75,6 +87,7 @@ getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
 					changeColor(bToggleColor,1,255,0,0); //change the color to red
 					printf("Invalid input. Please input a integer between %d and %d\n", nMinInput, nMaxInput);
 					changeColor(bToggleColor,0,255,255,255); // change the color back to white
+					*nTotalInputError += 1;
 				}
 
 				//clear the buffer if there are extra characters
@@ -87,6 +100,7 @@ getChoice(int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
 				changeColor(bToggleColor,1,255,0,0); //change the color to red
                 printf("Invalid input. Please input a valid integer.\n");
 				changeColor(bToggleColor,0,255,255,255); // change the color back to white
+				*nTotalInputError += 1;
 				
 				//clear the buffer
                 while (getchar() != '\n');
@@ -234,8 +248,8 @@ void
 displayCurrentRoom(
 		/*Global game stats*/
 			int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
-			int nTotalInputError, int nTotalHealthLost, int nTotalScore, int nTotalShinyItem,
-			int nTotalTorchItem, int nTotalRustyKeyItem,
+			int nTotalInputError, int nAverageInput, int nTotalHealthLost, int nTotalScore,
+			int nTotalShinyItem, int nTotalTorchItem, int nTotalRustyKeyItem,
 
 		/*Local game states*/
 			int nCurrRoom, int nCurrProg,
@@ -270,8 +284,8 @@ displayCurrentRoom(
 		case -4:
 			displayStatistics(
 				nGameCount, nGameCompletion, nTotalMoveCount, nTotalInputs,
-				nTotalInputError, nTotalHealthLost, nTotalScore, nTotalShinyItem,
-				nTotalTorchItem, nTotalRustyKeyItem
+				nTotalInputError, nAverageInput, nTotalHealthLost, nTotalScore,
+				nTotalShinyItem, nTotalTorchItem, nTotalRustyKeyItem
 			);
 			break;
 			
@@ -402,28 +416,20 @@ displayCurrentRoom(
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
 */
 void
-updateGame(int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* nScore, int* bShinyItem, int* bTorch,
-			int* bRustyKey, int* bToggleColor, int* bToggleWait,
-			int* bToggleClear, int* bToggleHUD, int* bToggleShowMenu,
-			int* bToggleSimple)
+updateGame(
+		/*Local game states*/
+		int nInput, int* nGameEnding, int* nCurrRoom, int* nPrevRoom, int* nCurrProg,
+
+		/*Player stats and inventory*/
+		int* nHealth, int* nScore, int* bShinyItem, int* bTorch, int* bRustyKey,
+
+		/*UI and gameplay settings*/
+		int* bToggleColor, int* bToggleWait, int* bToggleClear, int* bToggleHUD,
+		int* bToggleShowMenu, int* bToggleSimple)
 {
-	/*room number for each room
-	room_Options = -3
-	room_Credits = -2
-	room_Menu = -1 and 0
-	room_1 = 1
-	room_2 = 2
-	room_3 = 3
-	room_4 = 4
-	room_5 = 5
-	room_6 = 6
-	room_7 = 7
-	room_8 = 8
-	room_9 = 9
-	room_10 = 10
-	*/
-	
+	//store the value in nCurrRoom into nPrevRoom before moving to another room
+		
+	//call the function responsible for the logic of the current room
 	switch (*nCurrRoom)
 	{
 		//Options page
@@ -573,4 +579,66 @@ updateAchievements(int nGameEnding, int nMoveCount, int nHealth,
 			*bGotEnding4 && *bGotHealthy && *bGotPlentiful && 
 			*bGotCollector && *bGotSpeedrun && *bGotCompletionist)
 		*bGotCompletionist += 1;
+}
+
+
+void
+updateStatistics(
+			/*Global game stats*/
+			int* nTotalMoveCount, int nTotalInputs, int nTotalInputError, int* nInputSum,
+			int* nAverageInput, int* nTotalHealthLost, int* nTotalScore, int* nTotalShinyItem,
+			int* nTotalTorchItem, int* nTotalRustyKeyItem,
+
+			/*Local game states*/
+			int nInput, int nCurrRoom, int* nMoveCount,
+
+			/*Player stats and inventory*/
+			int nHealth, int* nPrevHealth, int nScore, int* nPrevScore,
+			int* bShinyItem, int* bTorch, int* bRustyKey
+		)
+{
+
+	//total move count
+	if (nCurrRoom >= 0)
+	{
+		*nMoveCount += 1;
+		*nTotalMoveCount += 1;
+	}
+
+	if (nHealth < *nPrevHealth)
+	{
+		*nTotalHealthLost += *nPrevHealth - nHealth;
+		*nPrevHealth = nHealth;
+	}
+
+	
+	if (nScore > *nPrevScore)
+	{
+		*nTotalScore += nScore - *nPrevScore;
+		*nPrevScore = nScore;
+	}
+
+
+	
+	if (*bShinyItem == 1)
+	{
+		*nTotalShinyItem += 1;
+		*bShinyItem += 1;
+	}
+
+	if (*bTorch == 1)
+	{
+		*nTotalTorchItem += 1;
+		*bTorch += 1;
+	}
+
+	if (*bRustyKey == 1)
+	{
+		*nTotalRustyKeyItem += 1;
+		*bRustyKey += 1;
+	}
+
+	//average user inputs
+	*nInputSum += nInput;
+	*nAverageInput = *nInputSum / (nTotalInputs - nTotalInputError);
 }

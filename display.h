@@ -438,8 +438,8 @@ displayIntroduction(int nHealth, int nScore, int bShinyItem,
 						bToggleHUD);
 
 	/*
-	Text cutter (70 characters)
-	123456789-123456789-12346789-123456789-123456789-123456789-123456789-
+	Text cutter (80 characters)
+	123456789-123456789-12346789-123456789-123456789-123456789-123456789-123456789-
 	*/
 
 	//display the dialogue
@@ -932,8 +932,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 		
 		//display the options
 		printf("Choices:\n\n");
-		printf("1. Return to menu\n\n");
-		printf("2. Quit\n\n");
+		printf("1. Escape.\n\n");
+		displayMenuChoice(bToggleColor, bToggleShowMenu);
 	}
 	else
 	{
@@ -1200,8 +1200,8 @@ displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3,
 
 void
 displayStatistics(int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
-					int nTotalInputError, int nTotalHealthLost, int nTotalScore, int nTotalShinyItem,
-					int nTotalTorchItem, int nTotalRustyKeyItem)
+					int nTotalInputError, int nAverageInput, int nTotalHealthLost, int nTotalScore,
+					int nTotalShinyItem, int nTotalTorchItem, int nTotalRustyKeyItem)
 {
 	displayLine();
 	printf("%67s%67s%67s%67s%67s",
@@ -1221,7 +1221,8 @@ displayStatistics(int nGameCount, int nGameCompletion, int nTotalMoveCount, int 
 	printf("%-70s%10d\n", "Amount of times you have reached an ending:", nGameCompletion);
 	printf("%-70s%10d\n", "Amount of times you moved between rooms in a game:", nTotalMoveCount);
 	printf("%-70s%10d\n", "Amount of times you made a choice:", nTotalInputs);
-	printf("%-70s%10d\n\n", "Amount of times you inputted a invalid input:", nTotalInputError);
+	printf("%-70s%10d\n", "Amount of times you inputted a invalid input:", nTotalInputError);
+	printf("%-70s%10d\n\n", "Average of all valid inputs:", nAverageInput);
 
 	//player stats
 	printf("------------------------------- Player Statistics ------------------------------ \n");
