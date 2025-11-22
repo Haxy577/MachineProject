@@ -5,47 +5,168 @@
 /* ------------------------ Function Prototypes ------------------------ */
 //These functions are responsible for the display
 void displayTitle(int bToggleColor);
+
 void displayLine();
+
 void clearScreen(int bToggleClear);
-void changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue);
-void displayMenu(int nCurrProg, int bToggleColor);
-void displayCredits();
+
+void
+changeColor(
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	
+	/*Color display settings*/
+	int nNumber,
+	int nRed,
+	int nGreen,
+	int nBlue
+);
+
+void 
+displayMenu(int nCurrRoom, int bToggleColor);
+
+void 
+displayCredits();
+
+void
+displayOptionStatus(int bStatus, int bToggleColor);
+
+void
+displayOptions(
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	int bToggleWait,
+	int bToggleClear,
+	int bToggleHUD,
+	int bToggleShowMenu,
+	int bToggleSimple
+);
+
 void displayOptionStatus(int bStatus, int bToggleColor);
-void displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
-					int bToggleHUD, int bToggleShowMenu, int bToggleSimple);
-void displayOptionStatus(int bStatus, int bToggleColor);
-void displayEnding (int nInput, int* nCurrRoom, int* nCurrProg,
-					int* nGameEnding);
-void displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleHUD);
-void displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom1(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom2(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom3(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom4(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom5(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom6(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom7(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom8(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom9(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayRoom10(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
-void displayEndingPage(int nGameEnding, int nHealth, int nScore,
-						int bShinyItem, int bTorch, int bRustyKey,
-						int bGotEnding1, int bGotEnding2, int bGotEnding3,
-						int bGotEnding4, int bGotHealthy, int bGotPlentiful,
-						int bGotCollector, int bGotSpeedrun, int bGotCompletionist);
-void displayUnknownAchievement();
-void displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3, 
-							int bGotEnding4, int bGotHealthy, int bGotPlentiful,
-							int bGotCollector, int bGotSpeedrun, int bGotCompletionist,
-							int bToggleColor);
+
+void
+displayPlayerHUD(
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+	
+	/*Player inventory*/
+	int bShinyItem,
+	int bTorch,
+	int bRustyKey,
+	
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	int bToggleHUD
+);
+
+void 
+displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void 
+displayRoom1(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void 
+displayRoom2(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void 
+displayRoom3(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void
+displayRoom4(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void
+displayRoom5(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void
+displayRoom6(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void
+displayRoom7(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void
+displayRoom8(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void
+displayRoom9(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+void
+displayRoom10(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+
+
+void displayEndingPage(
+		/*Local game states*/
+		int nGameEnding,
+
+		/*Player stats*/
+		int nHealth,
+		int nScore,
+
+		/*Player inventory*/
+		int bShinyItem,
+		int bTorch,
+		int bRustyKey,
+
+		/*Achievements*/
+		int nGotEnding1,
+		int nGotEnding2,
+		int nGotEnding3,
+		int nGotEnding4,
+		int nGotHealthy,
+		int nGotPlentiful,
+		int nGotCollector,
+		int nGotSpeedrun,
+		int nGotCompletionist,
+
+		/*UI and gameplay settings*/
+		int bToggleColor,
+		int bToggleWait,
+		int bToggleSimple
+	);
+
+void
+displayUnknownAchievement();
+
+void
+displayAchievements(
+	/*Achievements*/
+	int nGotEnding1,
+	int nGotEnding2,
+	int nGotEnding3,
+	int nGotEnding4,
+	int nGotHealthy,
+	int nGotPlentiful,
+	int nGotCollector,
+	int nGotSpeedrun,
+	int nGotCompletionist,
+
+	/*UI and gameplay settings*/
+	int bToggleColor
+);
+
+void
+displayStatistics(
+	/*Global game states*/
+	int nGameCount,
+	int nGameCompletion,
+	int nTotalMoveCount,
+	int nTotalInputs,
+	int nTotalInputError,
+	int nAverageInput,
+	int nTotalHealthLost,
+	int nTotalScore,
+	int nTotalShinyItem,
+	int nTotalTorchItem,
+	int nTotalRustyKeyItem,
+
+	/*UI and gameplay settings*/
+	int bToggleColor
+);
 /* --------------------------------------------------------------------- */
 
 
 /*
-	This function is responsible for printing the a break line for
-		a total of 70 characters
+	This function is responsible for printing the a break line for a total of 80 characters.
 	Preconditions: None since its only for display
 */
 void
@@ -63,10 +184,9 @@ displayLine()
 
 
 /*
-	This function is responsible for clearing the screen in command prompt
-	Preconditions: bToggleClear is 0 or 1
-	@param bToggleClear tracks the setting on whether to clear the
-		screen when moving rooms
+	This function is responsible for clearing the screen in command prompt.
+	Preconditions: bToggleClear is a boolean
+	@param bToggleClear tracks whether to clear the screen when moving between screens or not
 */
 void
 clearScreen(int bToggleClear)
@@ -85,14 +205,27 @@ clearScreen(int bToggleClear)
 	This function is responsible for changing the text color in the command prompt
 	Preconditions: the parameters are non-negative integers and nRed, nGreen, and nBlue are
 					a number from 0 to 255.
+
+	//UI and gameplay settings
 	@param bToggleColor tracks whether to display color or not
+
+	//Color display settings
 	@param nNumber tracks the modifier, for example inputing "1" would make the text bold
 	@param nRed tracks the intensity of the color red
 	@param nGreen tracks the intensity of the color green
 	@param nBlue tracks the intensity of the color blue
 */
 void
-changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue)
+changeColor(
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	
+	/*Color display settings*/
+	int nNumber,
+	int nRed,
+	int nGreen,
+	int nBlue
+)
 {
 	if (bToggleColor)
 	{
@@ -106,14 +239,13 @@ changeColor(int bToggleColor, int nNumber, int nRed, int nGreen, int nBlue)
 
 
 /*
-	This function displays the title screen, start the game,
-		view the credits, or to close/exit the game
-	Preconditions: the parameters are non-negative integers
-	@param nCurrProg tracks the current progress of an ongoing game
+	This function displays the title screen, start the game, view the credits, or to close/exit the game.
+	Preconditions: parameters are integers
+	@param nCurrRoom tracks the current room the player is in
 	@param bToggleColor tracks whether to display color or not
 */
 void
-displayMenu(int nCurrProg, int bToggleColor)
+displayMenu(int nCurrRoom, int bToggleColor)
 {
 	//displays the title screen
 	displayLine();
@@ -146,7 +278,7 @@ displayMenu(int nCurrProg, int bToggleColor)
 	
 	//displays the options
 	//if there is already an ongoing game display the continue choice
-	if (nCurrProg >= 0)
+	if (nCurrRoom == -2)
 		printf("0. Continue Game\n\n");
 
 	//display the rest of the choice	
@@ -160,7 +292,7 @@ displayMenu(int nCurrProg, int bToggleColor)
 
 
 /*
-	This function displays the credits for the game
+	This function displays the credits for the game.
 	Preconditions: None
 */
 void
@@ -181,7 +313,7 @@ displayCredits()
 
 /*
 	This function displays whether the option is on or off depending on the
-		status of the option
+		status of the option.
 	Preconditions: the parameters are non-negative integers
 	@param bStatus tracks whether the option is active or inactive
 	@param bToggleColor tracks whether to display color or not
@@ -206,18 +338,27 @@ displayOptionStatus(int bStatus, int bToggleColor)
 
 /*
 	This function displays the options page and displays the options available
-		and their status whether they are turned off or on
+		and their status whether they are turned off or on.
 	Preconditions: the parameters are non-negative integers
+
+	//UI and gameplay settings
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleWait tracks whether there is a wait between dialogue
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleClear tracks whether to clear the screen when moving between rooms
 	@param bToggleHUD tracks whether to display a Heads-up Display when playing
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
-				int bToggleHUD, int bToggleShowMenu, int bToggleSimple)
+displayOptions(
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	int bToggleWait,
+	int bToggleClear,
+	int bToggleHUD,
+	int bToggleShowMenu,
+	int bToggleSimple
+)
 {
 	//Display the option ascii art
 	displayLine();
@@ -274,7 +415,7 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 
 /*
 	This function displays the Heads-up Display where it displays the current
-		health, score, and items the player has
+		health, score, and items the player has.
 	Preconditions: the parameters are non-negative integers
 	@param nHealth tracks the current health of the player
 	@param nScore tracks the current health of the player
@@ -285,9 +426,20 @@ displayOptions(int bToggleColor, int bToggleWait, int bToggleClear,
 	@param bToggleHUD tracks whether to show the Heads-up Display when playing
 */
 void
-displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleHUD)
+displayPlayerHUD(
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+	
+	/*Player inventory*/
+	int bShinyItem,
+	int bTorch,
+	int bRustyKey,
+	
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	int bToggleHUD
+)
 {
 	//makes the red more intense the closer nHealth is to zero
 	int nRed;
@@ -348,7 +500,7 @@ displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 
 
 /*
-	This function adds a pause between the dialogue
+	This function adds a pause between the dialogue.
 	Preconditions: the parameters are non-negative integers
 	@param nSeconds tracks how long it would pause in seconds
 	@param bToggleWait tracks whether to add a pause between dialogue or not
@@ -356,14 +508,12 @@ displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 void
 dialogueWait(int nSeconds, int bToggleWait)
 {
-	int nDuration = nSeconds;
 	if (bToggleWait)
-		Sleep(nDuration);
+		Sleep(nSeconds * 1000);
 }
 
 /*
-	This function displays the option to return to menu when playing depending if the option
-		is turned on or off
+	This function displays the option to return to menu when playing depending if the option is turned on or off.
 	Preconditions: Parameters are non-negative integers
 	@param bToggleColor tracks whether to display color or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
@@ -381,31 +531,24 @@ displayMenuChoice(int bToggleColor, int bToggleShowMenu)
 
 
 /*
-	This function displays the dialogue for room 10
+	This function displays the dialogue for the introduction.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
 displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-
 	/*
 	Text cutter (80 characters)
 	123456789-123456789-12346789-123456789-123456789-123456789-123456789-123456789-
 	*/
-
 	//display the dialogue
 	if (bToggleSimple)
 	{
-		printf("Welcome to The Lost Cavern. Press ""1"" to continue\n\n");
+		printf("Welcome to The Lost Cavern. Press \"1\" to continue\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
@@ -431,11 +574,11 @@ displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int 
 			dialogueWait(3, bToggleWait);
 
 		printf("%s\n\n%s\n\n%s\n\n%s\n\n%s\n\n",
-			"“Find our treasure and make it yours.”",	
+			"\"Find our treasure and make it yours.\"",	
 			"You scream to the void the questions that are lingering in your mind.",
-			"“Where am I?”",
-			"“Who are you?”",
-			"“What treasure?”"
+			"\"Where am I?\"",
+			"\"Who are you?\"",
+			"\"What treasure?\""
 			);
 
 			dialogueWait(5, bToggleWait);
@@ -450,7 +593,7 @@ displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int 
 			"as it began, the voices vanished. Feeling confused you lower your",
 			"hands and look around, ears still ringing. When the voices suddenly",
 			"came back like a bomb, screaming",
-			"“Wake up!”"
+			"\"Wake up!\""
 			);
 
 		//display the options
@@ -460,25 +603,21 @@ displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int 
 
 
 /*
-	This function displays the dialogue for room 1
+	This function displays the dialogue for the room 1.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom1(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom1(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
 	{
-		printf("\n\n");
+		printf("Room 1\n\n");
 		
 		//display the options
 		printf("Choices:\n\n");
@@ -488,7 +627,7 @@ displayRoom1(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 	}
 	else
 	{
-		//Temp
+
 
 		//display the options
 		displayMenuChoice(bToggleColor, bToggleShowMenu);
@@ -497,20 +636,16 @@ displayRoom1(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 2
+	This function displays the dialogue for the room 2.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom2(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom2(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -533,20 +668,16 @@ displayRoom2(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 3
+	This function displays the dialogue for the room 3.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom3(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom3(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -570,20 +701,16 @@ displayRoom3(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 4
+	This function displays the dialogue for the room 4.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom4(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom4(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -607,20 +734,16 @@ displayRoom4(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 5
+	This function displays the dialogue for the room 5.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom5(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom5(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -644,20 +767,16 @@ displayRoom5(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 6
+	This function displays the dialogue for the room 6.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom6(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom6(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -680,20 +799,16 @@ displayRoom6(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 7
+	This function displays the dialogue for the room 7.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom7(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom7(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -717,20 +832,16 @@ displayRoom7(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 8
+	This function displays the dialogue for the room 8.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom8(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom8(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -753,20 +864,16 @@ displayRoom8(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 9
+	This function displays the dialogue for the room 9.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom9(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom9(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -790,20 +897,16 @@ displayRoom9(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggle
 
 
 /*
-	This function displays the dialogue for room 10
+	This function displays the dialogue for the room 10.
 	Preconditions: the parameters are non-negative integers
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current health of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the Torch or not
-	@param bRustyColor tracks whether the player has the Rusty Key or not
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param bToggleColor tracks whether to display color or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
-	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayRoom10(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
+displayRoom10(int nPrevRoom, int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
 //display the dialogue
 	if (bToggleSimple)
@@ -826,51 +929,66 @@ displayRoom10(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggl
 
 
 /*
-	This function is responsible for calling the function that is
-		responsible for displaying the ending
-	Preconditions: nGameEnding is an integer
-	@param nGameEnding tracks the type of ending the player got
+	This function displays the ending page after the player has reached an ending.
+	Preconditions: the parameters are non-negative integers
+	//Local game states
+	@param nGameEnding tracks the ending the player will receive
+
+	//Player stats
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current score of the player
+
+	//Player inventory
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyKey tracks whether the player has the Rusty Key or not
+
+	//Achievements
+	@param nGotEnding1 tracks the amount of times the player has achieved the achievement "Ending 1"
+	@param nGotEnding2 tracks the amount of times the player has achieved the achievement "Ending 2"
+	@param nGotEnding3 tracks the amount of times the player has achieved the achievement "Ending 3"
+	@param nGotEnding4 tracks the amount of times the player has achieved the achievement "Ending 4"
+	@param nGotHealthy tracks the amount of times the player has achieved the achievement "Healthy"
+	@param nGotPlentiful tracks the amount of times the player has achieved the achievement "Plentiful"
+	@param nGotSpeedrun tracks the amount of times the player has achieved the achievement "Speedrun"
+	@param nGotCollector tracks the amount of times the player has achieved the achievement "Collector"
+	@param nGotCompletionist tracks the amount of times the player has achieved the achievement "Completionist"
+
+	//UI and gameplay settings
+	@param bToggleColor tracks whether to display color or not
+	@param bToggleWait tracks whether there is a pause between dialogues or not
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
-displayEnding (int nInput, int* nCurrRoom, int* nCurrProg,
-					int* nGameEnding)
-{
-    switch (*nGameEnding)
-    {
-		//Exit
-		case 0:
-			printf("Thank You For Playing!\n");
-			break;
+displayEndingPage(
+	/*Local game states*/
+		int nGameEnding,
 
-		//Death ending
-        case 1:
-			printf("Death ending\n");
-			break;
+		/*Player stats*/
+		int nHealth,
+		int nScore,
 
-		//Trapped ending
-		case 2:
-			printf("Trapped ending\n");
-			break;
-		
-		//Good ending
-		case 3:
-			printf("Good ending\n");
-			break;
+		/*Player inventory*/
+		int bShinyItem,
+		int bTorch,
+		int bRustyKey,
 
-		//Best ending
-		case 4:
-			printf("Best ending\n");
-			break;
-    }
-}
+		/*Achievements*/
+		int nGotEnding1,
+		int nGotEnding2,
+		int nGotEnding3,
+		int nGotEnding4,
+		int nGotHealthy,
+		int nGotPlentiful,
+		int nGotCollector,
+		int nGotSpeedrun,
+		int nGotCompletionist,
 
-
-void
-displayEndingPage(int nGameEnding, int nHealth, int nScore,
-					int bShinyItem, int bTorch, int bRustyKey,
-					int bGotEnding1, int bGotEnding2, int bGotEnding3,
-					int bGotEnding4, int bGotHealthy, int bGotPlentiful,
-					int bGotCollector, int bGotSpeedrun, int bGotCompletionist)
+		/*UI and gameplay settings*/
+		int bToggleColor,
+		int bToggleWait,
+		int bToggleSimple
+)
 {
 	//display heading
 		printf("%s%s",
@@ -923,93 +1041,93 @@ displayEndingPage(int nGameEnding, int nHealth, int nScore,
 
 		//display unique obtained achievements
 		//Ending 1 achievement
-		if (bGotEnding1 == 1)
+		if (nGotEnding1 == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Ending 1 (Death Ending)");
 
 			//increment by 1 so that it does not display again
-			bGotEnding1++;
+			nGotEnding1++;
 		}
 
 		//Ending 2 achievement
-		if (bGotEnding2 == 1)
+		if (nGotEnding2 == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s |. \n", "Ending 2 (Trapped Ending)");
 
 			//increment by 1 so that it does not display again
-			bGotEnding2++;
+			nGotEnding2++;
 		}
 
 		//Ending 3 achievement
-		if (bGotEnding3 == 1)
+		if (nGotEnding3 == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Ending 3 (Good Ending)");
 
 			//increment by 1 so that it does not display again
-			bGotEnding3++;
+			nGotEnding3++;
 		}
 
 		//Ending 4 achievement
-		if (bGotEnding4 == 1)
+		if (nGotEnding4 == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Ending 4 (Best Ending)");
 
 			//increment by 1 so that it does not display again
-			bGotEnding4++;
+			nGotEnding4++;
 		}
 
 		//Healthy achievement
-		if (bGotHealthy == 1)
+		if (nGotHealthy == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Healthy");
 
 			//increment by 1 so that it does not display again
-			bGotHealthy++;
+			nGotHealthy++;
 		}
 
 		//Plentiful achievement
-		if (bGotPlentiful == 1)
+		if (nGotPlentiful == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Plentiful");
 
 			//increment by 1 so that it does not display again
-			bGotPlentiful++;
+			nGotPlentiful++;
 		}
 
 		//Collector achievement
-		if (bGotCollector == 1)
+		if (nGotCollector == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Collector");
 
 			//increment by 1 so that it does not display again
-			bGotCollector++;
+			nGotCollector++;
 		}
 
 		//Speedrunner achievement
-		if (bGotSpeedrun == 1)
+		if (nGotSpeedrun == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Speedrunner");
 
 			//increment by 1 so that it does not display again
-			bGotSpeedrun++;
+			nGotSpeedrun++;
 		}
 
 		//Completionist achievement
-		if (bGotCompletionist == 1)
+		if (nGotCompletionist == 1)
 		{
 			//display the achievement
 			printf("    |  %-24s  |. \n", "Completionist");
 
 			//increment by 1 so that it does not display again
-			bGotCompletionist++;
+			nGotCompletionist++;
 		}
 		
 		//display footer
@@ -1022,6 +1140,11 @@ displayEndingPage(int nGameEnding, int nHealth, int nScore,
 }
 
 
+/*
+	This function is responsible for displaying ascii art that indicates that
+		this achievement has not been achieved yet.
+	Preconditions: None
+*/
 void
 displayUnknownAchievement()
 {
@@ -1048,11 +1171,40 @@ displayUnknownAchievement()
 }
 
 
+/*
+	This function is responsible displaying the achievements in the game
+	Preconditions: parameters are non-negative integers
+	
+	//Achievements
+	@param nGotEnding1 tracks the amount of times the player has achieved the achievement "Ending 1"
+	@param nGotEnding2 tracks the amount of times the player has achieved the achievement "Ending 2"
+	@param nGotEnding3 tracks the amount of times the player has achieved the achievement "Ending 3"
+	@param nGotEnding4 tracks the amount of times the player has achieved the achievement "Ending 4"
+	@param nGotHealthy tracks the amount of times the player has achieved the achievement "Healthy"
+	@param nGotPlentiful tracks the amount of times the player has achieved the achievement "Plentiful"
+	@param nGotSpeedrun tracks the amount of times the player has achieved the achievement "Speedrun"
+	@param nGotCollector tracks the amount of times the player has achieved the achievement "Collector"
+	@param nGotCompletionist tracks the amount of times the player has achieved the achievement "Completionist"
+
+	//UI and gameplay settings
+	@param bToggleColor tracks whether to display color or not
+*/
 void
-displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3, 
-						int bGotEnding4, int bGotHealthy, int bGotPlentiful,
-						int bGotCollector, int bGotSpeedrun, int bGotCompletionist,
-						int bToggleColor)
+displayAchievements(
+	/*Achievements*/
+	int nGotEnding1,
+	int nGotEnding2,
+	int nGotEnding3,
+	int nGotEnding4,
+	int nGotHealthy,
+	int nGotPlentiful,
+	int nGotCollector,
+	int nGotSpeedrun,
+	int nGotCompletionist,
+
+	/*UI and gameplay settings*/
+	int bToggleColor
+)
 {
 	//display achievement ascii art
 	displayLine();
@@ -1068,7 +1220,7 @@ displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3,
 
 	//display achievement 1
 	changeColor(bToggleColor,1,255,0,0); //change color to red
-	if (bGotEnding1)
+	if (nGotEnding1)
 	{
 		
 	}
@@ -1078,10 +1230,44 @@ displayAchievements(int bGotEnding1, int bGotEnding2, int bGotEnding3,
 }
 
 
+/*
+	This function is responsible for displaying the statistics page.
+	Preconditions: parameters are integers
+	
+	//Global game states
+	@param nGameCompletion tracks the amount of games that have reached an ending
+	@param nTotalMoveCount tracks the total amount of moves the player has made during all games
+	@param nTotalInputs tracks the total amount of inputs the player has made
+	@param nTotalInputError tracks the total amount of invalid inputs the player has made
+	@param nInputSum tracks the sum of all the valid inputs the player has made
+	@param nAverageInput tracks the average value of the valid inputs the player has made
+	@param nTotalHealthLost tracks the total amount of health the player has lost
+	@param nTotalScore tracks the total amount of score the player has gained
+	@param nTotalShinyItem tracks the total number of times the player has obtained the shiny item
+	@param nTotalTorchItem tracks the total amount of times the player has obtained the torch item
+	@param nTotalRustyKeyItem tracks the total amount of times the player has obtained the rusty key item
+
+	//UI and gameplay settings
+	@param bToggleColor tracks whether to display color or not
+*/
 void
-displayStatistics(int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
-					int nTotalInputError, int nAverageInput, int nTotalHealthLost, int nTotalScore,
-					int nTotalShinyItem, int nTotalTorchItem, int nTotalRustyKeyItem)
+displayStatistics(
+	/*Global game states*/
+	int nGameCount,
+	int nGameCompletion,
+	int nTotalMoveCount,
+	int nTotalInputs,
+	int nTotalInputError,
+	int nAverageInput,
+	int nTotalHealthLost,
+	int nTotalScore,
+	int nTotalShinyItem,
+	int nTotalTorchItem,
+	int nTotalRustyKeyItem,
+
+	/*UI and gameplay settings*/
+	int bToggleColor
+)
 {
 	displayLine();
 	printf("%67s%67s%67s%67s%67s",

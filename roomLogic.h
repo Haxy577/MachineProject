@@ -7,46 +7,239 @@
 /* ------------------------ Function Prototypes ------------------------ */
 //These functions are responsible for the logic for each individual room
 void toggleOptionLogic(int* bOption);
-void roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
-						int* bToggleColor, int* bToggleWait,
-						int* bToggleClear, int* bToggleHUD,
-						int* bToggleShowMenu, int* bToggleSimple);
-void roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
-void roomMenuLogic (int nInput, int* nCurrRoom, int* nCurrProg,
-					int* nGameEnding, int* nHealth, int* nScore,
-					int* bShinyItem, int* bTorch, int* bRustyKey);
-void introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg);
-void room1Logic(int nInput, int* nCurrRoom, int* nCurrProg);
-void room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nHealth, int* nScore);
-void room3Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nScore, int* bShinyItem);
-void room4Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nHealth);
-void room5Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* bTorch);
-void room6Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nHealth, int* nScore, int bTorch);
-void room7Logic(int nInput, int* nCurrRoom, int* nCurrProg);
-void room8Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int bRustyKey);
-void room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nGameEnding, int* nHealth, int* bRustyKey);
-void room10Logic(int nInput, int* nCurrRoom, int* nGameEnding,
-					int* nScore, int bShinyItem);
-void roomEndingLogic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nGameEnding, int* nMoveCount, int* nHealth,
-				int* nScore, int* bShinyItem, int* bTorch,
-				int* bRustyKey);
-void roomAchievementsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
-void roomStatisticsLogic(int nInput, int* nCurrRoom, int* nCurrProg);
+
+void
+roomOptionsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg,
+
+	/*UI and gameplay settings*/
+	int*bToggleColor,
+	int* bToggleWait,
+	int* bToggleClear,
+	int* bToggleHUD,
+	int* bToggleShowMenu,
+	int* bToggleSimple
+);
+
+void
+roomCreditsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg
+);
+
+void
+roomStatisticsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg
+);
+
+
+void
+roomAchievementsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg
+);
+
+void
+roomMenuLogic(
+	/*Global game states*/
+	int* nGameCount,
+
+	/*Local game states*/
+	int nInput,
+	int* nGameEnding,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nMoveCount,
+
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey
+);
+
+void
+introductionLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg
+);
+
+void
+room1Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg
+);
+
+void
+room2Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nHealth,
+	int* nScore
+);
+
+void
+room3Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nScore,
+	
+	/*Player inventory*/
+	int* bShinyItem
+);
+
+void
+room4Logic(
+	/*Local game variables*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nHealth
+);
+
+void
+room5Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player inventory*/
+	int* bTorch
+);
+
+void
+room6Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	
+	/*Player inventory*/
+	int bTorch
+);
+
+void
+room7Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg
+);
+
+void
+room8Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+
+	/*Player inventory*/
+	int bRustyKey
+);
+
+void
+room9Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nGameEnding,
+	
+	/*Player s*/
+	int* nHealth,
+	
+	int* bRustyKey
+);
+
+void
+room10Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nGameEnding,
+
+	/*Player stats*/
+	int* nScore,
+	
+	/*Player inventory*/
+	int bShinyItem
+);
+
+void
+roomEndingLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nGameEnding,
+	int* nMoveCount,
+
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey
+);
 /* --------------------------------------------------------------------- */
 
 
 /*
 Room Index:
--5 = Options
--4 = Credits
+-6 = Options
+-5 = Credits
+-4 = Statistics
 -3 = Achievements
 -2 = Menu with continue choice
 -1 = Menu
@@ -64,11 +257,11 @@ Room Index:
 */
 
 
+
 /*
-	This function is responsible of switching the value of the option from
-		1 to 0 or 0 to 1 when called
-	Precondition: bOption is a integer
-	@param bOption contains the value of the option that is being changed
+	This function is responsible of switching the value of the option from false to true or vice versa.
+	Precondition: bOption is a non-negative integer
+	@param *bOption contains the value of the option that is being changed
 */
 void
 toggleOptionLogic(int* bOption)
@@ -86,20 +279,34 @@ toggleOptionLogic(int* bOption)
 /*
 	This function turns the setting off or on based on the input of the player
 	Precondition: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param bToggleColor tracks whether to display color or not
-	@param bToggleWait tracks whether there is a wait between dialogue
-	@param bToggleClear tracks whether to clear the screen when moving between rooms
-	@param bToggleHUD tracks whether to display a Heads-up Display when playing
-	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//UI and gameplay settings
+	@param *bToggleColor tracks whether to display color or not
+	@param *bToggleWait tracks whether there is a wait between dialogue
+	@param *bToggleClear tracks whether to clear the screen when moving between rooms
+	@param *bToggleHUD tracks whether to display a Heads-up Display when playing
+	@param *bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
 */
 void
-roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
-					int* bToggleColor, int* bToggleWait,
-					int* bToggleClear, int* bToggleHUD,
-					int* bToggleShowMenu, int* bToggleSimple)
+roomOptionsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg,
+
+	/*UI and gameplay settings*/
+	int* bToggleColor,
+	int* bToggleWait,
+	int* bToggleClear,
+	int* bToggleHUD,
+	int* bToggleShowMenu,
+	int* bToggleSimple
+)
 {
 	/*
 	The option page has 7 choices
@@ -122,27 +329,32 @@ roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 			break;
 		
 		//These options are responsible for the game display
-		//Toggle text color
+		//Toggle text color option
 		case 1:
 			toggleOptionLogic(bToggleColor);
 			break;
 
+		//Toggle clear option
 		case 2:
 			toggleOptionLogic(bToggleClear);
 			break;
 
+		//Toggle dialogue wait option
 		case 3:
 			toggleOptionLogic(bToggleWait);
 			break;
-			
+
+		//Toggle Heads-up display option
 		case 4:
 			toggleOptionLogic(bToggleHUD);
 			break;
 
+		//Toggle show menu option
 		case 5:
 			toggleOptionLogic(bToggleShowMenu);
 			break;
 
+		//Toggle Simple dialogue option
 		case 6:
 			toggleOptionLogic(bToggleSimple);
 			break;
@@ -154,12 +366,83 @@ roomOptionsLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 	This function responds to the input of the player based on the choices
 		in the credits page
 	Precondition: parameters are integers
-	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
+
+	//Local game states
+	@param nInput tracks the player's choice/input
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nCurrProg tracks the current progress of an ongoing game
 */
 void
-roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
+roomCreditsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg
+)
+{
+	/*
+	The credit page has two 2 choices:
+		1. To stay
+		2. Go back to menu
+	*/
+	if (nInput == 2)
+	{
+		if (*nCurrProg)
+			*nCurrRoom = -2; //where -2 is the menu page with a continue option
+		else
+			*nCurrRoom = -1; //where -1 is the normal menu page
+	}
+}
+
+
+/*
+	This function is responsible for the logic of the ending page.
+	Preconditions: parameters are integers
+
+	//Local game states
+	@param nInput tracks the choice the player has made
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nCurrProg tracks the current progress of an ongoing game
+*/
+void
+roomStatisticsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg
+)
+{
+	/*
+	The credit page has two 2 choices:
+		1. To stay
+		2. Go back to menu
+	*/
+	if (nInput == 2)
+	{
+		if (*nCurrProg)
+			*nCurrRoom = -2; //where -2 is the menu page with a continue option
+		else
+			*nCurrRoom = -1; //where -1 is the normal menu page
+	}
+}
+
+
+/*
+	This function is responsible for the logic of achievements page.
+	Preconditions: parameters are integers
+
+	//Local game states
+	@param nInput tracks the choice the player has made
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nCurrProg tracks the current progress of an ongoing game
+*/
+void
+roomAchievementsLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nCurrProg
+)
 {
 	/*
 	The credit page has two 2 choices:
@@ -178,20 +461,55 @@ roomCreditsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 
 /*
 	This function responds to the input of the player based on the choices
-		in the menu page
+		in the menu page.
 	Precondition: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nGameEnding tracks the type of ending the player got
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
+	@param *nGameEnding tracks the type of ending the player got
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+	@param *nMoveCount tracks the number of rooms the player has been in
+
+	//Player stats
+	@param *nHealth tracks the current health of the player
+	@param *nScore tracks the current score of the player
+	@param *nPrevHealth tracks the previous health of the player
+	@param *nPrevScore tracks the previous score of the player
+
+	//Player inventory
+	@param *bShinyItem tracks whether the player has the Shiny Item or not
+	@param *bTorch tracks whether the player has the Torch or not
+	@param *bRustyKey tracks whether the player has the Rusty Key or not
 */
 void
-roomMenuLogic (int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nGameEnding, int* nHealth, int* nScore,
-				int* bShinyItem, int* bTorch, int* bRustyKey)
+roomMenuLogic(
+	/*Global game states*/
+	int* nGameCount,
+
+	/*Local game states*/
+	int nInput,
+	int* nGameEnding,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nMoveCount,
+
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey
+)
 {
 	switch (nInput)
-		{
+	{
 		//continue with an ongoing game
 		case 0:
 			*nCurrRoom = *nCurrProg;
@@ -199,22 +517,27 @@ roomMenuLogic (int nInput, int* nCurrRoom, int* nCurrProg,
 		
 		//start a new game
 		case 1:
-			//reset all game variable to its default
-			//tracks game state
-			*nGameEnding = 1; //tracks the ending the player will receive
-	
-			//player stats
-			*nHealth = 50; //default health is 50
-			*nScore = 0; //default score is 0
-	
-			//player items
-			*bShinyItem = 0; //tracks whether the player has the item "shiny item" or not
-			*bTorch = 0; //tracks whether the player has the item "torch" or not
-			*bRustyKey = 0; // tracks whether the player has the item "rusty key" or not
+			//increment the nGameCount variable
+			*nGameCount += 1;
 
-			//set the current room and progress to the introduction
+			//reset all game variables to its default state
+			/*Local game states*/
+			*nGameEnding = 1;
 			*nCurrRoom = 0;
+			*nPrevRoom = 0;
 			*nCurrProg = 0;
+			*nMoveCount = 0;
+	
+			/*Player stats*/
+			*nHealth = 50;
+			*nScore = 0;
+			*nPrevHealth = 50;
+			*nPrevScore = 0;
+	
+			/*Player inventory*/
+			*bShinyItem = 0;
+			*bTorch = 0;
+			*bRustyKey = 0;
 			break;
 		
 		//go to the achievements
@@ -240,18 +563,28 @@ roomMenuLogic (int nInput, int* nCurrRoom, int* nCurrProg,
 		//terminate the program
 		case 6:
 			*nGameEnding = 0;
-		}
+			break;
+	}
 }
 
 /*
-	This function is responsible for the logic of the introduction page
+	This function is responsible for the logic of the introduction.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
 */
 void
-introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg)
+introductionLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg
+)
 {
 	/*
 	This room has 2 choices:
@@ -275,14 +608,24 @@ introductionLogic(int nInput, int* nCurrRoom, int* nCurrProg)
 
 
 /*
-	This function is responsible for the logic of room 1
+	This function is responsible for the logic of room 10.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
+	@param *nGameEnding tracks the type of ending the player got
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
 */
 void
-room1Logic(int nInput, int* nCurrRoom, int* nCurrProg)
+room1Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg
+)
 {
 	/*
 	This room has 3 choices:
@@ -313,17 +656,31 @@ room1Logic(int nInput, int* nCurrRoom, int* nCurrProg)
 
 
 /*
-	This function is responsible for the logic of room 2
+	This function is responsible for the logic of room 2.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current score of the player
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//Player stats
+	@param *nHealth tracks the current health of the player
+	@param *nScore tracks the current score of the player
 */
 void
-room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* nScore)
+room2Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nHealth,
+	int* nScore
+)
 {
 	//The player loses 10 health and gains 2 points
 	*nHealth -= 10; //subtracts 10 from the player's health
@@ -351,17 +708,35 @@ room2Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 /*
-	This function is responsible for the logic of room 3
+	This function is responsible for the logic of room 3.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param nScore tracks the current score of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//Player stats
+	@param *nScore tracks the current score of the player
+
+	//Player inventory
+	@param *bShinyItem tracks whether the player has the Shiny Item or not
 */
 void
-room3Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nScore, int* bShinyItem)
+room3Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nScore,
+	
+	/*Player inventory*/
+	int* bShinyItem
+)
 {
 	/*
 	This room has 3 choices:
@@ -392,16 +767,29 @@ room3Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 /*
-	This function is responsible for the logic of room 4
+	This function is responsible for the logic of room 4.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param nHealth tracks the current health of the player
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//Player stats
+	@param *nHealth tracks the current health of the player
 */
 void
-room4Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nHealth)
+room4Logic(
+	/*Local game variables*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nHealth
+)
 {
 	/*
 	This room has 3 choices:
@@ -431,16 +819,29 @@ room4Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 /*
-	This function is responsible for the logic of room 5
+	This function is responsible for the logic of room 5.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param bTorch tracks whether the player has the item Torch or not
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//Player inventory
+	@param *bTorch tracks whether the player has the Torch or not
 */
 void
-room5Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* bTorch)
+room5Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player inventory*/
+	int* bTorch
+)
 {
 	/*
 	This room has 3 choices:
@@ -470,18 +871,37 @@ room5Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 /*
-	This function is responsible for the logic of room 6
+	This function is responsible for the logic of room 6.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current score of the player
-	@param bTorch tracks whether the player has the item Torch or not
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//Player stats
+	@param *nHealth tracks the current health of the player
+	@param *nScore tracks the current score of the player
+
+	//Player inventory
+	@param bTorch tracks whether the player has the Torch or not
 */
 void
-room6Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nHealth, int* nScore, int bTorch)
+room6Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	
+	/*Player inventory*/
+	int bTorch
+)
 {
 	/*
 	This room has 2 possible outcomes:
@@ -515,14 +935,23 @@ room6Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 /*
-	This function is responsible for the logic of room 7
+	This function is responsible for the logic of room 7.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
 */
 void
-room7Logic(int nInput, int* nCurrRoom, int* nCurrProg)
+room7Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg
+)
 {
 	/*
 	This room has 3 choices:
@@ -553,16 +982,29 @@ room7Logic(int nInput, int* nCurrRoom, int* nCurrProg)
 
 
 /*
-	This function is responsible for the logic of room 8
+	This function is responsible for the logic of room 8.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//Player inventory
 	@param bRustyKey tracks whether the player has the Rusty Key or not
 */
 void
-room8Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int bRustyKey)
+room8Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+
+	/*Player inventory*/
+	int bRustyKey
+)
 {
 	/*
 	This room has 2 choices:
@@ -598,18 +1040,36 @@ room8Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 /*
-	This function is responsible for the logic of room 9
+	This function is responsible for the logic of room 9.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param nGameEnding tracks the type of ending the player got
-	@param nHealth tracks the current health of the player
-	@param bRustyKey tracks whether the player has the Rusty Key or not
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+	@param *nGameEnding tracks the type of ending the player got
+
+	//Player stats
+	@param *nHealth tracks the current health of the player
+
+	//Player inventory
+	@param *bRustyKey tracks whether the player has the Rusty Key or not
 */
 void
-room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
-			int* nGameEnding, int* nHealth, int* bRustyKey)
+room9Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nGameEnding,
+	
+	/*Player s*/
+	int* nHealth,
+	
+	int* bRustyKey
+)
 {
 	//This room starts with the player losing 10 health:
 	*nHealth -= 10;
@@ -643,18 +1103,34 @@ room9Logic(int nInput, int* nCurrRoom, int* nCurrProg,
 
 
 /*
-	This function is responsible for the logic of room 1
+	This function is responsible for the logic of room 10.
 	Preconditions: parameters are integers
+
+	//Local game states
 	@param nInput tracks the choice the player has made
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param nGameEnding tracks the type of ending the player got
-	@param nScore tracks the current score of the player
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nGameEnding tracks the type of ending the player got
+
+	//Player stats
+	@param *nScore tracks the current score of the player
+
+	//Player inventory
 	@param bShinyItem tracks whether the player has the Shiny Item or not
 */
 void
-room10Logic(int nInput, int* nCurrRoom, int* nGameEnding,
-				int* nScore, int bShinyItem)
+room10Logic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nGameEnding,
+
+	/*Player stats*/
+	int* nScore,
+	
+	/*Player inventory*/
+	int bShinyItem
+)
 {
 	
 	//The player earns 20 points and the best ending if the player has the shiny item
@@ -687,11 +1163,51 @@ room10Logic(int nInput, int* nCurrRoom, int* nGameEnding,
 	}
 }
 
+
+/*
+	This function is responsible for the logic of the ending page.
+	Preconditions: parameters are integers
+
+	//Local game states
+	@param nInput tracks the choice the player has made
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+	@param *nGameEnding tracks the type of ending the player got
+	@param *nMoveCount tracks the number of rooms the player has been in
+
+	//Player stats
+	@param *nHealth tracks the current health of the player
+	@param *nScore tracks the current score of the player
+	@param *nPrevHealth tracks the previous health of the player
+	@param *nPrevScore tracks the previous score of the player
+
+	//Player inventory
+	@param *bShinyItem tracks whether the player has the Shiny Item or not
+	@param *bTorch tracks whether the player has the Torch or not
+	@param *bRustyKey tracks whether the player has the Rusty Key or not
+*/
 void
-roomEndingLogic(int nInput, int* nCurrRoom, int* nCurrProg,
-				int* nGameEnding, int* nMoveCount, int* nHealth,
-				int* nScore, int* bShinyItem, int* bTorch,
-				int* bRustyKey)
+roomEndingLogic(
+	/*Local game states*/
+	int nInput,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nGameEnding,
+	int* nMoveCount,
+
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey
+)
 {
 	/*
 	This room has 2 choices
@@ -702,20 +1218,23 @@ roomEndingLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 		{
 			//reset game variables to its default
 			case 1:
-			//tracks game state
-			*nGameEnding = 1; //tracks the ending the player will receive
-			*nCurrRoom = -1; // tracks the current room the player is in
-			*nCurrProg = -1; //tracks total progress of the game by rooms; does not include the menu
-			*nMoveCount = 0; //tracks the number of rooms the player has been in
+			/*Local game states*/
+			*nCurrRoom = -1;
+			*nPrevRoom = 0;
+			*nCurrProg = 0;
+			*nGameEnding = 1;
+			*nMoveCount = 0;
 	
-			//player stats
-			*nHealth = 50; //default health is 50
-			*nScore = 0; //default score is 0
+			/*Player stats*/
+			*nHealth = 50;
+			*nScore = 0;
+			*nPrevHealth = 50;
+			*nPrevScore = 0;
 	
-			//player items
-			*bShinyItem = 0; //tracks whether the player has the item "shiny item" or not
-			*bTorch = 0; //tracks whether the player has the item "torch" or not
-			*bRustyKey = 0; // tracks whether the player has the item "rusty key" or not
+			/*Player inventory*/
+			*bShinyItem = 0;
+			*bTorch = 0;
+			*bRustyKey = 0;
 			break;
 
 			//terminate the loop and program
@@ -723,40 +1242,4 @@ roomEndingLogic(int nInput, int* nCurrRoom, int* nCurrProg,
 				*nGameEnding = 0;
 				break;
 		}
-}
-
-
-void
-roomAchievementsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
-{
-	/*
-	The credit page has two 2 choices:
-		1. To stay
-		2. Go back to menu
-	*/
-	if (nInput == 2)
-	{
-		if (*nCurrProg)
-			*nCurrRoom = -2; //where -2 is the menu page with a continue option
-		else
-			*nCurrRoom = -1; //where -1 is the normal menu page
-	}
-}
-
-
-void
-roomStatisticsLogic(int nInput, int* nCurrRoom, int* nCurrProg)
-{
-	/*
-	The credit page has two 2 choices:
-		1. To stay
-		2. Go back to menu
-	*/
-	if (nInput == 2)
-	{
-		if (*nCurrProg)
-			*nCurrRoom = -2; //where -2 is the menu page with a continue option
-		else
-			*nCurrRoom = -1; //where -1 is the normal menu page
-	}
 }

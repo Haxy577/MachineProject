@@ -6,66 +6,203 @@
 
 /* ------------------------ Function Prototypes ------------------------ */
 //These functions are responsible for the game logic
-void getChoice(int* nTotalInputs, int* nTotalInputError, int* nInput, int nMinInput, int nMaxInput, int bToggleColor);
-void updateInputRange( int nCurrRoom, int* nMinInput, int* nMaxInput);
-void displayCurrentRoom(
-		/*Global game stats*/
-			int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
-			int nTotalInputError, int nAverageInput, int nTotalHealthLost, int nTotalScore,
-			int nTotalShinyItem, int nTotalTorchItem, int nTotalRustyKeyItem,
+void 
+getChoice(
+	/*Global game states*/
+	int* nTotalInputs,
+	int* nTotalInputError,
 
-		/*Local game states*/
-			int nCurrRoom, int nCurrProg,
+	/*Local game states*/
+	int* nInput,
+	int nMinInput,
+	int nMaxInput,
 
-		/*Player stats and inventory*/
-			int nHealth, int nScore, int bShinyItem, int bTorch, int bRustyKey,
-			
-		/*Achievements*/
-			int bGotEnding1, int bGotEnding2, int bGotEnding3, int bGotEnding4,
-			int bGotHealthy, int bGotPlentiful, int bGotCollector, int bGotSpeedrun,
-			int bGotCompletionist,
-			
-		/*UI and gameplay settings*/
-			int bToggleColor, int bToggleWait, int bToggleClear, int bToggleHUD,
-			int bToggleShowMenu, int bToggleSimple
-		);
-void updateGame(
-		/*Local game states*/
-		int nInput, int* nGameEnding, int* nCurrRoom, int* nPrevRoom, int* nCurrProg,
+	/*UI and gameplay settings*/
+	int bToggleColor
+);
 
-		/*Player stats and inventory*/
-		int* nHealth, int* nScore, int* bShinyItem, int* bTorch, int* bRustyKey,
+void
+updateInputRange(
+	/*Local game states*/
+	int nCurrRoom,
+	int* nMinInput,
+	int* nMaxInput
+);
 
-		/*UI and gameplay settings*/
-		int* bToggleColor, int* bToggleWait, int* bToggleClear, int* bToggleHUD,
-		int* bToggleShowMenu, int* bToggleSimple);
-/*
-void updateGame(int nInput, int* nGameEnding, int* nCurrRoom, int* nCurrProg,
-				int* nHealth, int* Score, int* bShinyItem, int* bTorch,
-				int* bRustyKey, int* bToggleColor, int* bToggleWait,
-				int* bToggleClear, int*bToggleHUD, int* bToggleShowMenu,
-				int* bToggleSimple);*/
-void updateAchievements(int nGameEnding, int nMoveCount, int nHealth,
-						int nScore, int bShinyItem, int bTorch,
-						int bRustyKey, int* bGotEnding1, int* bGotEnding2,
-						int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
-						int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
-						int* bGotCompletionist);
+void
+displayCurrentRoom(
+	/*Global game states*/
+	int nGameCount,
+	int nGameCompletion,
+	int nTotalMoveCount,
+	int nTotalInputs,
+	int nTotalInputError,
+	int nAverageInput,
+	int nTotalHealthLost,
+	int nTotalScore,
+	int nTotalShinyItem,
+	int nTotalTorchItem,
+	int nTotalRustyKeyItem,
+
+	/*Local game states*/
+	int nCurrRoom,
+	int nPrevRoom,
+	int nCurrProg,
+
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+
+	/*Player inventory*/
+	int bShinyItem,
+	int bTorch,
+	int bRustyKey,
+
+	/*Achievements*/
+	int bGotEnding1,
+	int bGotEnding2,
+	int bGotEnding3,
+	int bGotEnding4,
+	int bGotHealthy,
+	int bGotPlentiful,
+	int bGotCollector,
+	int bGotSpeedrun,
+	int bGotCompletionist,
+
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	int bToggleWait,
+	int bToggleClear,
+	int bToggleHUD,
+	int bToggleShowMenu,
+	int bToggleSimple
+);
+
+void
+updateGame(
+	/*Global game count*/
+	int* nGameCount,
+
+	/*Local game states*/
+	int nInput,
+	int* nGameEnding,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nMoveCount,
+
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+	
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey,
+
+	/*UI and gameplay settings*/
+	int* bToggleColor,
+	int* bToggleWait,
+	int* bToggleClear,
+	int* bToggleHUD,
+	int* bToggleShowMenu,
+	int* bToggleSimple
+);
+
+void
+updateAchievements(
+	/*Local game states*/
+	int nGameEnding,
+	int nMoveCount,
+
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+
+	/*Player inventory*/
+	int bShinyItem,
+	int bTorch,
+	int bRustyKey,
+
+	/*Achievements*/
+	int* nGotEnding1,
+	int* nGotEnding2,
+	int* nGotEnding3, 
+	int* nGotEnding4,
+	int* nGotHealthy,
+	int* nGotPlentiful,
+	int* nGotCollector,
+	int* nGotSpeedrun,
+	int* nGotCompletionist
+);
+
+void
+updateStatistics(
+	/*Global game states*/
+	int* nTotalMoveCount,
+	int nTotalInputs,
+	int nTotalInputError,
+	int* nInputSum,
+	int* nAverageInput,
+	int* nTotalHealthLost,
+	int* nTotalScore,
+	int* nTotalShinyItem,
+	int* nTotalTorchItem,
+	int* nTotalRustyKeyItem,
+
+	/*Local game states*/
+	int nInput,
+	int nCurrRoom,
+	int* nMoveCount,
+
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey
+);
 /* --------------------------------------------------------------------- */
 
 
 
 /*
 	This function gets the value inputted by the player and
-		checks if its valid, if not then it asks again
+		checks if its valid, if not then it asks again.
 	Preconditions: parameters are integers
-	@param nInput is where the function will store the choice
-	@param nMinInput is the minimum integer value the player can input
-	@param nMaxInput is the maximum integer value the player can input
+
+	//Global game states
+	@param *nTotalInputs tracks the total amount of inputs the player has made
+	@param *nTotalInputError tracks the total amount of invalid inputs the player has made
+
+	//Local game states
+	@param *nInput tracks the player's choice/input
+	@param nMinInput tracks the minumum range a player can input
+	@param nMaxInput tracks the maximum range a player can input
+
+	//UI and gameplay settings
 	@param bToggleColor tracks whether to display color or not
 */
 void
-getChoice(int* nTotalInputs, int* nTotalInputError, int* nInput, int nMinInput, int nMaxInput, int bToggleColor)
+getChoice(
+	/*Global game states*/
+	int* nTotalInputs,
+	int* nTotalInputError,
+	
+	/*Local game states*/
+	int* nInput,
+	int nMinInput,
+	int nMaxInput,
+	
+	/*UI and gameplay settings*/
+	int bToggleColor
+)
 {
     int bIsInputValid = 0; //tracks if the input made by the user is valid and within the range
     int nIsScanValid; //tracks if the input follows the scanf format specifiers
@@ -111,11 +248,11 @@ getChoice(int* nTotalInputs, int* nTotalInputError, int* nInput, int nMinInput, 
 
 /*
 	This function changes the ranges of input based on the current
-		room the player is in currently
+		room the player is in currently.
 	Preconditions: nCurrRoom, nMinInput, and nMaxInput are integers
-	@param nCurrRoom is tracking the current room the player is in
-	@param nMinInput is the minimum integer value the player can input
-	@param nMaxInput is the maximum integer value the player can input
+	@param nCurrRoom tracks the current room the player is in
+	@param *nMinInput tracks the minumum range a player can input
+	@param *nMaxInput tracks the maximum range a player can input
 */
 void
 updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
@@ -149,13 +286,13 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 		//Menu with continue game option
 		case -2:
 			*nMinInput = 0;
-			*nMaxInput = 7;
+			*nMaxInput = 6;
 			break;
 			
 		//Menu
 		case -1:
 			*nMinInput = 1;
-			*nMaxInput = 7;
+			*nMaxInput = 6;
 			break;
 
 		//Introduction
@@ -229,43 +366,103 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 
 /*
 	This function calls the functions that is responsible for
-		printing the information for the current room
+		printing the information for the current room.
 	Preconditions: parameters are integers
+
+	//Global game states
+	@param nGameCount tracks the amount of games started
+	@param nGameCompletion tracks the amount of games that have reached an ending
+	@param nTotalMoveCount tracks the total amount of moves the player has made during all games
+	@param nTotalInputs tracks the total amount of inputs the player has made
+	@param nTotalInputError tracks the total amount of invalid inputs the player has made
+	@param nAverageInput tracks the average value of the valid inputs the player has made
+	@param nTotalHealthLost tracks the total amount of health the player has lost
+	@param nTotalScore tracks the total amount of score the player has gained
+	@param nTotalShinyItem tracks the total number of times the player has obtained the shiny item
+	@param nTotalTorchItem tracks the total amount of times the player has obtained the torch item
+	@param nTotalRustyKeyItem tracks the total amount of times the player has obtained the rusty key item
+
+	//Local game states
 	@param nCurrRoom tracks the current room the player is in
+	@param nPrevRoom tracks the previous room the player has been during the game
 	@param nCurrProg tracks the current progress of an ongoing game
+
+	//Player stats
 	@param nHealth tracks the current health of the player
 	@param nScore tracks the current score of the player
+
+	//Player inventory
 	@param bShinyItem tracks whether the player has the Shiny Item or not
 	@param bTorch tracks whether the player has the Torch or not
 	@param bRustyKey tracks whether the player has the Rusty Key or not
+
+	//Achievements
+	@param nGotEnding1 tracks the amount of times the player has achieved the achievement "Ending 1"
+	@param nGotEnding2 tracks the amount of times the player has achieved the achievement "Ending 2"
+	@param nGotEnding3 tracks the amount of times the player has achieved the achievement "Ending 3"
+	@param nGotEnding4 tracks the amount of times the player has achieved the achievement "Ending 4"
+	@param nGotHealthy tracks the amount of times the player has achieved the achievement "Healthy"
+	@param nGotPlentiful tracks the amount of times the player has achieved the achievement "Plentiful"
+	@param nGotSpeedrun tracks the amount of times the player has achieved the achievement "Speedrun"
+	@param nGotCollector tracks the amount of times the player has achieved the achievement "Collector"
+	@param nGotCompletionist tracks the amount of times the player has achieved the achievement "Completionist"
+
+	//UI and gameplay settings
 	@param bToggleColor tracks whether to display color or not
 	@param bToggleWait tracks whether there is a pause between dialogues or not
 	@param bToggleClear tracks whether to clear the screen when moving between screens or not
 	@param bToggleHUD tracks whether to show the Heads-up Display when playing
 	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
 displayCurrentRoom(
-		/*Global game stats*/
-			int nGameCount, int nGameCompletion, int nTotalMoveCount, int nTotalInputs,
-			int nTotalInputError, int nAverageInput, int nTotalHealthLost, int nTotalScore,
-			int nTotalShinyItem, int nTotalTorchItem, int nTotalRustyKeyItem,
+	/*Global game states*/
+	int nGameCount,
+	int nGameCompletion,
+	int nTotalMoveCount,
+	int nTotalInputs,
+	int nTotalInputError,
+	int nAverageInput,
+	int nTotalHealthLost,
+	int nTotalScore,
+	int nTotalShinyItem,
+	int nTotalTorchItem,
+	int nTotalRustyKeyItem,
 
-		/*Local game states*/
-			int nCurrRoom, int nCurrProg,
+	/*Local game states*/
+	int nCurrRoom,
+	int nPrevRoom,
+	int nCurrProg,
 
-		/*Player stats and inventory*/
-			int nHealth, int nScore, int bShinyItem, int bTorch, int bRustyKey,
-			
-		/*Achievements*/
-			int bGotEnding1, int bGotEnding2, int bGotEnding3, int bGotEnding4,
-			int bGotHealthy, int bGotPlentiful, int bGotCollector, int bGotSpeedrun,
-			int bGotCompletionist,
-			
-		/*UI and gameplay settings*/
-			int bToggleColor, int bToggleWait, int bToggleClear, int bToggleHUD,
-			int bToggleShowMenu, int bToggleSimple
-		)
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+
+	/*Player inventory*/
+	int bShinyItem,
+	int bTorch,
+	int bRustyKey,
+
+	/*Achievements*/
+	int bGotEnding1,
+	int bGotEnding2,
+	int bGotEnding3,
+	int bGotEnding4,
+	int bGotHealthy,
+	int bGotPlentiful,
+	int bGotCollector,
+	int bGotSpeedrun,
+	int bGotCompletionist,
+
+	/*UI and gameplay settings*/
+	int bToggleColor,
+	int bToggleWait,
+	int bToggleClear,
+	int bToggleHUD,
+	int bToggleShowMenu,
+	int bToggleSimple
+)
 {
 	//display the HUD whenever the player is in a game room and its enabled
 	if (nCurrRoom >= 0 && bToggleHUD)
@@ -289,18 +486,27 @@ displayCurrentRoom(
 		//Statistics page
 		case -4:
 			displayStatistics(
+				/*Global game states*/
 				nGameCount, nGameCompletion, nTotalMoveCount, nTotalInputs,
 				nTotalInputError, nAverageInput, nTotalHealthLost, nTotalScore,
-				nTotalShinyItem, nTotalTorchItem, nTotalRustyKeyItem
+				nTotalShinyItem, nTotalTorchItem, nTotalRustyKeyItem,
+
+				/*UI and gameplay settings*/
+				bToggleColor
 			);
 			break;
 			
 		//Achievements page
 		case -3:
-			displayAchievements(bGotEnding1, bGotEnding2, bGotEnding3, 
-						bGotEnding4, bGotHealthy, bGotPlentiful,
-						bGotCollector, bGotSpeedrun, bGotCompletionist,
-						bToggleColor);
+			displayAchievements(
+				/*Achievements*/
+				bGotEnding1, bGotEnding2, bGotEnding3, bGotEnding4,
+				bGotHealthy, bGotPlentiful, bGotCollector, bGotSpeedrun,
+				bGotCompletionist,
+
+				/*UI and gameplay settings*/
+				bToggleColor
+			);
 			break;
 
 		//Menu with continue choice
@@ -309,7 +515,7 @@ displayCurrentRoom(
 
 		//Menu page
 		case -1:
-			displayMenu(nCurrProg, bToggleColor);
+			displayMenu(nCurrRoom, bToggleColor);
 			break;
 		
 		//Introduction
@@ -319,89 +525,121 @@ displayCurrentRoom(
 		
 		//Room 1
 		case 1:
-			displayRoom1(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom1(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 2
 		case 2:
-			displayRoom2(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom2(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 3
 		case 3:
-			displayRoom3(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom3(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 4
 		case 4:
-			displayRoom4(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom4(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 5
 		case 5:
-			displayRoom5(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom5(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 6
 		case 6:
-			displayRoom6(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom6(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 7
 		case 7:
-			displayRoom7(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom7(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 8
 		case 8:
-			displayRoom8(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom8(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 9
 		case 9:
-			displayRoom9(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom9(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 10
 		case 10:
-			displayRoom10(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom10(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 	}
 }
 
 
 /*
-	This function is responsible for updating the game based on the input of the player
+	This function is responsible for updating the game based on the input of the player.
 	Preconditions: parameters are integers
-	@param nInput tracks the choice the player has made
-	@param nGameEnding tracks the type of ending the player got
-	@param nCurrRoom tracks the current room the player is in
-	@param nCurrProg tracks the current progress of an ongoing game
-	@param nHealth tracks the current health of the player
-	@param nScore tracks the current score of the player
-	@param bShinyItem tracks whether the player has the Shiny Item or not
-	@param bTorch tracks whether the player has the item Torch or not
-	@param bRustyKey tracks whether the player has the Rusty Key or not
-	@param bToggleColor tracks whether to display color or not
-	@param bToggleWait tracks whether there is a pause between dialogues or not
-	@param bToggleClear tracks whether to clear the screen when moving between screens or not
-	@param bToggleHUD tracks whether to show the Heads-up Display when playing
-	@param bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+
+	//Global game states
+	@param nGameCount tracks the amount of games started
+
+	//Local game states
+	@param nInput tracks the player's choice/input
+	@param *nGameEnding tracks the ending the player will receive
+	@param *nCurrRoom tracks the current room the player is in
+	@param *nPrevRoom tracks the previous room the player has been during the game
+	@param *nCurrProg tracks the current progress of an ongoing game
+
+	//Player stats
+	@param *nHealth tracks the current health of the player
+	@param *nScore tracks the current score of the player
+
+	//Player inventory
+	@param *bShinyItem tracks whether the player has the Shiny Item or not
+	@param *bTorch tracks whether the player has the Torch or not
+	@param *bRustyKey tracks whether the player has the Rusty Key or not
+
+	//UI and gameplay settings
+	@param *bToggleColor tracks whether to display color or not
+	@param *bToggleWait tracks whether there is a pause between dialogues or not
+	@param *bToggleClear tracks whether to clear the screen when moving between screens or not
+	@param *bToggleHUD tracks whether to show the Heads-up Display when playing
+	@param *bToggleShowMenu tracks whether to display the option "0. Return to menu" when playing
+	@param *bToggleSimple tracks whether to display simplified dialogue or not
 */
 void
 updateGame(
-		/*Local game states*/
-		int nInput, int* nGameEnding, int* nCurrRoom, int* nPrevRoom, int* nCurrProg,
+	/*Global game states*/
+	int* nGameCount,
 
-		/*Player stats and inventory*/
-		int* nHealth, int* nScore, int* bShinyItem, int* bTorch, int* bRustyKey,
+	/*Local game states*/
+	int nInput,
+	int* nGameEnding,
+	int* nCurrRoom,
+	int* nPrevRoom,
+	int* nCurrProg,
+	int* nMoveCount,
 
-		/*UI and gameplay settings*/
-		int* bToggleColor, int* bToggleWait, int* bToggleClear, int* bToggleHUD,
-		int* bToggleShowMenu, int* bToggleSimple)
+	/*Player stats*/
+	int* nHealth,
+	int* nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+	
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey,
+
+	/*UI and gameplay settings*/
+	int* bToggleColor,
+	int* bToggleWait,
+	int* bToggleClear,
+	int* bToggleHUD,
+	int* bToggleShowMenu,
+	int* bToggleSimple
+)
 {
-	//store the value in nCurrRoom into nPrevRoom before moving to another room
-		
 	//call the function responsible for the logic of the current room
 	switch (*nCurrRoom)
 	{
@@ -430,146 +668,359 @@ updateGame(
 
 		//Menu with continue option
 		case -2:
-			roomMenuLogic(nInput, nCurrRoom, nCurrProg,
-							nGameEnding, nHealth, nScore,
-							bShinyItem, bTorch, bRustyKey);
-			break;
+		//Intentional Fallthrough
 		
 		//Menu page
 		case -1:
-			roomMenuLogic(nInput, nCurrRoom, nCurrProg,
-							nGameEnding, nHealth, nScore,
-							bShinyItem, bTorch, bRustyKey);
+			roomMenuLogic(
+				/*Global game states*/
+				nGameCount,
+				
+				/*Local game states*/
+				nInput,
+				nGameEnding,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+				nMoveCount,
+
+				/*Player stats*/
+				nHealth,
+				nScore,
+				nPrevHealth,
+				nPrevScore,
+
+				/*Player inventory*/
+				bShinyItem,
+				bTorch,
+				bRustyKey
+			);
 			break;
 		
 		//Introduction page
 		case 0:
-			introductionLogic(nInput, nCurrRoom, nCurrProg);
+			introductionLogic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg
+			);
 			break;
 
 		//Room 1
 		case 1:
-			room1Logic(nInput, nCurrRoom, nCurrProg);
+			room1Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg
+			);
 			break;
 
 		//Room 2
 		case 2:
-			room2Logic(nInput, nCurrRoom, nCurrProg,
-						nHealth, nScore);
+			room2Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+
+				/*Player stats*/
+				nHealth,
+				nScore
+			);
 			break;
 
 		//Room 3
 		case 3:
-			room3Logic(nInput, nCurrRoom, nCurrProg,
-						nScore, bShinyItem);
+			room3Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+
+				/*Player stats*/
+				nScore,
+
+				/*Player inventory*/
+				bShinyItem
+			);
 			break;
 
 		//Room 4
 		case 4:
-			room4Logic(nInput, nCurrRoom, nCurrProg,
-						nHealth);
+			room4Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+
+				/*Player stats*/
+				nHealth
+			);
 			break;
 
 		//Room 5
 		case 5:
-			room5Logic(nInput, nCurrRoom, nCurrProg,
-						bTorch);
+			room5Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+
+				/*Player inventory*/
+				bTorch
+			);
 			break;
 
 		//Room 6
 		case 6:
-			room6Logic(nInput, nCurrRoom, nCurrProg,
-						nHealth, nScore, *bTorch);
+			room6Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+
+				/*Player stats*/
+				nHealth,
+				nScore,
+
+				/*Player inventory*/
+				*bTorch
+			);
 			break;
 
 		//Room 7
 		case 7:
-			room7Logic(nInput, nCurrRoom, nCurrProg);
+			room7Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg
+			);
 			break;
 
 		//Room 8
 		case 8:
-			room8Logic(nInput, nCurrRoom, nCurrProg,
-						*bRustyKey);
+			room8Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+
+				/*Player inventory*/
+				*bRustyKey
+			);
 			break;
 
 		//Room 9
 		case 9:
-			room9Logic(nInput, nCurrRoom, nCurrProg,
-						nGameEnding, nHealth, bRustyKey);
+			room9Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nCurrProg,
+				nGameEnding,
+
+				/*Player stats*/
+				nHealth,
+
+				/*Player inventory*/
+				bRustyKey
+			);
 			break;
 
 		//Room 10
 		case 10:
-			room10Logic(nInput, nCurrRoom, nGameEnding,
-							nScore, *bShinyItem);
+			room10Logic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nPrevRoom,
+				nGameEnding,
+
+				/*Player stats*/
+				nScore,
+
+				/*Player inventory*/
+				*bShinyItem
+			);
 			break;
 	}
 }
 
 
+/*
+	This function is responsible for updating the achievement variables whenever the
+		player has achieved them.
+	Preconditions: parameters are integers
+
+	//Local game states
+	@param nGameEnding tracks the ending the player will receive
+	@param nMoveCount tracks the number of rooms the player has been in
+	
+	//Player stats
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current score of the player
+
+	//Player inventory
+	@param bShinyItem tracks whether the player has the Shiny Item or not
+	@param bTorch tracks whether the player has the Torch or not
+	@param bRustyKey tracks whether the player has the Rusty Key or not
+
+	//Achievements
+	@param *nGotEnding1 tracks the amount of times the player has achieved the achievement "Ending 1"
+	@param *nGotEnding2 tracks the amount of times the player has achieved the achievement "Ending 2"
+	@param *nGotEnding3 tracks the amount of times the player has achieved the achievement "Ending 3"
+	@param *nGotEnding4 tracks the amount of times the player has achieved the achievement "Ending 4"
+	@param *nGotHealthy tracks the amount of times the player has achieved the achievement "Healthy"
+	@param *nGotPlentiful tracks the amount of times the player has achieved the achievement "Plentiful"
+	@param *nGotSpeedrun tracks the amount of times the player has achieved the achievement "Speedrun"
+	@param *nGotCollector tracks the amount of times the player has achieved the achievement "Collector"
+	@param *nGotCompletionist tracks the amount of times the player has achieved the achievement "Completionist"
+*/
 void
-updateAchievements(int nGameEnding, int nMoveCount, int nHealth,
-					int nScore, int bShinyItem, int bTorch,
-					int bRustyKey, int* bGotEnding1, int* bGotEnding2,
-					int* bGotEnding3, int* bGotEnding4, int* bGotHealthy,
-					int* bGotPlentiful, int* bGotCollector, int* bGotSpeedrun,
-					int* bGotCompletionist)
+updateAchievements(
+	/*Local game states*/
+	int nGameEnding,
+	int nMoveCount,
+
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+
+	/*Player inventory*/
+	int bShinyItem,
+	int bTorch,
+	int bRustyKey,
+
+	/*Achievements*/
+	int* nGotEnding1,
+	int* nGotEnding2,
+	int* nGotEnding3, 
+	int* nGotEnding4,
+	int* nGotHealthy,
+	int* nGotPlentiful,
+	int* nGotCollector,
+	int* nGotSpeedrun,
+	int* nGotCompletionist
+)
 {
 	//Ending achievements
 	switch (nGameEnding)
 	{
 		case 1:
-			*bGotEnding1 += 1;
+			*nGotEnding1 += 1;
 			break;
 		
 		case 2:
-			*bGotEnding2 += 1;
+			*nGotEnding2 += 1;
 			break;
 
 		case 3:
-			*bGotEnding3 += 1;
+			*nGotEnding3 += 1;
 			break;
 
 		case 4:
-			*bGotEnding4 += 1;
+			*nGotEnding4 += 1;
 	}
 
 	//Other achievements
 	if (nHealth >= 40)
-		*bGotHealthy += 1;
+		*nGotHealthy += 1;
 
 	if (nScore >= 30)
-		*bGotPlentiful += 1;
+		*nGotPlentiful += 1;
 
 	if (bShinyItem && bTorch && bRustyKey)
-		*bGotCollector += 1;
+		*nGotCollector += 1;
 
 	if (nMoveCount <= 10)
-		*bGotSpeedrun += 1;
+		*nGotSpeedrun += 1;
 
-	if (*bGotEnding1 && *bGotEnding2 &&*bGotEnding3 && 
-			*bGotEnding4 && *bGotHealthy && *bGotPlentiful && 
-			*bGotCollector && *bGotSpeedrun && *bGotCompletionist)
-		*bGotCompletionist += 1;
+	if (*nGotEnding1 && *nGotEnding2 &&*nGotEnding3 &&  *nGotEnding4 && 
+			*nGotHealthy && *nGotPlentiful && *nGotCollector && *nGotSpeedrun)
+		*nGotCompletionist += 1;
 }
 
 
+/*
+	This function is responsible for updating the different statistic variables
+	Preconditions: parameters are integers
+
+	//Global game states
+	@param *nGameCompletion tracks the amount of games that have reached an ending
+	@param *nTotalMoveCount tracks the total amount of moves the player has made during all games
+	@param *nTotalInputs tracks the total amount of inputs the player has made
+	@param *nTotalInputError tracks the total amount of invalid inputs the player has made
+	@param *nInputSum tracks the sum of all the valid inputs the player has made
+	@param *nAverageInput tracks the average value of the valid inputs the player has made
+	@param *nTotalHealthLost tracks the total amount of health the player has lost
+	@param *nTotalScore tracks the total amount of score the player has gained
+	@param *nTotalShinyItem tracks the total number of times the player has obtained the shiny item
+	@param *nTotalTorchItem tracks the total amount of times the player has obtained the torch item
+	@param *nTotalRustyKeyItem tracks the total amount of times the player has obtained the rusty key item
+
+	//Local game states
+	@param nInput tracks the player's choice/input
+	@param nCurrRoom tracks the current room the player is in
+	@param *nMoveCount tracks the number of rooms the player has been in
+
+	//Player stats
+	@param nHealth tracks the current health of the player
+	@param nScore tracks the current score of the player
+	@param *nPrevHealth tracks the previous health of the player
+	@param *nPrevScore tracks the previous score of the player
+
+	//Player inventory
+	@param *bShinyItem tracks whether the player has the Shiny Item or not
+	@param *bTorch tracks whether the player has the Torch or not
+	@param *bRustyKey tracks whether the player has the Rusty Key or not
+*/
 void
 updateStatistics(
-			/*Global game stats*/
-			int* nTotalMoveCount, int nTotalInputs, int nTotalInputError, int* nInputSum,
-			int* nAverageInput, int* nTotalHealthLost, int* nTotalScore, int* nTotalShinyItem,
-			int* nTotalTorchItem, int* nTotalRustyKeyItem,
+	/*Global game states*/
+	int* nTotalMoveCount,
+	int nTotalInputs,
+	int nTotalInputError,
+	int* nInputSum,
+	int* nAverageInput,
+	int* nTotalHealthLost,
+	int* nTotalScore,
+	int* nTotalShinyItem,
+	int* nTotalTorchItem,
+	int* nTotalRustyKeyItem,
 
-			/*Local game states*/
-			int nInput, int nCurrRoom, int* nMoveCount,
+	/*Local game states*/
+	int nInput,
+	int nCurrRoom,
+	int* nMoveCount,
 
-			/*Player stats and inventory*/
-			int nHealth, int* nPrevHealth, int nScore, int* nPrevScore,
-			int* bShinyItem, int* bTorch, int* bRustyKey
-		)
+	/*Player stats*/
+	int nHealth,
+	int nScore,
+	int* nPrevHealth,
+	int* nPrevScore,
+
+	/*Player inventory*/
+	int* bShinyItem,
+	int* bTorch,
+	int* bRustyKey
+)
 {
+	//compute the average user input
+	*nInputSum += nInput;
+	*nAverageInput = *nInputSum / (nTotalInputs - nTotalInputError);
 
 	//total move count
 	if (nCurrRoom >= 0)
@@ -578,13 +1029,14 @@ updateStatistics(
 		*nTotalMoveCount += 1;
 	}
 
+	//total health lost
 	if (nHealth < *nPrevHealth)
 	{
 		*nTotalHealthLost += *nPrevHealth - nHealth;
 		*nPrevHealth = nHealth;
 	}
 
-	
+	//total score gained
 	if (nScore > *nPrevScore)
 	{
 		*nTotalScore += nScore - *nPrevScore;
@@ -592,26 +1044,24 @@ updateStatistics(
 	}
 
 
-	
+	//total shiny item obtained
 	if (*bShinyItem == 1)
 	{
 		*nTotalShinyItem += 1;
 		*bShinyItem += 1;
 	}
 
+	//total torch item obtained
 	if (*bTorch == 1)
 	{
 		*nTotalTorchItem += 1;
 		*bTorch += 1;
 	}
 
+	//total rusty key item obtained
 	if (*bRustyKey == 1)
 	{
 		*nTotalRustyKeyItem += 1;
 		*bRustyKey += 1;
 	}
-
-	//average user inputs
-	*nInputSum += nInput;
-	*nAverageInput = *nInputSum / (nTotalInputs - nTotalInputError);
 }
