@@ -17,7 +17,7 @@ plagiarized the work of other students and/or persons.
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
 	Last Modified: November 23, 2025
-	Version: 1.19
+	Version: 1.20
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://www.asciiart.eu/art-and-design/borders -> for providing the border for the ending page
 						https://patorjk.com/software/taag/ -> for providing the ascii art for the achievements
@@ -307,15 +307,15 @@ while (nGameEnding)
 			bRustyKey,
 
 			/*Achievements*/
-			nGotEnding1,
-			nGotEnding2,
-			nGotEnding3,
-			nGotEnding4,
-			nGotHealthy,
-			nGotPlentiful,
-			nGotCollector,
-			nGotSpeedrun,
-			nGotCompletionist,
+			&nGotEnding1,
+			&nGotEnding2,
+			&nGotEnding3,
+			&nGotEnding4,
+			&nGotHealthy,
+			&nGotPlentiful,
+			&nGotCollector,
+			&nGotSpeedrun,
+			&nGotCompletionist,
 
 			/*UI and gameplay settings*/
 			bToggleColor,

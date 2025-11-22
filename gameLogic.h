@@ -645,25 +645,50 @@ updateGame(
 	{
 		//Options page
 		case -6:
-			roomOptionsLogic(nInput, nCurrRoom, nCurrProg,
-								bToggleColor, bToggleWait,
-								bToggleClear, bToggleHUD,
-								bToggleShowMenu, bToggleSimple);
+			roomOptionsLogic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nCurrProg,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleClear,
+				bToggleHUD,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Credits page
 		case -5:
-			roomCreditsLogic(nInput, nCurrRoom, nCurrProg);
+			roomCreditsLogic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nCurrProg
+			);
 			break;
 
 		//Statistics page
 		case -4:
-			roomStatisticsLogic(nInput, nCurrRoom, nCurrProg);
+			roomStatisticsLogic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nCurrProg
+			);
 			break;
 
 		//Achievements page
 		case -3:
-			roomAchievementsLogic(nInput, nCurrRoom, nCurrProg);
+			roomAchievementsLogic(
+				/*Local game states*/
+				nInput,
+				nCurrRoom,
+				nCurrProg
+			);
 			break;
 
 		//Menu with continue option
@@ -675,7 +700,7 @@ updateGame(
 			roomMenuLogic(
 				/*Global game states*/
 				nGameCount,
-				
+
 				/*Local game states*/
 				nInput,
 				nGameEnding,
@@ -933,6 +958,7 @@ updateAchievements(
 
 		case 4:
 			*nGotEnding4 += 1;
+			break;
 	}
 
 	//Other achievements
