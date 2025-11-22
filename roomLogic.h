@@ -600,6 +600,10 @@ introductionLogic(
 		
 		//move to room 1
 		case 1:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+			
+			//move to the next room
 			*nCurrRoom = 1;
 			*nCurrProg = 1;
 			break;
@@ -642,12 +646,20 @@ room1Logic(
 		
 		//move to room 2
 		case 1:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 2;
 			*nCurrProg = 2;
 			break;
 
 		//move to room 3
 		case 2:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 3;
 			*nCurrProg = 3;
 			break;
@@ -700,6 +712,10 @@ room2Logic(
 
 	//move to room 4
 	case 1:
+		//set the current room into the previous room variable
+		*nPrevRoom = *nCurrRoom;
+
+		//move to the next room
 		*nCurrRoom = 4;
 		*nCurrProg = 4;
 		break;
@@ -759,6 +775,10 @@ room3Logic(
 		
 		//move to room 4
 		case 2:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 4;
 			*nCurrProg = 4;
 			break;
@@ -811,6 +831,10 @@ room4Logic(
 
 		//move to room 5
 		case 1:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 5;	//update the current room with the next room
 			*nCurrProg = 5;	//update the current progress with the next room
 			break;
@@ -863,6 +887,10 @@ room5Logic(
 
 		//move to room 6
 		case 2:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 6;	//update the current room with the next room
 			*nCurrProg = 6;	//update the current progress with the next room
 			break;
@@ -927,6 +955,10 @@ room6Logic(
 
 		//move to room 7
 		case 1:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 7;	//update the current room with the next room
 			*nCurrProg = 7;	//update the current progress with the next room
 			break;
@@ -968,12 +1000,20 @@ room7Logic(
 
 		//move to room 8
 		case 1:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 8;	//update the current room with the next room
 			*nCurrProg = 8;	//update the current progress with the next room
 			break;
 		
 		//move to room 9
 		case 2:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*nCurrRoom = 9;	//update the current room with the next room
 			*nCurrProg = 9;	//update the current progress with the next room
 			break;
@@ -1023,6 +1063,10 @@ room8Logic(
 		//move to room 9 or 10 depending if the player has the rusty key or not
 		case 1:
 			//if the player has the rusty key item, move to room 10
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			if (bRustyKey)
 			{
 				*nCurrRoom = 10;	//update the current room with the next room
@@ -1089,6 +1133,10 @@ room9Logic(
 
 		//obtain the rusty key item and move to room 8
 		case 1:
+			//set the current room into the previous room variable
+			*nPrevRoom = *nCurrRoom;
+
+			//move to the next room
 			*bRustyKey = 1; //updates that the player has the rusty key item
 			*nCurrRoom = 8;	//update the current room with the next room
 			*nCurrProg = 8;	//update the current progress with the next room
