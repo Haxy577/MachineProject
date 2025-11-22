@@ -19,50 +19,17 @@ void displayEnding (int nInput, int* nCurrRoom, int* nCurrProg,
 void displayPlayerHUD(int nHealth, int nScore, int bShinyItem,
 					int bTorch, int bRustyKey, int bToggleColor,
 					int bToggleHUD);
-void displayIntroduction(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom1(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom2(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom3(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom4(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom5(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom6(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom7(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom8(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom9(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
-void displayRoom10(int nHealth, int nScore, int bShinyItem,
-						int bTorch, int bRustyKey, int bToggleColor,
-						int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-						int bToggleSimple);
+void displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom1(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom2(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom3(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom4(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom5(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom6(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom7(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom8(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom9(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
+void displayRoom10(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple);
 void displayEndingPage(int nGameEnding, int nHealth, int nScore,
 						int bShinyItem, int bTorch, int bRustyKey,
 						int bGotEnding1, int bGotEnding2, int bGotEnding3,
@@ -105,7 +72,7 @@ void
 clearScreen(int bToggleClear)
 {
 	if (bToggleClear)
-		system("clear"); //clears the screen of all text
+		system("cls"); //clears the screen of all text
 	else
 	{
 		displayLine();
@@ -391,7 +358,7 @@ dialogueWait(int nSeconds, int bToggleWait)
 {
 	int nDuration = nSeconds;
 	if (bToggleWait)
-		sleep(nDuration);
+		Sleep(nDuration);
 }
 
 /*
@@ -427,15 +394,8 @@ displayMenuChoice(int bToggleColor, int bToggleShowMenu)
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayIntroduction(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayIntroduction(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-	//display the HUD
-	displayPlayerHUD(nHealth, nScore, bShinyItem,
-						bTorch, bRustyKey, bToggleColor,
-						bToggleHUD);
 
 	/*
 	Text cutter (80 characters)
@@ -513,16 +473,8 @@ displayIntroduction(int nHealth, int nScore, int bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom1(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom1(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -558,16 +510,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom2(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom2(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -602,16 +546,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom3(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom3(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -647,16 +583,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom4(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom4(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -692,16 +620,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom5(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom5(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -737,16 +657,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom6(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom6(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -781,16 +693,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom7(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom7(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -826,16 +730,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom8(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom8(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -870,16 +766,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom9(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom9(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{
@@ -915,16 +803,8 @@ displayPlayerHUD(nHealth, nScore, bShinyItem,
 	@param bToggleSimple tracks whether to display the simplest version of dialogue or not
 */
 void
-displayRoom10(int nHealth, int nScore, int bShinyItem,
-					int bTorch, int bRustyKey, int bToggleColor,
-					int bToggleWait, int bToggleHUD, int bToggleShowMenu,
-					int bToggleSimple)
+displayRoom10(int bToggleColor, int bToggleWait, int bToggleShowMenu, int bToggleSimple)
 {
-//display the HUD
-displayPlayerHUD(nHealth, nScore, bShinyItem,
-					bTorch, bRustyKey, bToggleColor,
-					bToggleHUD);
-
 //display the dialogue
 	if (bToggleSimple)
 	{

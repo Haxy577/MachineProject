@@ -267,6 +267,12 @@ displayCurrentRoom(
 			int bToggleShowMenu, int bToggleSimple
 		)
 {
+	//display the HUD whenever the player is in a game room and its enabled
+	if (nCurrRoom >= 0 && bToggleHUD)
+		displayPlayerHUD(nHealth, nScore, bShinyItem,
+						bTorch, bRustyKey, bToggleColor,
+						bToggleHUD);
+
 	switch (nCurrRoom)
 	{
 		//Options
@@ -308,90 +314,57 @@ displayCurrentRoom(
 		
 		//Introduction
 		case 0:
-			displayIntroduction(nHealth, nScore, bShinyItem,
-									bTorch, bRustyKey, bToggleColor,
-									bToggleWait, bToggleHUD, bToggleShowMenu,
-									bToggleSimple);
+			displayIntroduction(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 		
 		//Room 1
 		case 1:
-			displayRoom1(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom1(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 2
 		case 2:
-			displayRoom2(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom2(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 3
 		case 3:
-			displayRoom3(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom3(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 4
 		case 4:
-			displayRoom4(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom4(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 5
 		case 5:
-			displayRoom5(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom5(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 6
 		case 6:
-			displayRoom6(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom6(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 7
 		case 7:
-			displayRoom7(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom7(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 8
 		case 8:
-			displayRoom8(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom8(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 9
 		case 9:
-			displayRoom9(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom9(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 
 		//Room 10
 		case 10:
-			displayRoom10(nHealth, nScore, bShinyItem,
-							bTorch, bRustyKey, bToggleColor,
-							bToggleWait, bToggleHUD, bToggleShowMenu,
-							bToggleSimple);
+			displayRoom10(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
 			break;
 	}
 }

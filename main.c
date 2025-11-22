@@ -16,8 +16,8 @@ plagiarized the work of other students and/or persons.
 					It demonstrates the use of functions, loops, and
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
-	Last Modified: November 15, 2025
-	Version: 1.17
+	Last Modified: November 22, 2025
+	Version: 1.18
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://www.asciiart.eu/art-and-design/borders -> for providing the border for the ending page
 						https://patorjk.com/software/taag/ -> for providing the ascii art for the achievements
@@ -29,8 +29,7 @@ plagiarized the work of other students and/or persons.
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include <windows.h>
 #include "display.h"
 #include "roomLogic.h"
 #include "gameLogic.h"
@@ -109,8 +108,6 @@ while (nGameEnding)
 	{
 		//clear the screen
 		clearScreen(bToggleClear);
-		
-		printf("Previous room: %d\n", nPrevRoom);
 
 		//display the room the player is currently in
 		displayCurrentRoom(
