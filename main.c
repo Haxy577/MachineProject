@@ -17,7 +17,7 @@ plagiarized the work of other students and/or persons.
 					pointers.
 	Programmed by: Richmond Jase Von M. Salvador  S15B
 	Last Modified: November 23, 2025
-	Version: 1.21
+	Version: 1.22
 	Acknowledgements:	https://www.asciiart.eu/text-to-ascii-art -> for providing the title art
 						https://www.asciiart.eu/art-and-design/borders -> for providing the border for the ending page
 						https://patorjk.com/software/taag/ -> for providing the ascii art for the achievements
@@ -30,9 +30,9 @@ plagiarized the work of other students and/or persons.
 
 #include <stdio.h>
 #include <windows.h>
-#include "display.h"
-#include "roomLogic.h"
-#include "gameLogic.h"
+#include "display.c"
+#include "roomLogic.c"
+#include "gameLogic.c"
 
 
 /* ------------------------ Function Prototypes ------------------------ */
@@ -93,11 +93,11 @@ int main()
 
 	/*Gameplay and UI settings*/
 	int bToggleColor = 1;			//tracks whether to display color or not
-	int bToggleWait = 1;			//tracks whether there is a delay between dialogues or not
+	int bToggleWait = 0;			//tracks whether there is a delay between dialogues or not
 	int bToggleClear = 1;			//tracks whether to clear the screen when moving between screens or not
 	int bToggleHUD = 1;				//tracks whether to show the Heads-up Display when playing
 	int bToggleShowMenu = 1;		//tracks whether to display the option "0. Return to menu" when playing
-	int bToggleSimple = 1;			//tracks whether to display simplified dialogue or not
+	int bToggleSimple = 0;			//tracks whether to display simplified dialogue or not
 
 
 
@@ -110,7 +110,8 @@ while (nGameEnding)
 		//clear the screen
 		clearScreen(bToggleClear);
 
-		printf("Prev room: %d\n\n", nPrevRoom);
+		printf("Input: %d\n\n",nInput);
+
 
 		//display the room the player is currently in
 		displayCurrentRoom(
@@ -130,7 +131,6 @@ while (nGameEnding)
 			/*Local game states*/
 			nCurrRoom,
 			nPrevRoom,
-			nCurrProg,
 
 			/*Player stats*/
 			nHealth,
@@ -317,12 +317,7 @@ while (nGameEnding)
 			&nGotPlentiful,
 			&nGotCollector,
 			&nGotSpeedrun,
-			&nGotCompletionist,
-
-			/*UI and gameplay settings*/
-			bToggleColor,
-			bToggleWait,
-			bToggleSimple
+			&nGotCompletionist
 		);
 
 

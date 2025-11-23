@@ -201,7 +201,6 @@ room10Logic(
 	/*Local game states*/
 	int nInput,
 	int* nCurrRoom,
-	int* nPrevRoom,
 	int* nGameEnding,
 
 	/*Player stats*/
@@ -1170,7 +1169,6 @@ room10Logic(
 	/*Local game states*/
 	int nInput,
 	int* nCurrRoom,
-	int* nPrevRoom,
 	int* nGameEnding,
 
 	/*Player stats*/

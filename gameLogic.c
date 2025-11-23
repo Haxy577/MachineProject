@@ -47,7 +47,6 @@ displayCurrentRoom(
 	/*Local game states*/
 	int nCurrRoom,
 	int nPrevRoom,
-	int nCurrProg,
 
 	/*Player stats*/
 	int nHealth,
@@ -262,7 +261,7 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 		//Options
 		case -6:
 			*nMinInput = 0;
-			*nMaxInput = 10;
+			*nMaxInput = 6;
 			break;
 
 		//Credits
@@ -385,7 +384,6 @@ updateInputRange(int nCurrRoom, int* nMinInput, int* nMaxInput)
 	//Local game states
 	@param nCurrRoom tracks the current room the player is in
 	@param nPrevRoom tracks the previous room the player has been during the game
-	@param nCurrProg tracks the current progress of an ongoing game
 
 	//Player stats
 	@param nHealth tracks the current health of the player
@@ -433,7 +431,6 @@ displayCurrentRoom(
 	/*Local game states*/
 	int nCurrRoom,
 	int nPrevRoom,
-	int nCurrProg,
 
 	/*Player stats*/
 	int nHealth,
@@ -520,57 +517,169 @@ displayCurrentRoom(
 		
 		//Introduction
 		case 0:
-			displayIntroduction(bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayIntroduction(
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 		
 		//Room 1
 		case 1:
-			displayRoom1(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom1(
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 2
 		case 2:
-			displayRoom2(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom2(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 3
 		case 3:
-			displayRoom3(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom3(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 4
 		case 4:
-			displayRoom4(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom4(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*Player inventory*/
+				bShinyItem,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 5
 		case 5:
-			displayRoom5(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom5(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*Player stats*/
+				nHealth,
+				nScore,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 6
 		case 6:
-			displayRoom6(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom6(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*Player inventory*/
+				bTorch,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 7
 		case 7:
-			displayRoom7(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom7(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*Player inventory*/
+				bTorch,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 8
 		case 8:
-			displayRoom8(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom8(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*Player inventory*/
+				bRustyKey,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 9
 		case 9:
-			displayRoom9(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom9(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 
 		//Room 10
 		case 10:
-			displayRoom10(nPrevRoom, bToggleColor, bToggleWait, bToggleShowMenu, bToggleSimple);
+			displayRoom10(
+				/*Local game states*/
+				nPrevRoom,
+
+				/*Player inventory*/
+				bShinyItem,
+
+				/*UI and gameplay settings*/
+				bToggleColor,
+				bToggleWait,
+				bToggleShowMenu,
+				bToggleSimple
+			);
 			break;
 	}
 }
@@ -871,7 +980,6 @@ updateGame(
 				/*Local game states*/
 				nInput,
 				nCurrRoom,
-				nPrevRoom,
 				nGameEnding,
 
 				/*Player stats*/
